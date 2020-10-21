@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Responses\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCoolMart.Application\OpenCoolMart.Application.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Domain\OpenCoolMart.Domain.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Infraestructure\OpenCoolMart.Infraestructure.csproj" />
+  </ItemGroup>
+
+
+</Project>
