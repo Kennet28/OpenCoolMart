@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpenCoolMart.Domain.Entities
 {
@@ -12,7 +13,13 @@ namespace OpenCoolMart.Domain.Entities
         public double Iva { get; set; }
         public string FormaPago { get; set; }
         public DateTime FechaVenta { get; set; }
+        [ForeignKey("Empleado")]
+        public int EmpleadoId { get; set; }
+        [ForeignKey("Caja")]
+        public int CajaId { get; set; }
 
         public IEnumerable<DetallesVenta> DetallesVentas { get; set; }
+        public Empleado Empleado { get; set; }
+        public Caja Caja { get; set; }
     }
 }
