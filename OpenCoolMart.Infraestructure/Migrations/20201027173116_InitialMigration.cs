@@ -113,7 +113,7 @@ namespace OpenCoolMart.Infraestructure.Migrations
                     Descripcion = table.Column<string>(nullable: true),
                     Precio = table.Column<double>(nullable: false),
                     Marca = table.Column<string>(nullable: true),
-                    Clasificacion = table.Column<int>(nullable: false),
+                    Clasificacion = table.Column<string>(nullable: true),
                     Stock = table.Column<int>(nullable: false),
                     CodigoProducto = table.Column<int>(nullable: false)
                 },

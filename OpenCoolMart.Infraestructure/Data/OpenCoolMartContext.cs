@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenCoolMart.Domain.Entities;
+using OpenCoolMart.Infraestructure.Data.Configurations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +27,11 @@ namespace OpenCoolMart.Infraestructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DetallesVenta>().HasKey(x => new { x.VentaId, x.ProductoId });
+
+
+            modelBuilder.ApplyConfiguration<Producto>(new ProductoConfiguration());
+            modelBuilder.ApplyConfiguration<DetallesVenta>(new DetallesVentaConfiguration());
+            modelBuilder.ApplyConfiguration<Venta>(new VentaConfiguration());
         }
     }
 }

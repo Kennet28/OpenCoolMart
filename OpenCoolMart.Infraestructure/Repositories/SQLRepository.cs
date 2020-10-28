@@ -22,14 +22,16 @@ namespace OpenCoolMart.Infraestructure.Repositories
         }
         public async Task Add(T entity)
         {
-            if (entity == null) throw new ArgumentNullException("Entity");
+            if (entity == null) 
+                throw new ArgumentNullException("Entity");
             _entities.Add(entity);
             await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)
         {
-            if (id <= 0) throw new ArgumentNullException("Entity");
+            if (id <= 0) 
+                throw new ArgumentNullException("Entity");
             var entity = await GetById(id);
             _entities.Remove(entity);
             await _context.SaveChangesAsync();
@@ -52,8 +54,10 @@ namespace OpenCoolMart.Infraestructure.Repositories
 
         public async Task Update(T entity)
         {
-            if (entity == null) throw new ArgumentNullException("Entity");
-            if (entity.Id <= 0) throw new ArgumentNullException("Entity");
+            if (entity == null) 
+                throw new ArgumentNullException("Entity");
+            if (entity.Id <= 0) 
+                throw new ArgumentNullException("Entity");
             _entities.Update(entity);
             await _context.SaveChangesAsync();
         }

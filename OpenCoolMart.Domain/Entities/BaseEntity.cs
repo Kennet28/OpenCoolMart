@@ -3,7 +3,7 @@ using System;
 
 namespace OpenCoolMart.Domain.Entities
 {
-    public class BaseEntity:IEntity
+    public abstract class BaseEntity:IEntity
     {
         public int Id { get; set; }
         public bool Status { get; set; }

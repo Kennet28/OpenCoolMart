@@ -10,7 +10,7 @@ using OpenCoolMart.Infraestructure.Data;
 namespace OpenCoolMart.Infraestructure.Migrations
 {
     [DbContext(typeof(OpenCoolMartContext))]
-    [Migration("20201025044648_InitialMigration")]
+    [Migration("20201027173116_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -254,8 +254,8 @@ namespace OpenCoolMart.Infraestructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Clasificacion")
-                        .HasColumnType("int");
+                    b.Property<string>("Clasificacion")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CodigoProducto")
                         .HasColumnType("int");

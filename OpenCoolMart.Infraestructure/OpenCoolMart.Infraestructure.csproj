@@ -6,10 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Filters\" />
-    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0-preview3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />

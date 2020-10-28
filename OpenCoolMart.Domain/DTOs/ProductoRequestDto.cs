@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-
-namespace OpenCoolMart.Domain.Entities
+namespace OpenCoolMart.Domain.DTOs
 {
-    public class Producto:BaseEntity
+    public class ProductoRequestDto
     {
         public string Descripcion { get; set; }
         public double Precio { get; set; }
@@ -12,7 +12,5 @@ namespace OpenCoolMart.Domain.Entities
         public string Clasificacion { get; set; }
         public int Stock { get; set; }
         public int CodigoProducto { get; set; }
-
-        public IEnumerable<DetallesVenta> DetallesVentas { get; set; }
     }
 }
