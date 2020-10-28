@@ -11,5 +11,7 @@ namespace OpenCoolMart.Domain.Entities
         public string Observaciones { get; set; }
         public double CantidadTotal { get; set; }
         public double MontoRetirado { get; set; }
+        public virtual ICollection<Venta> Ventas { get; set; }
+
     }
 }
