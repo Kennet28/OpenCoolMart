@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCoolMart.Domain", "Open
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCoolMart.Infraestructure", "OpenCoolMart.Infraestructure\OpenCoolMart.Infraestructure.csproj", "{48E75B69-0CDB-4F41-98D7-CFA7C31F3C60}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCoolMart.Application", "OpenCoolMart.Application\OpenCoolMart.Application.csproj", "{2BF2575A-62D8-40A5-A046-D845159D773E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCoolMart.Application", "OpenCoolMart.Application\OpenCoolMart.Application.csproj", "{2BF2575A-62D8-40A5-A046-D845159D773E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCoolMart.Gui", "OpenCoolMart.Gui\OpenCoolMart.Gui.csproj", "{A8B447B9-955E-4B22-B394-121FF9E94E4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{2BF2575A-62D8-40A5-A046-D845159D773E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2BF2575A-62D8-40A5-A046-D845159D773E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2BF2575A-62D8-40A5-A046-D845159D773E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B447B9-955E-4B22-B394-121FF9E94E4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B447B9-955E-4B22-B394-121FF9E94E4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B447B9-955E-4B22-B394-121FF9E94E4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B447B9-955E-4B22-B394-121FF9E94E4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
