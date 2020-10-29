@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCoolMart.Infraestructur
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCoolMart.Application", "OpenCoolMart.Application\OpenCoolMart.Application.csproj", "{2BF2575A-62D8-40A5-A046-D845159D773E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenCoolMart.Gui", "OpenCoolMart.Gui\OpenCoolMart.Gui.csproj", "{A8B447B9-955E-4B22-B394-121FF9E94E4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenCoolMart.Gui", "OpenCoolMart.Gui\OpenCoolMart.Gui.csproj", "{A8B447B9-955E-4B22-B394-121FF9E94E4E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
