@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OpenCoolMart.Domain.Entities;
 using System;
@@ -11,24 +12,51 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Facturas> builder)
         {
-            builder.ToTable("Facturas", "dbo");
-            builder.HasIndex(e => e.Cliente.Id)
-                   .HasName("IX_Facturas_ClienteId");
+            builder.Property<int>("Id")
+                         .ValueGeneratedOnAdd()
+                         .HasColumnType("int")
+                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            builder.HasIndex(e => e.Venta.Id)
-                .HasName("IX_Facturas_VentaId");
+            builder.Property<int?>("ClienteId")
+                .HasColumnType("int");
 
-            builder.Property(e => e.UsoCFDI).HasColumnName("UsoCFDI");
+            builder.Property<DateTime>("CreateAt")
+                .HasColumnType("datetime2");
 
-            builder.HasOne(d => d.Cliente)
-                .WithMany(p => p.Factura)
-                .HasForeignKey(d => d.Cliente.Id)
-                .HasConstraintName("FK_Facturas_Clientes_ClienteId");
+            builder.Property<int?>("CreatedBy")
+                .HasColumnType("int");
 
-            builder.HasOne(d => d.Venta)
-                .WithMany(p => p.Factura)
-                .HasForeignKey(d => d.Id)
-                .HasConstraintName("FK_Facturas_Ventas_VentaId");
+            builder.Property<DateTime>("Fecha")
+                .HasColumnType("datetime2");
+
+            builder.Property<int>("Folio")
+                .HasColumnType("int");
+
+            builder.Property<string>("Observaciones")
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property<bool>("Status")
+                .HasColumnType("bit");
+
+            builder.Property<DateTime?>("UpdateAt")
+                .HasColumnType("datetime2");
+
+            builder.Property<int?>("UpdatedBy")
+                .HasColumnType("int");
+
+            builder.Property<string>("UsoCFDI")
+                .HasColumnType("nvarchar(max)");
+
+            builder.Property<int?>("VentaId")
+                .HasColumnType("int");
+
+            builder.HasKey("Id");
+
+            builder.HasIndex("ClienteId");
+
+            builder.HasIndex("VentaId");
+
+            builder.ToTable("Facturas");
         }
     }
 }

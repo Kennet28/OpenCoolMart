@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Caja\" />
+    <Folder Include="Views\Factura\" />
     <Folder Include="Views\Usuario\" />
     <Folder Include="wwwroot\Img\" />
   </ItemGroup>

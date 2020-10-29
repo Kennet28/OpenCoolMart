@@ -10,6 +10,11 @@ namespace OpenCoolMart.Domain.Interfaces
     {
         public IRepository<Producto> ProductoRepository { get; }
         public IRepository<Venta> VentaRepository { get;}
+        public IRepository<Cliente> ClienteRepository { get;}
+        public IRepository<Caja> CajaRepository { get;}
+        public IRepository<Empleado> EmpleadoRepository { get; }
+        public IRepository<Facturas> FacturaRepository { get;}
+        public IRepository<Usuario> UsuarioRepository { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();

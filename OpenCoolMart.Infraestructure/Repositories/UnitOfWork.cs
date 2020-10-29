@@ -14,6 +14,11 @@ namespace OpenCoolMart.Infraestructure.Repositories
 
         private readonly IRepository<Producto> _productoRepository;
         private readonly IRepository<Venta> _ventaRepository;
+        private readonly IRepository<Cliente> _clienteRepository;
+        private readonly IRepository<Facturas> _facturasRepository;
+        private readonly IRepository<Empleado> _empleadoRepository;
+        private readonly IRepository<Caja> _cajaRepository;
+        private readonly IRepository<Usuario> _usuarioRepository;
 
         public UnitOfWork(OpenCoolMartContext context)
         {
@@ -21,7 +26,14 @@ namespace OpenCoolMart.Infraestructure.Repositories
         }
 
         public IRepository<Producto> ProductoRepository => _productoRepository ?? new SQLRepository<Producto>(_context);
-        public IRepository<Venta> VentaRepository => _ventaRepository ?? new SQLRepository<Venta>(_context);        
+        public IRepository<Venta> VentaRepository => _ventaRepository ?? new SQLRepository<Venta>(_context);
+
+        public IRepository<Cliente> ClienteRepository => _clienteRepository ?? new SQLRepository<Cliente>(_context);
+        public IRepository<Caja> CajaRepository => _cajaRepository ?? new SQLRepository<Caja>(_context);
+        public IRepository<Empleado> EmpleadoRepository => _empleadoRepository ?? new SQLRepository<Empleado>(_context);
+        public IRepository<Facturas> FacturaRepository => _facturasRepository ?? new SQLRepository<Facturas>(_context);
+
+        public IRepository<Usuario> UsuarioRepository => _usuarioRepository ?? new SQLRepository<Usuario>(_context);
 
         public void Dispose()
         {

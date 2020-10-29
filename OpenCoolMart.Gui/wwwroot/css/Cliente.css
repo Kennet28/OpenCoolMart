@@ -150,3 +150,14 @@ table.table td i {
     margin-top: 6px;
     font-size: 95%;
 }
+
+#tabla {
+    overflow: scroll;
+    height: 330px;
+    width: auto;
+}
+
+    #tabla table {
+        width: 1015px;
+        background-color: lightgray;
+    }

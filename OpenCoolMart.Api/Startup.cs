@@ -44,6 +44,7 @@ namespace OpenCoolMart.Api
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 
             services.AddTransient<IProductoService, ProductoService>();
+            services.AddTransient<IEmpleadoService, EmpleadoService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped(typeof(IRepository<>), typeof(SQLRepository<>));

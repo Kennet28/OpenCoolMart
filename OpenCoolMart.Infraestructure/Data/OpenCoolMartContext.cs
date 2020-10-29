@@ -32,6 +32,7 @@ namespace OpenCoolMart.Infraestructure.Data
             modelBuilder.ApplyConfiguration<Producto>(new ProductoConfiguration());
             modelBuilder.ApplyConfiguration<DetallesVenta>(new DetallesVentaConfiguration());
             modelBuilder.ApplyConfiguration<Venta>(new VentaConfiguration());
+            modelBuilder.ApplyConfiguration<Facturas>(new FacturaConfiguration());
         }
     }
 }
