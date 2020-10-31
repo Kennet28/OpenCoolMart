@@ -1,0 +1,513 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Inicio";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Bootstrap Login Form with Avatar Image</title>
+    
+    <style>
+    .ribbon {
+            position: absolute;
+            margin: 0 auto;
+            left: 0;
+            right: 8;
+            top: 20px;
+            width: 400px;
+            height: 110px;
+            padding: 10px;
+   
+            }
+
+
+        body {
+           /* color: #fff;*/
+            background-image: url(/img/prueba.jpg);
+           
+        }
+
+        .form-control {
+            min-height: 41px;
+            background: #fff;
+            box-shadow: none !important;
+            border-color: #fff;
+        }
+
+            .form-control:focus {
+                border-color: #e3e3e3;
+            }
+
+        .form-control, .btn {
+            border-radius: 2px;
+        }
+
+        .login-form {
+            width: 350px;
+            margin: 0 auto;
+            padding: 100px 0 30px;
+        }
+
+            .login-form form {
+                color: #70c5c0;
+                border-radius: 2px;
+                margin-bottom: 15px;
+                font-size: 13px;
+                background: #f8f3f3;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                padding: 30px;
+                position: relative;
+            }
+
+            .login-form h2 {
+                font-size: 22px;
+                margin: 35px 0 25px;
+            }
+
+            .login-form .avatar {
+                position: absolute;
+                margin: 0 auto;
+                left: 0;
+                right: 0;
+                top: -50px;
+                width: 95px;
+                height: 95px;
+                border-radius: 50%;
+                z-index: 9;
+                background: #70c5c0;
+                padding: 15px;
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+            }
+
+                .login-form .avatar img {
+                    width: 100%;
+                }
+
+            .login-form input[type="checkbox"] {
+                position: relative;
+                top: 1px;
+            }
+
+            .login-form .btn, .login-form .btn:active {
+                font-size: 16px;
+                font-weight: bold;
+                background: #70c5c0 !important;
+                border: none;
+                margin-bottom: 20px;
+            }
+
+                .login-form .btn:hover, .login-form .btn:focus {
+                    background: #50b8b3 !important;
+                }
+
+            .login-form a {
+                color: #ff0000;
+                text-decoration: underline;
+            }
+
+                .login-form a:hover {
+                    text-decoration: none;
+                }
+
+            .login-form form a {
+                color: #e3e3e3 ;
+                text-decoration: none;
+            }
+
+                .login-form form a:hover {
+                    text-decoration: underline;
+                }
+
+            .login-form .bottom-action {
+                font-size: 14px;
+            }
+
+
+    </style>
+</head>
+
+
+
+<div id="content">
+    <img src="~/img/Imagen3.png" class="ribbon">
+
+</div>
+<div class="login-form">
+    <form action="/examples/actions/confirmation.php" method="post">
+        <div class="avatar">
+            <img src="~/img/c015-icon-02-usericon-data-3711470.png" alt="avatar">
+        </div>
+        <h2 class="text-center">Inicio de Sesión</h2>
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="Usuario" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Contraseña" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
+        </div>
+
+    </form>
+
+</div>
+
+</html>
+
+
+@*<head>
+
+            <style>
+                body {
+                    background-color: #fff;
+                }
+
+
+            body {
+                font-family: 'Varela Round', sans-serif;
+            }
+
+            .modal-login {
+                color: #636363;
+                width: 350px;
+            }
+
+                .modal-login .modal-content {
+                    padding: 20px;
+                    border-radius: 5px;
+                    border: none;
+                }
+
+                .modal-login .modal-header {
+                    border-bottom: none;
+                    position: relative;
+                    justify-content: center;
+                }
+
+                .modal-login h4 {
+                    text-align: center;
+                    font-size: 26px;
+                    margin: 30px 0 -15px;
+                }
+
+                .modal-login .form-control:focus {
+                    border-color: #70c5c0;
+                }
+
+                .modal-login .form-control, .modal-login .btn {
+                    min-height: 40px;
+                    border-radius: 3px;
+                }
+
+                .modal-login .close {
+                    position: absolute;
+                    top: -5px;
+                    right: -5px;
+                }
+
+                .modal-login .modal-footer {
+                    background: #ecf0f1;
+                    border-color: #dee4e7;
+                    text-align: center;
+                    justify-content: center;
+                    margin: 0 -20px -20px;
+                    border-radius: 5px;
+                    font-size: 13px;
+                }
+
+                    .modal-login .modal-footer a {
+                        color: #999;
+                    }
+
+                .modal-login .avatar {
+                    position: absolute;
+                    margin: 0 auto;
+                    left: 0;
+                    right: 0;
+                    top: -100px;
+                    width: 95px;
+                    height: 95px;
+                    border-radius: 50%;
+                    z-index: 9;
+                    background: #60c7c1;
+                    padding: 15px;
+                    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+                }
+
+                    .modal-login .avatar img {
+                        width: 95%;
+                    }
+
+                .modal-login.modal-dialog {
+                    margin-top: 80px;
+                }
+
+                .modal-login .btn {
+                    color: #fff;
+                    border-radius: 2px;
+                    background: #60c7c1;
+                    text-decoration: none;
+                    transition: all 0.4s;
+                    line-height: normal;
+                    border: none;
+                }
+
+                    .modal-login .btn:hover, .modal-login .btn:focus {
+                        background: #45aba6;
+                        outline: none;
+                    }
+
+            .trigger-btn {
+                display: inline-block;
+                margin: 15px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="text-right">
+            <a href="#myModal" class="trigger-btn" data-toggle="modal">Iniciar Sesión</a>
+        </div>
+        <div id="myModal" class="modal fade">
+            <div class="modal-dialog modal-login">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="avatar">
+                            <img src="~/img/c015-icon-02-usericon-data-3711470.png" alt="avatar">
+                        </div>
+                        <h4 class="modal-title">Inicio de sesión</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form  method="post">
+                            <div class="form-group">
+                                <input type="email" class="form-control" asp-for="@Model.tutor.Email" placeholder="Usuario" required="required">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" asp-for="@Model.tutor.Contrasenia" placeholder="Contraseña" required="required">
+                            </div>
+
+                            <div class="form-group">
+                                <button  type="submit" class="btn btn-primary btn-lg btn-block  login-btn">Ingresar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <a asp-page="Tutor/Registro">Crear Cuenta</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>*@
+
+
+
+@*<head>
+            <style type="text/css">
+                body {
+                    font-family: "Open Sans", sans-serif;
+                }
+
+                h2 {
+                    color: #333;
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-family: "Roboto", sans-serif;
+                    font-weight: bold;
+                    position: relative;
+                    margin: 25px 0 50px;
+                }
+
+                    h2::after {
+                        content: "";
+                        width: 100px;
+                        position: absolute;
+                        margin: 0 auto;
+                        height: 3px;
+                        background: #70c5c0;
+                        left: 0;
+                        right: 0;
+                        bottom: -10px;
+                    }
+
+                .carousel {
+                    width: 650px;
+                    margin: 0 auto;
+                    padding-bottom: 50px;
+                }
+
+                    .carousel .item {
+                        color: #999;
+                        font-size: 14px;
+                        text-align: center;
+                        overflow: hidden;
+                        min-height: 340px;
+                    }
+
+                        .carousel .item a {
+                            color: #60c7c1;
+                        }
+
+                    .carousel .img-box {
+                        width: 145px;
+                        height: 145px;
+                        margin: 0 auto;
+                        border-radius: 50%;
+                    }
+
+                        .carousel .img-box img {
+                            width: 100%;
+                            height: 100%;
+                            display: block;
+                            border-radius: 50%;
+                        }
+
+                    .carousel .testimonial {
+                        padding: 30px 0 10px;
+                    }
+
+                    .carousel .overview {
+                        text-align: center;
+                        padding-bottom: 5px;
+                    }
+
+                        .carousel .overview b {
+                            color: #333;
+                            font-size: 15px;
+                            text-transform: uppercase;
+                            display: block;
+                            padding-bottom: 5px;
+                        }
+
+                    .carousel .star-rating i {
+                        font-size: 18px;
+                        color: #60c7c1;
+                    }
+
+                    .carousel .carousel-control {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 50%;
+                        background: #999;
+                        text-shadow: none;
+                        top: 4px;
+                    }
+
+                .carousel-control i {
+                    font-size: 20px;
+                    margin-right: 2px;
+                }
+
+                .carousel-control.left {
+                    left: auto;
+                    right: 40px;
+                }
+
+                .carousel-control.right i {
+                    margin-right: -2px;
+                }
+
+                .carousel .carousel-indicators {
+                    bottom: 15px;
+                }
+
+                .carousel-indicators li, .carousel-indicators li.active {
+                    width: 11px;
+                    height: 11px;
+                    margin: 1px 5px;
+                    border-radius: 50%;
+                }
+
+                .carousel-indicators li {
+                    background: #60c7c1;
+                    border-color: white;
+                }
+
+                    .carousel-indicators li.active {
+                        border: none;
+                        background: #60c7c1;
+                    }
+            </style>
+        </head>
+        <div class="text-center">
+            <h1 class="display-4">Bienvenido</h1>
+
+                <h2>Programa de detección del autismo</h2>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="item carousel-item active">
+                            <div class="img-box"><img src="~/img/AUTISMOINFANTIL-00.jpg" alt=""></div>
+                            <p class="testimonial">
+                                El trastorno del espectro autista afecta al sistema nervioso.
+                                La variedad y la gravedad de los síntomas pueden variar mucho. Los síntomas más comunes son la dificultad para comunicarse, la dificultad con las interacciones sociales, los intereses obsesivos y los comportamientos repetitivos.
+                            </p>
+                            <p class="overview">
+                                <b></b>
+                                <div class="star-rating">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                </div>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="img-box"><img src="~/img/04e9857cf8e911e5bf180eb04a1bba78.jpg" alt=""></div>
+                            <p class="testimonial">
+                                El autismo es una condición que afecta a 1 de cada 115 niños, en los que un tratamiento que sea
+                                aplicable desde 18 primeros meses de vida será esencial para un mejor desarrollo en su lenguaje y en la interacción social.
+                            </p>
+                            <p class="overview">
+                                <b></b>
+                                <div class="star-rating">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star-o"></i></li>
+                                    </ul>
+                                </div>
+                        </div>
+                        <div class="item carousel-item">
+                            <div class="img-box"><img src="~/img/autismo-ppal.jpg" alt=""></div>
+                            <p class="testimonial">El niño con trastorno del espectro autista puede tener dificultades para aprender a hablar o puede tener un lenguaje muy limitado. También para jugar de forma interactiva con otros niños y suelen establecer un juego solitario.</p>
+                            <p class="overview">
+                                <b></b>
+                                <div class="star-rating">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star"></i></li>
+                                        <li class="list-inline-item"><i class="fa fa-star-half-o"></i></li>
+                                    </ul>
+                                </div>
+                        </div>
+                    </div>
+
+
+            <a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>*@
+
+
+
+
