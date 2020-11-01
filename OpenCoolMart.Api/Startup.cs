@@ -1,18 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using OpenCoolMart.Application.Services;
 using OpenCoolMart.Domain.Interfaces;
 using OpenCoolMart.Infraestructure.Data;
@@ -39,7 +33,9 @@ namespace OpenCoolMart.Api
             services.AddDbContext<OpenCoolMartContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             );
-
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+            );
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
 

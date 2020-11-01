@@ -5,11 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="pruebas\" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="pruebas\**" />
+    <Content Remove="Interfaces\**" />
+    <Content Remove="pruebas\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="pruebas\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="pruebas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Views\Caja\" />
     <Folder Include="Views\Factura\" />
     <Folder Include="Views\Usuario\" />
+    <Folder Include="wwwroot\css\Factura\" />
+    <Folder Include="wwwroot\css\Usuario\" />
     <Folder Include="wwwroot\Img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCoolMart.Api\OpenCoolMart.Api.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Application\OpenCoolMart.Application.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Domain\OpenCoolMart.Domain.csproj" />
   </ItemGroup>
 
 </Project>

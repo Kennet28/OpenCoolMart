@@ -5,19 +5,19 @@ using System;
 
 namespace OpenCoolMart.Application.Mappings
 {
-    public class AutoMapperProfile:Profile
+    public class EmpleadoMapperProfile:Profile
     {
-        public AutoMapperProfile()
+        public EmpleadoMapperProfile()
         {
-            CreateMap<Producto, ProductoRequestDto>();
-            CreateMap<Producto, ProductoResponseDto>();
-            CreateMap<ProductoRequestDto, Producto>().AfterMap(
+            CreateMap<Empleado, EmpleadoRequestDto>();
+            CreateMap<Empleado, EmpleadoResponseDto>();
+            CreateMap<EmpleadoRequestDto, Empleado>().AfterMap(
             ((source, destination) =>{
                 destination.CreateAt = DateTime.Now;
                 destination.CreatedBy = 3;
                 destination.Status = true;
             }));
-            CreateMap<ProductoResponseDto, Producto>();            
+            CreateMap<EmpleadoResponseDto, Empleado>();
         }
     }
 }
