@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OpenCoolMart.Domain.DTOs
+namespace OpenCoolMart.Gui.Models
 {
     public class ProductoResponseDto
     {

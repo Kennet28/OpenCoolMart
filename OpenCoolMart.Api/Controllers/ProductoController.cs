@@ -6,6 +6,7 @@ using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
@@ -27,7 +28,9 @@ namespace OpenCoolMart.Api.Controllers
             var productos= await _productoService.GetProductos();
             var productosDto = _mapper.Map<IEnumerable<Producto>, IEnumerable<ProductoResponseDto>>(productos);
             var response = new ApiResponse<IEnumerable<ProductoResponseDto>>(productosDto);
-            return Ok(response);
+            if (productosDto.Count() <= 0)
+                return Ok(response);
+            return Ok(productosDto);
         }
 
         [HttpGet("{id:int}")]
@@ -36,8 +39,9 @@ namespace OpenCoolMart.Api.Controllers
             var producto = await _productoService.GetProducto(id);
             var productoDto = _mapper.Map<Producto, ProductoResponseDto>(producto);
             var response = new ApiResponse<ProductoResponseDto>(productoDto);
-
-            return Ok(response);
+            if (producto.Status == false)
+                return Ok(response);
+            return Ok(productoDto);
         }
         [HttpPost]
         public async Task<IActionResult> Post(ProductoRequestDto productolDto)

@@ -12,5 +12,6 @@ namespace OpenCoolMart.Domain.DTOs
         public string Clasificacion { get; set; }
         public int Stock { get; set; }
         public int CodigoProducto { get; set; }
+        public bool Status { get; set; }
     }
 }

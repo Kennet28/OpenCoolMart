@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OpenCoolMart.Domain.DTOs
+namespace OpenCoolMart.Gui.Models
 {
-    public class ProductoResponseDto
+    public class ProductoRequestDto
     {
-        public int Id { get; set; }
         public string Descripcion { get; set; }
         public double Precio { get; set; }
         public string Marca { get; set; }
