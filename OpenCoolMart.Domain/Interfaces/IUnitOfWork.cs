@@ -9,7 +9,7 @@ namespace OpenCoolMart.Domain.Interfaces
     public interface IUnitOfWork:IDisposable
     {
         public IRepository<Producto> ProductoRepository { get; }
-        public IRepository<Venta> VentaRepository { get;}
+        public IVentaRepository VentaRepository { get;}
         public IRepository<Cliente> ClienteRepository { get;}
         public IRepository<Caja> CajaRepository { get;}
         public IRepository<Empleado> EmpleadoRepository { get; }

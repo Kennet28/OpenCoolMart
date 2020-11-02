@@ -3,6 +3,7 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,9 +39,10 @@ namespace OpenCoolMart.Api
 
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IEmpleadoService, EmpleadoService>();
+            services.AddTransient<IVentaService, VentaService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-
             services.AddScoped(typeof(IRepository<>), typeof(SQLRepository<>));
+            services.AddScoped<IVentaRepository, VentaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

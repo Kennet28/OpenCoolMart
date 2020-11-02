@@ -70,6 +70,19 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
             builder.HasIndex("EmpleadoId");
 
             builder.ToTable("Ventas");
+
+            builder.HasOne("OpenCoolMart.Domain.Entities.Empleado", "Empleado")
+                .WithMany()
+                .HasForeignKey("EmpleadoId")
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Ventas_Empleados_EmpleadoId")
+                .IsRequired();
+            builder.HasOne(d => d.Caja)
+                .WithMany(p => p.Ventas)
+                .HasForeignKey(d => d.CajaId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Ventas_Cajas_CajaId");
+
         }
     }
 }

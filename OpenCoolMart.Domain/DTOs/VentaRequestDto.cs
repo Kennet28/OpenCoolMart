@@ -1,10 +1,11 @@
-﻿using System;
+﻿using OpenCoolMart.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text;
 
-namespace OpenCoolMart.Domain.Entities
+namespace OpenCoolMart.Domain.DTOs
 {
-    public class Venta:BaseEntity
+    public class VentaRequestDto
     {
         public double VentaTotal { get; set; }
         public double SubTotal { get; set; }
@@ -13,15 +14,8 @@ namespace OpenCoolMart.Domain.Entities
         public double Iva { get; set; }
         public string FormaPago { get; set; }
         public DateTime FechaVenta { get; set; }
-        [ForeignKey("Empleado")]
         public int EmpleadoId { get; set; }
-        [ForeignKey("Caja")]
         public int CajaId { get; set; }
-
         public ICollection<DetallesVenta> DetallesVentas { get; set; }
-        public Empleado Empleado { get; set; }
-        public Caja Caja { get; set; }
-        public virtual ICollection<Facturas> Factura { get; set; }
-
     }
 }

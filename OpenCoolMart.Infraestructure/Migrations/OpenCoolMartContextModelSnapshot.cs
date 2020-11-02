@@ -265,7 +265,7 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
             
 
-            modelBuilder.Entity("OpenCoolMart.Domain.Entities.DetallesVenta", b =>
+            /*modelBuilder.Entity("OpenCoolMart.Domain.Entities.DetallesVenta", b =>
                 {
                     b.HasOne("OpenCoolMart.Domain.Entities.Producto", "Producto")
                         .WithMany("DetallesVentas")
@@ -278,7 +278,7 @@ namespace OpenCoolMart.Infraestructure.Migrations
                         .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
+                });*/
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Facturas", b =>
                 {
@@ -291,7 +291,7 @@ namespace OpenCoolMart.Infraestructure.Migrations
                         .HasForeignKey("VentaId");
                 });
 
-            modelBuilder.Entity("OpenCoolMart.Domain.Entities.Venta", b =>
+            /*modelBuilder.Entity("OpenCoolMart.Domain.Entities.Venta", b =>
                 {
                     b.HasOne("OpenCoolMart.Domain.Entities.Caja", "Caja")
                         .WithMany()
@@ -304,7 +304,7 @@ namespace OpenCoolMart.Infraestructure.Migrations
                         .HasForeignKey("EmpleadoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
+                });*/
 #pragma warning restore 612, 618
         }
     }

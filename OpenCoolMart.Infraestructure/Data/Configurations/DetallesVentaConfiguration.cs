@@ -34,6 +34,17 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
             builder.HasIndex("ProductoId");
 
             builder.ToTable("DetallesVentas");
+            builder.HasOne("OpenCoolMart.Domain.Entities.Producto", "Producto")
+                        .WithMany("DetallesVentas")
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+            builder.HasOne("OpenCoolMart.Domain.Entities.Venta", null)
+                .WithMany("DetallesVentas")
+                .HasForeignKey("VentaId")
+                .OnDelete(DeleteBehavior.Cascade)
+                .IsRequired();
         }
     }
 }
