@@ -43,6 +43,16 @@ namespace OpenCoolMart.Api.Controllers
                 return Ok(response);
             return Ok(productoDto);
         }
+
+        [HttpGet("prod/{id:int}")]
+        public async Task<IActionResult> GetbyCode(int id)
+        {
+            var productos = await _productoService.GetProductos();
+            var producto = productos.SingleOrDefault(x => x.CodigoProducto == id);
+            var productoDto= _mapper.Map<Producto, ProductoResponseDto>(producto);
+            return Ok(productoDto);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post(ProductoRequestDto productolDto)
         {
