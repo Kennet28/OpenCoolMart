@@ -11,7 +11,7 @@ namespace OpenCoolMart.Application.Services
 {
     public class CajaService:ICajaService
     {
-        public IUnitOfWork _unitOfWork { get; set; }
+        public IUnitOfWork _unitOfWork;
         public CajaService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

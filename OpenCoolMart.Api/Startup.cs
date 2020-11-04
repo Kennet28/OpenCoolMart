@@ -33,8 +33,11 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
+            //services.AddDbContext<OpenCoolMartContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+            //);
             services.AddDbContext<OpenCoolMartContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+                    options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             );
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
@@ -42,6 +45,10 @@ namespace OpenCoolMart.Api
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IEmpleadoService, EmpleadoService>();
             services.AddTransient<IVentaService, VentaService>();
+            services.AddTransient<ICajaService, CajaService>();
+            services.AddTransient<IFacturasService, FacturasService>();
+            services.AddTransient<IUsuarioService, UsuarioService>();
+            services.AddTransient<IClienteService, ClienteService>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<>), typeof(SQLRepository<>));
             services.AddScoped<IVentaRepository, VentaRepository>();

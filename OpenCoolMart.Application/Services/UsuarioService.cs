@@ -10,7 +10,7 @@ namespace OpenCoolMart.Application.Services
 {
     public class UsuarioService:IUsuarioService
     {
-        public IUnitOfWork _unitOfWork { get; set; }
+        public IUnitOfWork _unitOfWork;
         public UsuarioService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;

@@ -11,7 +11,7 @@ namespace OpenCoolMart.Application.Services
 {
     public class FacturasService:IFacturasService
     {
-        public IUnitOfWork _unitOfWork { get; set; }
+        public IUnitOfWork _unitOfWork;
         public FacturasService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
@@ -21,7 +21,7 @@ namespace OpenCoolMart.Application.Services
             Expression<Func<Facturas, bool>> expression = item => item.Id == Factura.Id;
             var facturas = await _unitOfWork.FacturaRepository.FindByCondition(expression);
             if (facturas.Any(item => item.Id == Factura.Id))
-                throw new Exception("Este factura ya ha sido registrado");
+                throw new Exception("Esta factura ya ha sido registrado");
             await _unitOfWork.FacturaRepository.Add(Factura);
         }
 

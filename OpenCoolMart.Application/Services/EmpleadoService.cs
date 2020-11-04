@@ -11,7 +11,7 @@ namespace OpenCoolMart.Application.Services
 {
     public class EmpleadoService:IEmpleadoService
     {
-        public IUnitOfWork _unitOfWork { get; set; }
+        public IUnitOfWork _unitOfWork;
         public EmpleadoService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
