@@ -1,9 +1,8 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model IEnumerable<OpenCoolMart.Gui.Models.ProductoResponseDto>
+@model List<OpenCoolMart.Gui.Models.VentaResponseDto>
 @{
-    ViewData["Title"]="MenuProductoModel";
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -29,11 +28,11 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2>Productos</h2></div>
+                        <div class="col-sm-8"><h2>Ventas</h2></div>
                         <div class="col-sm-4">
                             <div class="search-box">
                                 <i class="material-icons">&#xE8B6;</i>
-                                <input type="text" class="form-control" placeholder="Buscar Productos">
+                                <input type="text" class="form-control" placeholder="Buscar Ventas">
                             </div>
                         </div>
                     </div>
@@ -42,28 +41,28 @@
                     <table @*id="tabla"*@ class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>Codigo del producto</th>
-                                <th>Descripción </th>
-                                <th>Precio</th>
-                                <th>Marca</th>
-                                <th>Clasificación</th>
-                                <th>Stock</th>
-                                <th>Acciones</th>
+                                <th>Venta #</th>
+                                <th>Fecha de la venta</th>
+                                <th>Sub Total</th>
+                                <th>Iva</th>
+                                <th>Total</th>
+                                <th>Empleado</th>
+                                <th>Detalles</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.CodigoProducto</td>
-                                    <td>@item.Descripcion</td>
-                                    <td>@item.Precio</td>
-                                    <td>@item.Marca</td>
-                                    <td>@item.Clasificacion</td>
-                                    <td>@item.Stock</td>
+                                    <td>@item.Id</td>
+                                    <td>@item.FechaVenta</td>
+                                    <td>@item.SubTotal</td>
+                                    <td>@item.Iva</td>
+                                    <td>@item.VentaTotal</td>
+                                    <td>@item.EmpleadoId</td>
                                     <td>
-                                        <a asp-controller="Producto" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                        <a asp-controller="Producto" asp-route-Id="@item.Id" asp-action="Update" class="edit" title="Editar" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                        <a asp-controller="Venta" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                        
                                     </td>
                                 </tr>
                             }
@@ -71,10 +70,7 @@
                     </table>
                 </div>
                 <div class="form-group">
-                    <a asp-controller="Home" asp-action="Menu" class="btn btn-primary btn-lg  btn-block">Menú</a>
-                </div>
-                <div class="form-group">
-                    <a asp-controller="Producto" asp-action="Create" class="btn btn-success btn-lg btn-block">Agregar Producto</a>
+                    <a asp-controller="Venta" asp-action="Index" class="btn btn-primary btn-lg  btn-block">Volver</a>
                 </div>
             </div>
         </div>

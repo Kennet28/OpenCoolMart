@@ -26,7 +26,7 @@ namespace OpenCoolMart.Application.Services
 
         public Task<Venta> VerVenta(int id)
         {
-            return _unitOfWork.VentaRepository.GetById(id);
+            return _unitOfWork.VentaRepository.VerVenta(id);
         }
     }
 }

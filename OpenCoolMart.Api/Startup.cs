@@ -33,14 +33,17 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
-            //);
             services.AddDbContext<OpenCoolMartContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Roger"))
+                    options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
             );
+            /*services.AddDbContext<OpenCoolMartContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Roger"))
+            );*/
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.AddControllers().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                );
 
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IEmpleadoService, EmpleadoService>();

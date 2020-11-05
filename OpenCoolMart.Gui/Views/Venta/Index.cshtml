@@ -50,11 +50,11 @@
                     </table>
                 </div>
                 <div >
-                    <button class="btn btn-primary boton">Menu</button>
+                    <a asp-controller="Home" asp-action="Menu" class="btn btn-primary boton">Menu</a>
                     <br />
-                    <button class="btn btn-success boton">Buscar Venta</button>
+                    <a asp-controller="Venta" asp-action="GetVentas" class="btn btn-success boton">Buscar Venta</a>
                     <br />
-                    <button class="btn btn-success boton">Buscar Producto</button>
+                    <a class="btn btn-success boton">Buscar Producto</a>
                     <br />
                     <button class="btn btn-danger boton">Cancelaar Venta</button>
                 </div>
@@ -63,9 +63,9 @@
             
             <div class="form-group row">
                 <div class="col-md-7">
-                    <p>Subtotal: <label>0</label></p>
-                    <p>Iva: <label>16</label>%</p>
-                    <p>Total: <label>0</label></p>
+                    <p>Subtotal: <input id="SubTotal" disabled/> </p>
+                    <p>Iva: <label id="Iva">16</label>%</p>
+                    <p>Total: <input id="TotalCompra" disabled /></p>
                 </div>
                 <div>
                     <button class="btn btn-success boton" style="margin-left:100px; margin-top:50px;">Pagar</button>
@@ -78,9 +78,12 @@
 
 @section Scripts{ 
     <script>
+        var productos = [];
         var tecla_enter;
         var TotalCompra;
-        var SubTotalCompra;
+        var SubTotalCompra = 0;
+        var valorresta = 0;
+        var SubTotal = 0;
         function press_Enter() {
             tecla_enter = event.keyCode;
             if (tecla_enter == 13) {
@@ -95,8 +98,18 @@
                         alert("Este producto no existe")
                     else if (parseInt(data.stock) <= 0)
                         alert("cantidad del producto insufuciente para vender")
-                    else
-                        agregarfila(data);          
+                    else {                        
+                        /*if (productos.indexOf(data.id) >= 0) {
+                            alert("El numero repetido es: " + productos.indexOf(data.id))
+                            Sumar_Productos(data);
+                        }
+                        else {
+                            
+                        }*/    
+                        productos.push(data.id);
+                        agregarfila(data);
+                    }
+                                  
                 }).fail(function (jqXHR, textStatus, error) {
                     alert("lo sentimos ha habido un error");
                 });
@@ -106,7 +119,7 @@
 
         function agregarfila(data) {
             var cantidad = 1
-            var SubTotal = parseInt(data.precio) * cantidad;
+            SubTotal = parseInt(data.precio) * cantidad;
             var cadena;
             cadena = "<tr>"
             cadena = cadena + "<td>" + data.id + "</td>";
@@ -117,18 +130,40 @@
             cadena = cadena + "<td>" + SubTotal + "</td>";
             cadena = cadena + "<td style='width: 50px;'><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
 
+            sumar()
             $("#tablaventa").append(cadena);
             fn_dar_eliminar();
         }
+
+        function sumar() {
+            SubTotalCompra = SubTotalCompra + SubTotal;
+            TotalCompra = SubTotalCompra * 1.16;
+            $("#SubTotal").val(SubTotalCompra);
+            $("#TotalCompra").val(TotalCompra);
+        }
+
+        function restar() {
+            SubTotalCompra = SubTotalCompra - valorresta;
+            TotalCompra = SubTotalCompra * 1.16;
+            $("#SubTotal").val(SubTotalCompra);
+            $("#TotalCompra").val(TotalCompra);
+        }
+
         function fn_dar_eliminar() {
             $("a.elimina").click(function () {
-                valor = $(this).parents("tr").find("td").eq(5).html();
-
+                valorresta = $(this).parents("tr").find("td").eq(5).html();
+                
                 $(this).parents("tr").fadeOut("normal", function () {
                     $(this).remove();
                     restar();
                 });
             });
         };
+
+        function Sumar_Productos(data) {
+            document.getElementById("tablaventa").rows[1].cells[1].innerHTML = 10;
+            var valor2 = document.getElementById("tablaventa").rows[1].cells[1].innerHTML;
+            alert(valor2)
+        }
     </script>
 }
