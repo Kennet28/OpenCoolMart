@@ -1,24 +1,31 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using OpenCoolMart.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace OpenCoolMart.Gui.Controllers
 {
-    public class UsuarioController:Controller
+    public class UsuarioController : Controller
     {
-        public IActionResult Index()
+        HttpClient client = new HttpClient();
+        string url = "https://localhost:44315/api/Usuario";
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+            var json = await client.GetStringAsync(url);
+            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
+            return View(Usuarios);
         }
-        public IActionResult Create()
+
+        public async Task<IActionResult> DetailsAsync(int id)
         {
-            return View();
-        }
-        public IActionResult Details()
-        {
-            return View();
+            var json = await client.GetStringAsync(url);
+            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
+            var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
+            return View(_Usuario);
         }
         public IActionResult Update()
         {

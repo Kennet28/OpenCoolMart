@@ -1,6 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model OpenCoolMart.Gui.Models.EmpleadoUsuarioModel
+@*@partialmodel OpenCoolMart.Domain.DTOs.UsuarioRequestDto*@
 @{
     ViewData["Title"] = "Empleado ";
 }
@@ -19,55 +18,69 @@
     <link href="~/css/Empleado/Create.css" rel="stylesheet" />
 </head>
 <body>
-    <div id="content">
-        <img src="~/img/Imagen3.png" class="ribbon">
-    </div>
-    <div class="signup-form">
-        <form action="/examples/actions/confirmation.php" method="post">
-            <h2>Empleado</h2>
-            <p class="hint-text">Registre al Empleado</p>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="container-xl table-wrapper">
+            <hr />
+            <h1 class="text-center">Detalles</h1>
 
             <div class="form-group">
-                <input type="text" class="form-control" name="nombre" placeholder="Nombre" required="required">
-            </div>
-            <div class="form-group">
-                <div class="row">
-                    <p>
-                        <div class="col"><input type="email" class="form-control" name="Correo" placeholder="Correo" required="required"></div>
-                        <div class="col"><input type="password" class="form-control" name="Contraseña" placeholder="Contraseña" required="required">
-                        </div>
-                    </p>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" name="Telefono" placeholder="Telefono" required="required">
-                </div>
-                <p>
-
-                    Tipo de cuenta:<br>
-
-                    <input type="checkbox" name="Supervisor"> Supervisor<br>
-
-                    <input type="checkbox" name="Vendedor"> Vendedor<br>
-
-
-
-                </p>
-                <div class="form-group">
-                    <label for="start">Activo:</label>
-                    <input type="checkbox" required="required" />
-                    @*<form target="_blank"></form>*@
+                @Html.LabelFor(model => model.Empleado.CodigoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Empleado.CodigoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Empleado.CodigoEmpleado, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block">Agregar </button>
+                @Html.LabelFor(model => model.Empleado.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Empleado.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Empleado.Nombre, "", new { @class = "text-danger" })
+                </div>
             </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-danger btn-block">Cancelar</button>
+            <div class="form-group form-row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Usuario.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Usuario.Correo, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Usuario.Correo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Usuario.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Usuario.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Usuario.Contrasenia, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.Usuario.PerfilId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.Usuario.PerfilId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Usuario.PerfilId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-row">
+                <div class="col-md-6">
+                    <br />
+                    <div class="col-md-12">
+                        <label class="control-label col-md-2">Activo</label><input type="radio" value="Activo" checked="" />
+                    </div>
+                </div>
+
             </div>
 
-        </form>
-    </div>
+            <div class="form-group form-row">
+                <div class="col-md-4"></div>
+                <input type="submit" value="Crear Empleado" class="btn btn-primary col-md-2" style="margin:10px" />
+                <a asp-controller="Empleado" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
+            </div>
+
+        </div>
+    }
 </body>
 </html>
 
