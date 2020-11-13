@@ -33,6 +33,7 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
+<<<<<<< HEAD
             services.AddDbContext<OpenCoolMartContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
             );
@@ -42,6 +43,17 @@ namespace OpenCoolMart.Api
             /*services.AddDbContext<OpenCoolMartContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
             );*/
+=======
+            //services.AddDbContext<OpenCoolMartContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+            //);
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Roger"))
+            );
+            //services.AddDbContext<OpenCoolMartContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
+            //);
+>>>>>>> ffe713995de4c1854d6c800f07f35d90e98df28e
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>

@@ -27,9 +27,30 @@ namespace OpenCoolMart.Gui.Controllers
             var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
             return View(_Usuario);
         }
-        public IActionResult Update()
+        public async Task<IActionResult> UpdateAsync(int id)
         {
-            return View();
+            var json = await client.GetStringAsync(url);
+            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
+            var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
+            return View(_Usuario);
+        }
+        [HttpPost]
+        public IActionResult Update(UsuarioResponseDto usuarioDto)
+        {
+            var httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("https://localhost:44315/api/Usuario/");
+
+            //HTTP POST
+            var putTask = httpClient.PutAsJsonAsync("?id=" + usuarioDto.Id, usuarioDto);
+            putTask.Wait();
+
+            var result = putTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("Index");
+            }
+            return View(usuarioDto);
         }
     }
 }

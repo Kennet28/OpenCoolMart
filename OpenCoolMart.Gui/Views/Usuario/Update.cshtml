@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model OpenCoolMart.Domain.DTOs.UsuarioResponseDto
 @{
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="container-xl table-wrapper">
+        <hr />
+        <h1 class="text-center">Detalles</h1>
+        <div class="form-group form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Contrasenia, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.PerfilId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.PerfilId, new { htmlAttributes = new { @class = "form-control"} })
+                    @Html.ValidationMessageFor(model => model.PerfilId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Actualizar" class="btn btn-primary btn-lg btn-block" style="margin:10px" />
+            <a asp-controller="Usuario" asp-action="Index" class="btn btn-primary btn-lg  btn-block">Volver</a>
+        </div>
+    </div>
 }
