@@ -61,12 +61,7 @@ namespace OpenCoolMart.Gui.Controllers
             var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
 
-            //HTTP POST
-<<<<<<< HEAD
             var putTask = httpClient.PutAsJsonAsync<ProductoRequestDto>("?id="+Id, productoDto);
-=======
-            var putTask = httpClient.PutAsJsonAsync("?id="+productoDto.Id, productoDto);
->>>>>>> ffe713995de4c1854d6c800f07f35d90e98df28e
             putTask.Wait();
 
             var result = putTask.Result;
