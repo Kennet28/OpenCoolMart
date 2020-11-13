@@ -52,17 +52,17 @@ namespace OpenCoolMart.Gui.Controllers
         {
             var httpClient = new HttpClient();
             var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
-            var producto = JsonConvert.DeserializeObject<ProductoResponseDto>(Json);
+            var producto = JsonConvert.DeserializeObject<ProductoRequestDto>(Json);
             return View(producto);
         }
         [HttpPost]
-        public IActionResult Update(ProductoResponseDto productoDto)
+        public IActionResult Update(int Id,ProductoRequestDto productoDto)
         {
             var httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
 
             //HTTP POST
-            var putTask = httpClient.PutAsJsonAsync<ProductoResponseDto>("?id="+productoDto.Id, productoDto);
+            var putTask = httpClient.PutAsJsonAsync<ProductoRequestDto>("?id="+Id, productoDto);
             putTask.Wait();
 
             var result = putTask.Result;

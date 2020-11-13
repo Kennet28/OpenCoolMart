@@ -13,17 +13,23 @@ namespace OpenCoolMart.Infraestructure.Repositories
 {
     public class VentaRepository : SQLRepository<Venta>, IVentaRepository
     {
+        private DbSet<Producto> _producto;
         public VentaRepository(OpenCoolMartContext context):base(context)
         {
-
+            this._producto = _context.Set<Producto>();
         }
         public async Task CrearVerta(Venta venta)
         {
             _context.Add(venta);
+            Producto producto = new Producto();
             foreach(var detalles in venta.DetallesVentas)
-            {                
-                _context.Add(detalles);            
-                
+            {
+                producto =_producto.AsNoTracking().SingleOrDefault(x => x.Id == detalles.ProductoId);
+                _context.Add(detalles);
+                producto.Stock = producto.Stock - detalles.CantiProd;
+                if (producto.Stock <= 0)
+                    throw new Exception($"No quedan stock suficiente para vender el producto {producto.Descripcion}");
+                _producto.Update(producto);                
             }
             await _context.SaveChangesAsync();
         }

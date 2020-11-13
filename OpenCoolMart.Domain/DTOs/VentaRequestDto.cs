@@ -13,7 +13,6 @@ namespace OpenCoolMart.Domain.DTOs
         public double Cambio { get; set; }
         public double Iva { get; set; }
         public string FormaPago { get; set; }
-        public DateTime FechaVenta { get; set; }
         public int EmpleadoId { get; set; }
         public int CajaId { get; set; }
         public ICollection<DetallesVenta> DetallesVentas { get; set; }

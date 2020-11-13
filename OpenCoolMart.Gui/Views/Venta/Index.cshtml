@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <link href="~/css/Venta/Venta.css" rel="stylesheet" />
 
 </head>
@@ -69,7 +70,8 @@
                     <p>Total: <input id="TotalCompra" disabled /></p>
                 </div>
                 <div>
-                    <button class="btn btn-success boton" style="margin-left:100px; margin-top:50px;">Pagar</button>
+                    <p>Efectivo: <input id="Efectivo"/></p>
+                    <button class="btn btn-success boton" style="margin-left:100px; margin-top:10px;" onclick="RealizarVenta()">Pagar</button>
                 </div>
             </div>
         </div>
@@ -78,6 +80,7 @@
 </html>
 
 @section Scripts{ 
+
     <script>
         var productos = [];
         var tecla_enter;
@@ -190,6 +193,53 @@
             document.getElementById("tablaventa").rows[1].cells[1].innerHTML = 10;
             var valor2 = document.getElementById("tablaventa").rows[1].cells[1].innerHTML;
             alert(valor2)
+        }
+
+
+        function RealizarVenta() {
+            efectivo = $("#Efectivo").val();
+            valorcompra = $("#TotalCompra").val();
+            cambio = efectivo - valorcompra
+            var i = 0;
+            if (efectivo >= valorcompra) {
+                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + $("#SubTotal").val() + ",Efectivo:" + efectivo + ",Cambio:" + cambio + ",Iva:16,FormaPago:'Efectivo',EmpleadoId:1,CajaId:1,Status:true,";
+                $("#tablaventa tbody tr").each(function (index) {
+                    if (i == 0) {
+                        enviar += "detallesVentas:[{ProductoId:" + $(this).find('td').eq(0).text() +
+                            ",CantiProd:" + $(this).find('td').eq(3).text() +
+                            ",VentaProductos:" +$(this).find('td').eq(5).text()+"}"
+                    }
+                    else {
+                        enviar += ",{ProductoId:" + $(this).find('td').eq(0).text() +
+                            ",CantiProd:" + $(this).find('td').eq(3).text() +
+                            ",VentaProductos:" + $(this).find('td').eq(5).text() + "}"
+                    }
+                    i++;
+                });
+                enviar += "]}";
+                
+                var json = eval("(" + enviar + ')');
+                /*var json3=JSON.stringify(json)
+                alert(json3);*/
+
+                $.ajax({
+                    url: "https://localhost:44315/api/Venta/",
+                    data: JSON.stringify(json),
+                    type: "POST",
+                    //async: false,//this makes the ajax-call blocking
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType: 'json'                    
+                }).done(function (data) {
+                    alert("Venta Exitosa")
+
+                }).fail(function (jqXHR, textStatus, error) {
+                    alert(textStatus);
+                });;
+                
+            }
+            else {
+                alert("El dinero pagado es menor al valor de la compra");
+            }
         }
     </script>
 }

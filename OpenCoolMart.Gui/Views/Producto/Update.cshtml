@@ -1,7 +1,7 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model OpenCoolMart.Gui.Models.ProductoResponseDto
+@model OpenCoolMart.Gui.Models.ProductoRequestDto
 
 @{
     ViewData["Title"] = "Update";
@@ -17,7 +17,6 @@
     <br />
     @using (Html.BeginForm())
     {
-        @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.Status)
         @Html.AntiForgeryToken()
         <div class="container-xl table-wrapper">

@@ -16,7 +16,7 @@ namespace OpenCoolMart.Application.Services
         }
         public async Task CrearVerta(Venta venta)
         {
-            await _unitOfWork.VentaRepository.Add(venta);
+            await _unitOfWork.VentaRepository.CrearVerta(venta);
         }
 
         public Task<IEnumerable<Venta>> GetAll()

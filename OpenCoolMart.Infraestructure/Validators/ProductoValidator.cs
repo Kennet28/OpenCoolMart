@@ -6,18 +6,21 @@ using System.Text;
 
 namespace OpenCoolMart.Infraestructure.Validators
 {
-    public class ProductoValidator:AbstractValidator<ProductoRequestDto>
+    public class ProductoValidator:AbstractValidator<ProductoRequestDto> 
     {
         public ProductoValidator()
         {
             RuleFor(producto => producto.Descripcion)
-                .NotNull()
+                .NotNull().WithMessage("Este campo no puede ser null")
+                .NotEmpty().WithMessage("Este campo no puede ser vacio")
                 .Length(3, 75);
             RuleFor(producto => producto.Marca)
-                .NotNull()
+                .NotNull().WithMessage("Este campo no puede ser null")
+                .NotEmpty().WithMessage("Este campo no puede ser vacio")
                 .Length(3, 50);
             RuleFor(producto => producto.Clasificacion)
-                .NotNull()
+                .NotNull().WithMessage("Este campo no puede ser null")
+                .NotEmpty().WithMessage("Este campo no puede ser vacio")
                 .Length(3, 50);                
         }
     }

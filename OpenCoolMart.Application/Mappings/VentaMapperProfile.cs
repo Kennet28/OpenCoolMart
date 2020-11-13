@@ -15,6 +15,7 @@ namespace OpenCoolMart.Application.Mappings
                 ((source, destination) =>
                 {
                     destination.CreateAt = DateTime.Now;
+                    destination.FechaVenta = DateTime.Now;
                     destination.CreatedBy = 1;
                     destination.Status = true;
                 }));
