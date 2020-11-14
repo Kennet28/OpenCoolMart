@@ -39,8 +39,8 @@ namespace OpenCoolMart.Api.Controllers
             var producto = await _productoService.GetProducto(id);
             var productoDto = _mapper.Map<Producto, ProductoResponseDto>(producto);
             var response = new ApiResponse<ProductoResponseDto>(productoDto);
-            if (producto.Status == false)
-                return Ok(response);
+            /*if (producto.Status == false)
+                return Ok(response);*/
             return Ok(productoDto);
         }
 

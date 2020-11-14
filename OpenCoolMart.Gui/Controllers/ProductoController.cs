@@ -34,9 +34,7 @@ namespace OpenCoolMart.Gui.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Create(ProductoRequestDto requestDto)
-        {
-            requestDto.Status = true;
-            
+        {            
             var httpClient = new HttpClient();
             var Json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Producto/",requestDto);
             if (Json.IsSuccessStatusCode)

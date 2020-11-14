@@ -15,7 +15,6 @@ namespace OpenCoolMart.Application.Mappings
             ((source, destination) =>{
                 destination.CreateAt = DateTime.Now;
                 destination.CreatedBy = 3;
-                destination.Status = true;
             }));
             CreateMap<ProductoResponseDto, Producto>();
         }

@@ -20,7 +20,7 @@
         <div class="container-xl table-wrapper">
             <hr />
             <h1 class="text-center">Detalles</h1>
-            
+
             <div class="form-group">
                 @Html.LabelFor(model => model.CodigoProducto, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
@@ -70,7 +70,7 @@
                 <div class="col-md-6">
                     <br />
                     <div class="col-md-12">
-                        <label class="control-label col-md-2">Activo</label><input type="radio" value="Activo" checked="" />
+                        Status @Html.CheckBoxFor(model => model.Status, new { @checked = true })
                     </div>
                 </div>
 
@@ -79,10 +79,31 @@
             <div class="form-group form-row">
                 <div class="col-md-4"></div>
                 <input type="submit" value="Crear Producto" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Producto" asp-action="Index" class="btn btn-danger col-md-2" style="margin:10px">Cancelar</a>
+                <a asp-controller="Producto" asp-action="Index" class="btn btn-danger col-md-2" style="margin:10px" onclick="validarcampos()">Cancelar</a>
             </div>
 
         </div>
     }
 
-</body> 
+</body>
+@section Scripts{
+    <script>
+        var modificar;
+        $(document).ready(function () {
+            $("input,select").change(function () {
+                modificar = true;
+            });
+        });
+
+        function validarcampos() {
+            if (modificar) {
+                if (confirm('¿Estas seguro de cancelar el nuevo registro?') == false) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false
+                }
+                return true
+            }
+        }
+    </script>
+}

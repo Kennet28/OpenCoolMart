@@ -17,7 +17,6 @@
     <br />
     @using (Html.BeginForm())
     {
-        @Html.HiddenFor(model => model.Status)
         @Html.AntiForgeryToken()
         <div class="container-xl table-wrapper">
             <hr />
@@ -72,7 +71,7 @@
                 <div class="col-md-6">
                     <br />
                     <div class="col-md-12">
-                        <label class="control-label col-md-2">Activo</label><input type="radio" value="Activo" checked="" />
+                        Status @Html.CheckBoxFor(model => model.Status)
                     </div>
                 </div>
 
@@ -80,11 +79,54 @@
 
             <div class="form-group form-row">
                 <div class="col-md-4"></div>
-                <input type="submit" value="Actualizar" class="btn btn-primary col-md-2" style="margin:10px"/>
-                <a asp-controller="Producto" asp-action="Index" class="btn btn-danger col-md-2" style="margin:10px">Cancelar</a>
+                <input type="submit" value="Actualizar" class="btn btn-primary col-md-2" style="margin:10px" onclick="validarStatus()"/>
+                <a onclick="validarcampos()" asp-controller="Producto" asp-action="Index" class="btn btn-danger col-md-2" style="margin:10px" >Cancelar</a>
             </div>
 
         </div>
     }
 
-</body>   
+</body>
+
+@section Scripts{
+    <script>
+        var modificar;
+        $(document).ready(function () {
+            $("input,select").change(function () {
+                modificar = true;
+            });
+        });
+       
+        var estatus = $("#Status").is(":checked")
+        function validarcampos() {
+            if (modificar) {
+                if (confirm('¿Estas seguro de querer descartar los cambios?') == false) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false
+                }
+                return true
+            }                
+        }
+        
+        function validarStatus() { 
+            var nuevoestatus = $("#Status").is(":checked")
+            if (estatus ==true && nuevoestatus == false) {
+                if (confirm('¿Estas seguro de desactivar este producto?') == false) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false
+                }
+                return true
+            }
+            if (estatus==false && nuevoestatus == true) {
+                if (confirm('¿Estas seguro de reactivar este producto?') == false) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false
+                }
+                return true
+            }
+        }
+    </script>
+}
