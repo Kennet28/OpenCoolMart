@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using OpenCoolMart.Domain.DTOs;
+using OpenCoolMart.Gui.Models;
 
-namespace OpenCoolMart.Infraestructure.Validators
+namespace OpenCoolMart.Gui.Validators
 {
-    public class ProductoValidator:AbstractValidator<ProductoRequestDto> 
+    public class ProductoValidator:AbstractValidator<ProductoRequestDto>
     {
         public ProductoValidator()
         {
@@ -24,7 +24,7 @@ namespace OpenCoolMart.Infraestructure.Validators
             RuleFor(producto => producto.Clasificacion)
                 .NotNull().WithMessage("Este campo no puede ser null")
                 .NotEmpty().WithMessage("Este campo no puede ser vacio")
-                .Length(3, 50);                
+                .Length(3, 50);
         }
     }
 }

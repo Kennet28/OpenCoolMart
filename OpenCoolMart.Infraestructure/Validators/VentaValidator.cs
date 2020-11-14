@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using OpenCoolMart.Domain.DTOs;
-using OpenCoolMart.Domain.Entities;
 
 namespace OpenCoolMart.Infraestructure.Validators
 {
@@ -8,6 +7,11 @@ namespace OpenCoolMart.Infraestructure.Validators
     {
         public VentaValidator()
         {
+            RuleFor(venta => venta.VentaTotal)
+                .GreaterThan(0)
+                .GreaterThan(venta => venta.SubTotal);
+            RuleFor(venta => venta.VentaTotal)
+                .GreaterThan(0);
             RuleFor(venta => venta.FormaPago)
                 .NotNull()
                 .Length(3, 50);           

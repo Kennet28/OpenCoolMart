@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace OpenCoolMart.Gui.Models
+﻿namespace OpenCoolMart.Gui.Models
 {
     public class ProductoRequestDto
     {
