@@ -90,7 +90,7 @@
         var SubTotal = 0;
         function press_Enter() {
             tecla_enter = event.keyCode;
-            if (tecla_enter == 13) {
+            if (tecla_enter == 13 && $("#codigoprod").val().length!=0) {
 
                 var codigo = $("#codigoprod").val();
                 var producto="Hola";
@@ -102,18 +102,14 @@
                         alert("Este producto no existe")
                     else if (parseInt(data.stock) <= 0)
                         alert("cantidad del producto insufuciente para vender")
+                    else if (productos.indexOf(data.id) >= 0){
+                         alert("El numero repetido es: " + productos.indexOf(data.id))
+                         Sumar_Productos(data);
+                    }
                     else {
-                        /*if (productos.indexOf(data.id) >= 0) {
-                            alert("El numero repetido es: " + productos.indexOf(data.id))
-                            Sumar_Productos(data);
-                        }
-                        else {
-
-                        }*/
                         productos.push(data.id);
                         agregarfila(data);
                     }
-
                 }).fail(function (jqXHR, textStatus, error) {
                     alert("lo sentimos ha habido un error");
                 });
@@ -156,7 +152,8 @@
         function fn_dar_eliminar() {
             $("a.elimina").click(function () {
                 valorresta = $(this).parents("tr").find("td").eq(5).html();
-                 
+                varlorcodigo = $(this).parents("tr").find("td").eq(0).html(); 
+                productos.pop(varlorcodigo)
                 $(this).parents("tr").fadeOut("normal", function () {
                     $(this).remove();
                     restar();
@@ -190,9 +187,15 @@
         };
 
         function Sumar_Productos(data) {
-            document.getElementById("tablaventa").rows[1].cells[1].innerHTML = 10;
-            var valor2 = document.getElementById("tablaventa").rows[1].cells[1].innerHTML;
-            alert(valor2)
+            var fila = productos.indexOf(data.id) + 1
+            var cantidadproducto = document.getElementById("tablaventa").rows[fila].cells[3].innerHTML;
+            var subtotalproducto = document.getElementById("tablaventa").rows[fila].cells[5].innerHTML;
+
+            SubTotal = data.precio;
+
+            document.getElementById("tablaventa").rows[fila].cells[3].innerHTML =parseInt(cantidadproducto) + 1;
+            document.getElementById("tablaventa").rows[fila].cells[5].innerHTML = parseInt(subtotalproducto) + data.precio;
+            sumar();
         }
 
 
