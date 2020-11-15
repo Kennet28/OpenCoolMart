@@ -37,7 +37,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Nombre </th>
-                                @*<th>Telefono </th>*@
+                                <th>Telefono </th>
                                 <th>Fecha de contratación</th>
                                 <th>Acciones</th>
                             </tr>
@@ -45,15 +45,16 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.FechaContratacion)</td>
-                                    <td>
-                                        <a asp-controller="Empleado" asp-action="Details" asp-route-id="@item.Id" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                        <a asp-controller="Empleado" asp-action="Update" asp-route-id="@item.Id" class="edit" title="Editar" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                                <td>@Html.DisplayFor(modelItem => item.FechaContratacion)</td>
+                                <td>
+                                    <a asp-controller="Empleado" asp-action="Details" asp-route-id="@item.Id" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                    <a asp-controller="Empleado" asp-action="Update" asp-route-id="@item.Id" class="edit" title="Editar" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                </td>
+                            </tr>
                             }
 
                         </tbody>

@@ -1,5 +1,4 @@
 ﻿@model OpenCoolMart.Gui.Models.EmpleadoUsuarioModel
-@*@partialmodel OpenCoolMart.Domain.DTOs.UsuarioRequestDto*@
 @{
     ViewData["Title"] = "Empleado ";
 }
@@ -21,65 +20,72 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="container-xl table-wrapper">
-            <hr />
-            <h1 class="text-center">Detalles</h1>
+    <div class="container-xl table-wrapper">
+        <hr />
+        <h1 class="text-center">Detalles</h1>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Empleado.CodigoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Empleado.CodigoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Empleado.CodigoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Empleado.CodigoEmpleado, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Empleado.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Empleado.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Empleado.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Empleado.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Empleado.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Empleado.Telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Usuario.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.Empleado.CodigoEmpleado, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Empleado.CodigoEmpleado, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Usuario.Correo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Usuario.Correo, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Empleado.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Usuario.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.Empleado.Nombre, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Empleado.Nombre, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.Usuario.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Usuario.Contrasenia, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group form-row">
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Usuario.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Usuario.Correo, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Usuario.Correo, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Usuario.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Usuario.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Usuario.Contrasenia, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Usuario.PerfilId, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Usuario.PerfilId, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Usuario.PerfilId, "", new { @class = "text-danger" })
-                    </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Usuario.PerfilId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Usuario.PerfilId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Usuario.PerfilId, "", new { @class = "text-danger" })
                 </div>
             </div>
-            <div class="form-group form-row">
-                <div class="col-md-6">
-                    <br />
-                    <div class="col-md-12">
-                        <label class="control-label col-md-2">Activo</label><input type="radio" value="Activo" checked="" />
-                    </div>
+        </div>
+        <div class="form-group form-row">
+            <div class="col-md-6">
+                <br />
+                <div class="col-md-12">
+                    <label class="control-label col-md-2">Activo</label><input type="radio" value="Activo" checked="" />
                 </div>
-
-            </div>
-
-            <div class="form-group form-row">
-                <div class="col-md-4"></div>
-                <input type="submit" value="Crear Empleado" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Empleado" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
             </div>
 
         </div>
+
+        <div class="form-group form-row">
+            <div class="col-md-4"></div>
+            <input type="submit" value="Crear Empleado" class="btn btn-primary col-md-2" style="margin:10px" />
+            <a asp-controller="Empleado" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
+        </div>
+
+    </div>
     }
 </body>
 </html>

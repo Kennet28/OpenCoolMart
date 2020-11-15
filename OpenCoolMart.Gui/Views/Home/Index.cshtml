@@ -1,6 +1,4 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model OpenCoolMart.Gui.Models.LoginModel
 @{
 }
 <!DOCTYPE html>
@@ -8,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Login Form with Avatar Image</title>
+    <title>Log In</title>
     <link href="~/css/Home/Index.css" rel="stylesheet" />
     
 </head>
@@ -19,22 +17,24 @@
 
     </div>
     <div class="login-form">
-        <form action="/examples/actions/confirmation.php" method="post">
-            <div class="avatar">
-                <img src="~/img/c015-icon-02-usericon-data-3711470.png" alt="avatar">
-            </div>
-            <h2 class="text-center">Inicio de Sesión</h2>
-            <div class="form-group">
-                <input type="text" class="form-control" name="username" placeholder="Usuario" required="required">
-            </div>
-            <div class="form-group">
-                <input type="password" class="form-control" name="password" placeholder="Contraseña" required="required">
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Log in</button>
-            </div>
-
-        </form>
+            @using (Html.BeginForm())
+            {
+                <div class="avatar">
+                    <img src="~/img/c015-icon-02-usericon-data-3711470.png" alt="avatar">
+                </div>
+                <h2 class="text-center">Inicio de Sesión</h2>
+                <div class="form-group">
+                    <h5>Correo</h5><br />
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+                <div class="form-group">
+                    <h5>Contraseña</h5><br />
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Log in" class="btn btn-primary btn-lg btn-block"/>
+                </div>
+            }
 
     </div>
 

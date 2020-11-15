@@ -7,6 +7,7 @@ namespace OpenCoolMart.Application.Mappings
 {
     public class UsuarioMapperProfile:Profile
     {
+        public int CreatedBy { get; set; }
         public UsuarioMapperProfile()
         {
             CreateMap<Usuario, UsuarioRequestDto>();

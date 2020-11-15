@@ -14,5 +14,10 @@ namespace OpenCoolMart.Domain.DTOs
         public string Observaciones { get; set; }
         public Venta Venta { get; set; }
         public DateTime Fecha { get; set; }
+        public bool Status { get; set; }
+        public DateTime CreateAt { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? UpdateAt { get; set; }
+        public int? UpdatedBy { get; set; }
     }
 }

@@ -27,10 +27,10 @@ namespace OpenCoolMart.Infraestructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DetallesVenta>().HasKey(x => new { x.VentaId, x.ProductoId });
-            modelBuilder.ApplyConfiguration<Producto>(new ProductoConfiguration());
-            modelBuilder.ApplyConfiguration<DetallesVenta>(new DetallesVentaConfiguration());
-            modelBuilder.ApplyConfiguration<Venta>(new VentaConfiguration());
-            modelBuilder.ApplyConfiguration<Facturas>(new FacturaConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductoConfiguration());
+            modelBuilder.ApplyConfiguration(new DetallesVentaConfiguration());
+            modelBuilder.ApplyConfiguration(new VentaConfiguration());
+            modelBuilder.ApplyConfiguration(new FacturaConfiguration());
         }
     }
 }
