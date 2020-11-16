@@ -44,34 +44,66 @@
                                 <th style="width:110px">Opciones</th>
                             </tr>
                         </thead>
-                        <tbody>                      
-
-
-
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
-                <div >
+                <div>
                     <a asp-controller="Home" asp-action="Menu" class="btn btn-primary boton">Menu</a>
                     <br />
                     <a asp-controller="Venta" asp-action="GetVentas" class="btn btn-success boton">Buscar Venta</a>
                     <br />
-                    <a class="btn btn-success boton">Buscar Producto</a>
+                    <button type="button" class="btn btn-success boton" data-toggle="modal" data-target="#ModalProductos" onclick="ObtenerProductos()">
+                        Buscar Producto
+                    </button>
                     <br />
-                    <button class="btn btn-danger boton">Cancelaar Venta</button>
+                    <button class="btn btn-danger boton" onclick="CancelarVenta()">Cancelaar Venta</button>
                 </div>
-                
+
             </div>
-            
+
             <div class="form-group row">
                 <div class="col-md-7">
-                    <p>Subtotal: <input id="SubTotal" disabled/> </p>
+                    <p>Subtotal: <input id="SubTotal" disabled /> </p>
                     <p>Iva: <label id="Iva">16</label>%</p>
                     <p>Total: <input id="TotalCompra" disabled /></p>
                 </div>
                 <div>
-                    <p>Efectivo: <input id="Efectivo"/></p>
+                    <p>Efectivo: <input id="Efectivo" /></p>
                     <button class="btn btn-success boton" style="margin-left:100px; margin-top:10px;" onclick="RealizarVenta()">Pagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade show" id="ModalProductos" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Productos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="tablaproductos" class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Codigo</th>
+                                <th>Descripción</th>
+                                <th>Precio</th>
+                                <th>Status</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
@@ -82,7 +114,7 @@
 @section Scripts{ 
 
     <script>
-        var productos = [];
+        var productos = new Array();
         var tecla_enter;
         var TotalCompra;
         var SubTotalCompra = 0;
@@ -101,12 +133,13 @@
                     if (data == null)
                         alert("Este producto no existe")
                     else if (parseInt(data.stock) <= 0)
-                        alert("cantidad del producto insufuciente para vender")
-                    else if (productos.indexOf(data.id) >= 0){
-                         alert("El numero repetido es: " + productos.indexOf(data.id))
+                        alert("cantidad del producto insufuciente para vender");
+                    else if (data.status == false)
+                        alert("Este producto esta desactivado");
+                    else if (productos.indexOf(data.id) >= 0) {
                          Sumar_Productos(data);
                     }
-                    else {
+                    else {                        
                         productos.push(data.id);
                         agregarfila(data);
                     }
@@ -152,9 +185,9 @@
         function fn_dar_eliminar() {
             $("a.elimina").click(function () {
                 valorresta = $(this).parents("tr").find("td").eq(5).html();
-                varlorcodigo = $(this).parents("tr").find("td").eq(0).html(); 
-                productos.pop(varlorcodigo)
+                valorindex = $(this).parents("tr").index()
                 $(this).parents("tr").fadeOut("normal", function () {
+                    productos.splice(parseInt(valorindex), 1);
                     $(this).remove();
                     restar();
                 });
@@ -198,7 +231,16 @@
             sumar();
         }
 
-
+        function ConfirmarVenta() {
+            if (confirm('¿Estas seguro de querer descartar los cambios?') == false) {
+                event.stopPropagation();
+                event.preventDefault();
+                return false
+            }
+            else {
+                RealizarVenta();
+            } 
+        }
         function RealizarVenta() {
             efectivo = $("#Efectivo").val();
             valorcompra = $("#TotalCompra").val();
@@ -233,8 +275,8 @@
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json'                    
                 }).done(function (data) {
-                    alert("Venta Exitosa")
-
+                    alert("El cambio de la venta es" + cambio)
+                    Limpiar()
                 }).fail(function (jqXHR, textStatus, error) {
                     alert(textStatus);
                 });;
@@ -243,6 +285,83 @@
             else {
                 alert("El dinero pagado es menor al valor de la compra");
             }
+        }
+
+        function ObtenerProductos() {
+            $.ajax({
+                url: "https://localhost:44315/api/Producto",
+                method: "GET"
+            }).done(function (data) {
+                LLenarTablaProductos(data);
+            }).fail(function (jqXHR, textStatus, error) {
+                alert("lo sentimos ha habido un error");
+            });
+        }
+
+        function LLenarTablaProductos(data) {
+            $('#tablaproductos tbody tr').remove();
+            var cadena;
+            $.each(data, function (index, obj) {
+                cadena = "<tr>"
+                cadena = cadena + "<td>" + obj.id + "</td>";
+                cadena = cadena + "<td>" + obj.codigoProducto + "</td>";
+                cadena = cadena + "<td>" + obj.descripcion + "</td>";
+                cadena = cadena + "<td>" + obj.precio + "</td>";
+                cadena = cadena + "<td>" + obj.status + "</td>";
+                cadena = cadena + "<td>" +
+                    "<button class='btn' style='width:40px; heigh=40px'; onclick = 'LLenarPorModal(" +obj.codigoProducto+")' > <i class='material-icons'>&#xE254;</i></button ></td>";
+                $("#tablaproductos").append(cadena);
+            });
+        }
+
+        function LLenarPorModal(codigoProducto) {
+            $.ajax({
+                url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
+                method: "GET"
+            }).done(function (data) {
+                if (data == null)
+                    alert("Este producto no existe")
+                else if (parseInt(data.stock) <= 0)
+                    alert("cantidad del producto insufuciente para vender");
+                else if (data.status == false)
+                    alert("Este producto esta desactivado");
+                else if (productos.indexOf(data.id) >= 0) {
+                    Sumar_Productos(data);
+                }
+                else {
+                    productos.push(data.id);
+                    agregarfila(data);
+                }
+                $("#ModalProductos").modal('hide');//ocultamos el modal
+                $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+                $('.modal-backdrop').remove();//eliminamos el backdrop del modal
+            }).fail(function (jqXHR, textStatus, error) {
+                alert("lo sentimos ha habido un error");
+            });
+        }
+
+        function CancelarVenta() {
+            if (confirm('¿Estas seguro de querer descartar los cambios?') == false) {
+                event.stopPropagation();
+                event.preventDefault();
+                return false
+            }
+            else {
+                Limpiar();
+            }                        
+        }
+
+        function Limpiar() {
+            $('#tablaventa tbody tr').remove();
+            $("#codigoprod").val('');
+            $("#SubTotal").val('');
+            $("#TotalCompra").val('');
+            $("#Efectivo").val('');
+            productos = new Array();
+            TotalCompra;
+            SubTotalCompra = 0;
+            valorresta = 0;
+            SubTotal = 0;
         }
     </script>
 }
