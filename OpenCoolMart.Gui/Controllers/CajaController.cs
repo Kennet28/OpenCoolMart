@@ -1,23 +1,30 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using OpenCoolMart.Domain.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace OpenCoolMart.Gui.Controllers
 {
     public class CajaController:Controller
     {
-        public IActionResult Index()
+        HttpClient client = new HttpClient();
+        string url = "https://localhost:44315/api/Caja/";
+        public async Task<IActionResult> IndexAsync()
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                return View();
+                var json = await client.GetStringAsync(url);
+                var Cajas = JsonConvert.DeserializeObject<IList<CajaResponseDto>>(json);
+                return View(Cajas);
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
         }
         public IActionResult Create()
@@ -31,27 +38,56 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index","Home");
             }
         }
-        public IActionResult Details()
+        [HttpPost]
+        public async Task<IActionResult> Create(CajaRequestDto Caja)
+        {
+            Caja.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
+            var Json = await client.PostAsJsonAsync("https://localhost:44315/api/Caja/", Caja);
+            if (Json.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(Caja);
+        }
+        public async Task<IActionResult> DetailsAsync(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                return View();
+                var json = await client.GetStringAsync(url);
+                var Cajas = JsonConvert.DeserializeObject<List<CajaResponseDto>>(json);
+                var _Caja = Cajas.FirstOrDefault(e => e.Id.Equals(id));
+                return View(_Caja);
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
         }
-        public IActionResult Update()
+        public async Task<IActionResult> UpdateAsync(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                return View();
+                var json = await client.GetStringAsync(url);
+                var Cajas = JsonConvert.DeserializeObject<List<CajaResponseDto>>(json);
+                var _Caja = Cajas.FirstOrDefault(e => e.Id.Equals(id));
+                return View(_Caja);
             }
             else
             {
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index", "Home");
             }
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateAsync(CajaResponseDto CajaDto)
+        {
+            client.BaseAddress = new Uri("https://localhost:44315/api/Caja/");
+            CajaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
+            var putTask = await client.PutAsJsonAsync("?id=" + CajaDto.Id, CajaDto);
+            if (putTask.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(CajaDto);
         }
     }
 }

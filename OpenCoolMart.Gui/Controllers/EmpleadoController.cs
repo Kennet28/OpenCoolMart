@@ -93,7 +93,7 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> UpdateAsync(EmpleadoResponseDto empleadoDto)
         {
             var httpClient = new HttpClient();
