@@ -1,15 +1,15 @@
-﻿using System;
-using System.Web;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Gui.Models;
-using Microsoft.AspNetCore.Session;
+using OpenCoolMart.Gui.Validators;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -21,9 +21,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             _logger = logger;
         }
-
         HttpClient client = new HttpClient();
-        string url = "https://localhost:44315/api/Usuarios";
+        public string url = "https://localhost:44315/api/Usuario";
         public IActionResult Index()
         {
             return View();
@@ -34,21 +33,50 @@ namespace OpenCoolMart.Gui.Controllers
             var json = await client.GetStringAsync(url);
             var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
             var _Usuario = Usuarios.FirstOrDefault(e => e.Correo.Equals(login.Email) && e.Contrasenia.Equals(login.Password));
-            if (!_Usuario.Equals(null) && _Usuario.PerfilId.Equals(1))
+            if (_Usuario != null && _Usuario.PerfilId.Equals(1))
             {
-                //Session["User"] = _Usuario;
+                HttpContext.Session.SetString("Id", _Usuario.Id.ToString());
                 return RedirectToAction("Menu");
             }
-            else if (!_Usuario.Equals(null) && _Usuario.PerfilId.Equals(2))
+            else if (_Usuario != null && _Usuario.PerfilId.Equals(2))
             {
+                HttpContext.Session.SetString("Id", _Usuario.Id.ToString());
                 return RedirectToAction("MenuVendedor");
+            }
+            else if (_Usuario == null)
+            {
+                
+                login.status = false;
+                return View();
             }
             return View();
         }
         public IActionResult Menu()
         {
-            return View();
+            if (HttpContext.Session.GetString("Id") != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
         }
-
+        public IActionResult MenuVendedor()
+        {
+            if (HttpContext.Session.GetString("Id") != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Remove("Id");
+            return RedirectToAction("Index");
+        }
     }
 }

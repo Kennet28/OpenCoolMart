@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OpenCoolMart.Domain.DTOs;
 using System;
@@ -15,24 +16,46 @@ namespace OpenCoolMart.Gui.Controllers
         string url = "https://localhost:44315/api/Usuario";
         public async Task<IActionResult> IndexAsync()
         {
-            var json = await client.GetStringAsync(url);
-            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
-            return View(Usuarios);
+            if (HttpContext.Session.GetString("Id") != null)
+            {
+                var json = await client.GetStringAsync(url);
+                var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
+                return View(Usuarios);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         public async Task<IActionResult> DetailsAsync(int id)
         {
-            var json = await client.GetStringAsync(url);
-            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
-            var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
-            return View(_Usuario);
+            if (HttpContext.Session.GetString("Id") != null)
+            {
+                var json = await client.GetStringAsync(url);
+                var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
+                var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
+                return View(_Usuario);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         public async Task<IActionResult> UpdateAsync(int id)
         {
-            var json = await client.GetStringAsync(url);
-            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
-            var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
-            return View(_Usuario);
+            if (HttpContext.Session.GetString("Id") != null)
+            {
+                var json = await client.GetStringAsync(url);
+                var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
+                var _Usuario = Usuarios.FirstOrDefault(e => e.Id.Equals(id));
+                return View(_Usuario);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         public IActionResult Update(UsuarioResponseDto usuarioDto)
