@@ -27,8 +27,14 @@ namespace OpenCoolMart.Gui
 
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-
+            services.AddSession();
             services.AddControllersWithViews();
+            services.AddRouting(option =>
+            {
+                option.LowercaseUrls = true;
+                option.LowercaseQueryStrings = true;
+                option.AppendTrailingSlash = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +54,7 @@ namespace OpenCoolMart.Gui
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

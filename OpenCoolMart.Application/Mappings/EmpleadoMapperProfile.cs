@@ -14,7 +14,6 @@ namespace OpenCoolMart.Application.Mappings
             CreateMap<EmpleadoRequestDto, Empleado>().AfterMap(
             ((source, destination) =>{
                 destination.CreateAt = DateTime.Now;
-                destination.CreatedBy = 3;
                 destination.Status = true;
             }));
             CreateMap<EmpleadoResponseDto, Empleado>();

@@ -9,12 +9,9 @@ namespace OpenCoolMart.Infraestructure.Validators
         public EmpleadoValidator()
         {
             RuleFor(Empleado => Empleado.Telefono)
-                .GreaterThan(0).WithMessage("Este campo no puede estar vacio")
-                .LessThan(10).WithMessage("Debe contener 10 caracteres")
-                .GreaterThan(10).WithMessage("Debe contener 10 caracteres");
+                .GreaterThan(0).WithMessage("Este campo no puede estar vacio");
             RuleFor(Empleado => Empleado.CodigoEmpleado)
-                .GreaterThan(0).WithMessage("Este campo no puede estar vacio")
-                .LessThan(8).WithMessage("Debe contener minimo 8 caracteres");
+                .GreaterThan(0).WithMessage("Este campo no puede estar vacio");
             RuleFor(Empleado => Empleado.Nombre)
                 .NotNull().WithMessage("Este campo no puede estar vacio")
                 .NotEmpty().WithMessage("Este campo no puede estar vacio")
