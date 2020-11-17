@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OpenCoolMart.Gui.Models;
+using OpenCoolMart.Gui.Responses;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+
 namespace OpenCoolMart.Gui.Controllers
 {
     public class ProductoController : Controller
@@ -16,16 +17,16 @@ namespace OpenCoolMart.Gui.Controllers
             //https://localhost:44315/api/Producto
             var httpClient = new HttpClient();
             var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto");
-            var ListProductos = JsonConvert.DeserializeObject<List<ProductoResponseDto>>(Json);
-            return View(ListProductos);
+            var ListProductos = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductoResponseDto>>>(Json);
+            return View(ListProductos.Data);
         }
 
         public async Task<IActionResult> Details(int Id)
         {
             var httpClient = new HttpClient();
             var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/"+Id);
-            var producto = JsonConvert.DeserializeObject<ProductoResponseDto>(Json);
-            return View(producto);
+            var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
+            return View(producto.Data);
         }
 
         public IActionResult Create()
@@ -50,8 +51,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             var httpClient = new HttpClient();
             var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
-            var producto = JsonConvert.DeserializeObject<ProductoRequestDto>(Json);
-            return View(producto);
+            var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoRequestDto>>(Json);
+            return View(producto.Data);
         }
         [HttpPost]
         public IActionResult Update(int Id,ProductoRequestDto productoDto)

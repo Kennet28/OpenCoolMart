@@ -130,18 +130,18 @@
                     url: "https://localhost:44315/api/Producto/Prod/"+codigo,
                     method: "GET"
                 }).done(function (data) {
-                    if (data == null)
+                    if (data.data == null)
                         alert("Este producto no existe")
-                    else if (parseInt(data.stock) <= 0)
+                    else if (parseInt(data.data.stock) <= 0)
                         alert("cantidad del producto insufuciente para vender");
-                    else if (data.status == false)
+                    else if (data.data.status == false)
                         alert("Este producto esta desactivado");
-                    else if (productos.indexOf(data.id) >= 0) {
-                         Sumar_Productos(data);
+                    else if (productos.indexOf(data.data.id) >= 0) {
+                         Sumar_Productos(data.data);
                     }
                     else {                        
-                        productos.push(data.id);
-                        agregarfila(data);
+                        productos.push(data.data.id);
+                        agregarfila(data.data);
                     }
                 }).fail(function (jqXHR, textStatus, error) {
                     alert("lo sentimos ha habido un error");
@@ -292,7 +292,7 @@
                 url: "https://localhost:44315/api/Producto",
                 method: "GET"
             }).done(function (data) {
-                LLenarTablaProductos(data);
+                LLenarTablaProductos(data.data);
             }).fail(function (jqXHR, textStatus, error) {
                 alert("lo sentimos ha habido un error");
             });
@@ -319,18 +319,18 @@
                 url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
                 method: "GET"
             }).done(function (data) {
-                if (data == null)
+                if (data.data == null)
                     alert("Este producto no existe")
-                else if (parseInt(data.stock) <= 0)
+                else if (parseInt(data.data.stock) <= 0)
                     alert("cantidad del producto insufuciente para vender");
-                else if (data.status == false)
+                else if (data.data.status == false)
                     alert("Este producto esta desactivado");
-                else if (productos.indexOf(data.id) >= 0) {
-                    Sumar_Productos(data);
+                else if (productos.indexOf(data.data.id) >= 0) {
+                    Sumar_Productos(data.data);
                 }
                 else {
-                    productos.push(data.id);
-                    agregarfila(data);
+                    productos.push(data.data.id);
+                    agregarfila(data.data);
                 }
                 $("#ModalProductos").modal('hide');//ocultamos el modal
                 $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll

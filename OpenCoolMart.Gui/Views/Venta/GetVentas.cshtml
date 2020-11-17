@@ -51,20 +51,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
+                            @if (Model.Any())
                             {
-                                <tr>
-                                    <td>@item.Id</td>
-                                    <td>@item.FechaVenta</td>
-                                    <td>@item.SubTotal</td>
-                                    <td>@item.Iva</td>
-                                    <td>@item.VentaTotal</td>
-                                    <td>@item.EmpleadoId</td>
-                                    <td>
-                                        <a asp-controller="Venta" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                        
-                                    </td>
-                                </tr>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.FechaVenta</td>
+                                        <td>@item.SubTotal</td>
+                                        <td>@item.Iva</td>
+                                        <td>@item.VentaTotal</td>
+                                        <td>@item.EmpleadoId</td>
+                                        <td>
+                                            <a asp-controller="Venta" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+
+                                        </td>
+                                    </tr>
+                                }
                             }
                         </tbody>
                     </table>

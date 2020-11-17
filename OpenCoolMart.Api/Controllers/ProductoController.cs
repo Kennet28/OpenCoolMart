@@ -30,7 +30,7 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<IEnumerable<ProductoResponseDto>>(productosDto);
             if (productosDto.Count() <= 0)
                 return Ok(response);
-            return Ok(productosDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]
@@ -41,7 +41,7 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<ProductoResponseDto>(productoDto);
             /*if (producto.Status == false)
                 return Ok(response);*/
-            return Ok(productoDto);
+            return Ok(response);
         }
 
         [HttpGet("prod/{id:int}")]
@@ -50,7 +50,8 @@ namespace OpenCoolMart.Api.Controllers
             var productos = await _productoService.GetProductos();
             var producto = productos.SingleOrDefault(x => x.CodigoProducto == id);
             var productoDto= _mapper.Map<Producto, ProductoResponseDto>(producto);
-            return Ok(productoDto);
+            var response = new ApiResponse<ProductoResponseDto>(productoDto);
+            return Ok(response);
         }
 
         [HttpPost]

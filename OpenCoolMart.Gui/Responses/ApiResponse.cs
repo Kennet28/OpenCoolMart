@@ -1,4 +1,4 @@
-﻿namespace OpenCoolMart.Api.Responses
+﻿namespace OpenCoolMart.Gui.Responses
 {
     public class ApiResponse<T>
     {

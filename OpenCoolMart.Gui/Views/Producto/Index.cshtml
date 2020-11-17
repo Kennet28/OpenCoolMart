@@ -99,10 +99,10 @@
                         url: "https://localhost:44315/api/Producto/Prod/" + codigo,
                         method: "GET"
                     }).done(function (data) {
-                        if (data == null)
+                        if (data.data == null)
                             alert("Este producto no existe")
                         else {
-                            Buscar(data);
+                            Buscar(data.data);
                         }
                     }).fail(function (jqXHR, textStatus, error) {
                         alert("lo sentimos ha habido un error");
@@ -113,10 +113,10 @@
                         url: "https://localhost:44315/api/Producto",
                         method: "GET"
                     }).done(function (data) {
-                        if (data == null)
+                        if (data.data == null)
                             alert("No hay productos registrados")
-                        if (data != null)
-                            Llenartabla(data)
+                        if (data.data != null)
+                            Llenartabla(data.data)
                     }).fail(function (jqXHR, textStatus, error) {
                         alert("lo sentimos ha habido un error");
                     });

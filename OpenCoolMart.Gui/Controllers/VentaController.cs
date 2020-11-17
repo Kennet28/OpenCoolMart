@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OpenCoolMart.Gui.Models;
+using OpenCoolMart.Gui.Responses;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -20,15 +19,15 @@ namespace OpenCoolMart.Gui.Controllers
         {
             var httpClient = new HttpClient();
             var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta");
-            var Listventas = JsonConvert.DeserializeObject<List<VentaResponseDto>>(Json);
-            return View(Listventas);
+            var Listventas = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<VentaResponseDto>>>(Json);
+            return View(Listventas.Data);
         }
         public async Task <IActionResult> Details(int Id)
         {
             var httpClient = new HttpClient();
             var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta/" + Id);
-            var venta = JsonConvert.DeserializeObject<VentaResponseDto>(Json);
-            return View(venta);
+            var venta = JsonConvert.DeserializeObject<ApiResponse<VentaResponseDto>>(Json);
+            return View(venta.Data);
         }
     }
 }

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using OpenCoolMart.Api.Responses;
+using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
-using OpenCoolMart.Domain.DTOs;
-using AutoMapper;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
 {
@@ -28,7 +26,8 @@ namespace OpenCoolMart.Api.Controllers
         {
             var ventas = await _service.GetAll();
             var ventasDto = _mapper.Map<IEnumerable<Venta>, IEnumerable<VentaResponseDto>>(ventas);
-            return Ok(ventasDto);
+            var response = new ApiResponse<IEnumerable<VentaResponseDto>>(ventasDto);
+            return Ok(response);
         }
 
         [HttpGet("{Id:int}")]
@@ -36,7 +35,8 @@ namespace OpenCoolMart.Api.Controllers
         {
             var venta =await _service.VerVenta(Id);
             var ventaDto = _mapper.Map<Venta, VentaResponseDto>(venta);
-            return Ok(ventaDto);
+            var response = new ApiResponse<VentaResponseDto>(ventaDto);
+            return Ok(response);
         }
 
         [HttpPost]
