@@ -67,9 +67,8 @@ namespace OpenCoolMart.Gui.Controllers
 
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url);
-                var Empleados = JsonConvert.DeserializeObject<List<EmpleadoResponseDto>>(json);
-                var _Empleado = Empleados.FirstOrDefault(e => e.Id.Equals(id));
+                var json = await client.GetStringAsync(url+id);
+                var _Empleado = JsonConvert.DeserializeObject<List<EmpleadoResponseDto>>(json);
                 return View(_Empleado);
             }
             else
@@ -83,9 +82,8 @@ namespace OpenCoolMart.Gui.Controllers
 
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url);
-                var Empleados = JsonConvert.DeserializeObject<List<EmpleadoResponseDto>>(json);
-                var _Empleado = Empleados.FirstOrDefault(e => e.Id.Equals(id));
+                var json = await client.GetStringAsync(url+id);
+                var _Empleado = JsonConvert.DeserializeObject<EmpleadoRequestDto>(json);
                 return View(_Empleado);
             }
             else
@@ -94,12 +92,11 @@ namespace OpenCoolMart.Gui.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(EmpleadoResponseDto empleadoDto)
+        public async Task<IActionResult> UpdateAsync(int Id, EmpleadoRequestDto empleadoDto)
         {
-            var httpClient = new HttpClient();
-            httpClient.BaseAddress = new Uri("https://localhost:44315/api/empleado/");
+            client.BaseAddress = new Uri("https://localhost:44315/api/empleado/");
             empleadoDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
-            var putTask = await httpClient.PutAsJsonAsync("?id=" + empleadoDto.Id, empleadoDto);
+            var putTask = await client.PutAsJsonAsync("?id=" + Id, empleadoDto);
             if (putTask.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

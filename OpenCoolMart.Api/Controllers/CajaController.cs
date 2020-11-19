@@ -19,7 +19,7 @@ namespace OpenCoolMart.Api.Controllers
     {
         private readonly ICajaService _cajaService;
         private readonly IMapper _mapper;
-        public CajaController(CajaService cajaService, IMapper mapper)
+        public CajaController(ICajaService cajaService, IMapper mapper)
         {
             this._cajaService = cajaService;
             this._mapper = mapper;

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace OpenCoolMart.Gui.Controllers
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync(url);
-                var Cajas = JsonConvert.DeserializeObject<IList<CajaResponseDto>>(json);
+                var Cajas = JsonConvert.DeserializeObject<List<CajaResponseDto>>(json);
                 return View(Cajas);
             }
             else
@@ -67,9 +68,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url);
-                var Cajas = JsonConvert.DeserializeObject<List<CajaResponseDto>>(json);
-                var _Caja = Cajas.FirstOrDefault(e => e.Id.Equals(id));
+                var json = await client.GetStringAsync(url+id);
+                var _Caja = JsonConvert.DeserializeObject<CajaRequestDto>(json);
                 return View(_Caja);
             }
             else
@@ -78,11 +78,11 @@ namespace OpenCoolMart.Gui.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(CajaResponseDto CajaDto)
+        public async Task<IActionResult> UpdateAsync(int Id,CajaRequestDto CajaDto)
         {
             client.BaseAddress = new Uri("https://localhost:44315/api/Caja/");
             CajaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
-            var putTask = await client.PutAsJsonAsync("?id=" + CajaDto.Id, CajaDto);
+            var putTask = await client.PutAsJsonAsync("?id=" + Id, CajaDto);
             if (putTask.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
