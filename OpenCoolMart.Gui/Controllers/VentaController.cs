@@ -5,13 +5,7 @@ using OpenCoolMart.Gui.Responses;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-<<<<<<< HEAD
-=======
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using OpenCoolMart.Gui.Models;
->>>>>>> 219c194347e2674694a45b8e46c8ca18c23ba6b0
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -31,25 +25,12 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpGet]
         public async Task<IActionResult> GetVentas()
         {
-<<<<<<< HEAD
-            var httpClient = new HttpClient();
-            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta");
-            var Listventas = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<VentaResponseDto>>>(Json);
-            return View(Listventas.Data);
-        }
-        public async Task <IActionResult> Details(int Id)
-        {
-            var httpClient = new HttpClient();
-            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta/" + Id);
-            var venta = JsonConvert.DeserializeObject<ApiResponse<VentaResponseDto>>(Json);
-            return View(venta.Data);
-=======
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var httpClient = new HttpClient();
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta");
-                var Listventas = JsonConvert.DeserializeObject<List<VentaResponseDto>>(Json);
-                return View(Listventas);
+                var Listventas = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<VentaResponseDto>>>(Json);
+                return View(Listventas.Data);
             }
             else
             {
@@ -63,15 +44,14 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var httpClient = new HttpClient();
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta/" + Id);
-                var venta = JsonConvert.DeserializeObject<VentaResponseDto>(Json);
-                return View(venta);
+                var venta = JsonConvert.DeserializeObject<ApiResponse<VentaResponseDto>>(Json);
+                return View(venta.Data);
             }
             else
             {
                 return RedirectToAction("Index");
             }
             
->>>>>>> 219c194347e2674694a45b8e46c8ca18c23ba6b0
         }
     }
 }
