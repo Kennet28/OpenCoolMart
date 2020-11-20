@@ -28,7 +28,7 @@ namespace OpenCoolMart.Api.Controllers
             var usuarios = await _usuarioService.GetUsuarios();
             var usuariosDto = _mapper.Map<IEnumerable<Usuario>, IEnumerable<UsuarioResponseDto>>(usuarios);
             var response = new ApiResponse<IEnumerable<UsuarioResponseDto>>(usuariosDto);
-            return Ok(usuariosDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]

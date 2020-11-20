@@ -29,7 +29,7 @@ namespace OpenCoolMart.Api.Controllers
             var clientes = await _clienteService.GetClientes();
             var clientesDto = _mapper.Map<IEnumerable<Cliente>, IEnumerable<ClienteResponseDto>>(clientes);
             var response = new ApiResponse<IEnumerable<ClienteResponseDto>>(clientesDto);
-            return Ok(clientesDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]

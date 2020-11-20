@@ -30,7 +30,7 @@ namespace OpenCoolMart.Api.Controllers
             var cajas = await _cajaService.GetCajas();
             var cajasDto = _mapper.Map<IEnumerable<Caja>, IEnumerable<CajaResponseDto>>(cajas);
             var response = new ApiResponse<IEnumerable<CajaResponseDto>>(cajasDto);
-            return Ok(cajasDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]

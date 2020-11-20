@@ -30,7 +30,7 @@ namespace OpenCoolMart.Api.Controllers
             var facturas = await _facturasService.GetFacturas();
             var facturasDto = _mapper.Map<IEnumerable<Facturas>, IEnumerable<FacturaResponseDto>>(facturas);
             var response = new ApiResponse<IEnumerable<FacturaResponseDto>>(facturasDto);
-            return Ok(facturasDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]

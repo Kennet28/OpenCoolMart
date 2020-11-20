@@ -15,13 +15,13 @@ namespace OpenCoolMart.Gui.Controllers
     {
         HttpClient client = new HttpClient();
         string url = "https://localhost:44315/api/Caja/";
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync(url);
-                var Cajas = JsonConvert.DeserializeObject<List<CajaResponseDto>>(json);
-                return View(Cajas);
+                var Cajas = JsonConvert.DeserializeObject<ApiResponse<List<CajaResponseDto>>>(json);
+                return View(Cajas.Data);
             }
             else
             {
@@ -50,35 +50,34 @@ namespace OpenCoolMart.Gui.Controllers
             }
             return View(Caja);
         }
-        public async Task<IActionResult> DetailsAsync(int id)
+        public async Task<IActionResult> Details(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url);
-                var Cajas = JsonConvert.DeserializeObject<List<CajaResponseDto>>(json);
-                var _Caja = Cajas.FirstOrDefault(e => e.Id.Equals(id));
-                return View(_Caja);
+                var json = await client.GetStringAsync("https://localhost:44315/api/Caja/"+id);
+                var _Caja = JsonConvert.DeserializeObject<ApiResponse<CajaResponseDto>>(json);
+                return View(_Caja.Data);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
         }
-        public async Task<IActionResult> UpdateAsync(int id)
+        public async Task<IActionResult> Update(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url+id);
-                var _Caja = JsonConvert.DeserializeObject<CajaRequestDto>(json);
-                return View(_Caja);
+                var json = await client.GetStringAsync("https://localhost:44315/api/Caja/" + id);
+                var _Caja = JsonConvert.DeserializeObject<ApiResponse<CajaRequestDto>>(json);
+                return View(_Caja.Data);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
         }
-        [HttpPut]
-        public async Task<IActionResult> UpdateAsync(int Id,CajaRequestDto CajaDto)
+        [HttpPost]
+        public async Task<IActionResult> Update(int Id,CajaRequestDto CajaDto)
         {
             client.BaseAddress = new Uri("https://localhost:44315/api/Caja/");
             CajaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));

@@ -18,20 +18,20 @@ namespace OpenCoolMart.Gui.Controllers
         private readonly string url = "https://localhost:44315/api/facturas/";
         
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync(url);
-                var Facturas = JsonConvert.DeserializeObject<IList<FacturaResponseDto>>(json);
-                return View(Facturas);
+                var Facturas = JsonConvert.DeserializeObject<ApiResponse<List<FacturaResponseDto>>>(json);
+                return View(Facturas.Data);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
         }
-        public async Task<IActionResult> CreateAsync()
+        public async Task<IActionResult> Create()
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
@@ -65,27 +65,26 @@ namespace OpenCoolMart.Gui.Controllers
             }
             return View(Factura);
         }
-        public async Task<IActionResult> DetailsAsync(int id)
+        public async Task<IActionResult> Details(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync(url);
-                var Facturas = JsonConvert.DeserializeObject<List<FacturaResponseDto>>(json);
-                var _Factura = Facturas.FirstOrDefault(e => e.Id.Equals(id));
-                return View(_Factura);
+                var _Factura = JsonConvert.DeserializeObject<ApiResponse<FacturaResponseDto>>(json);
+                return View(_Factura.Data);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
             }
         }
-        public async Task<IActionResult> UpdateAsync(int id)
+        public async Task<IActionResult> Update(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync(url+id);
-                var _Factura = JsonConvert.DeserializeObject<FacturaRequestDto>(json);
-                return View(_Factura);
+                var _Factura = JsonConvert.DeserializeObject<ApiResponse<FacturaRequestDto>>(json);
+                return View(_Factura.Data);
             }
             else
             {
@@ -93,7 +92,7 @@ namespace OpenCoolMart.Gui.Controllers
             }
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateAsync(int Id,FacturaRequestDto FacturaDto)
+        public async Task<IActionResult> Update(int Id,FacturaRequestDto FacturaDto)
         {
             client.BaseAddress = new Uri("https://localhost:44315/api/facturas/");
             FacturaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
