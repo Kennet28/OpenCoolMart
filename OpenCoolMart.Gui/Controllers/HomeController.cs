@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Validators;
@@ -31,8 +32,8 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> IndexAsync(LoginModel login)
         {
             var json = await client.GetStringAsync(url);
-            var Usuarios = JsonConvert.DeserializeObject<List<UsuarioResponseDto>>(json);
-            var _Usuario = Usuarios.FirstOrDefault(e => e.Correo.Equals(login.Email) && e.Contrasenia.Equals(login.Password));
+            var Usuarios = JsonConvert.DeserializeObject<ApiResponse<List<UsuarioResponseDto>>>(json);
+            var _Usuario = Usuarios.Data.FirstOrDefault(e => e.Correo.Equals(login.Email) && e.Contrasenia.Equals(login.Password));
             if (_Usuario != null && _Usuario.PerfilId.Equals(1))
             {
                 HttpContext.Session.SetString("Id", _Usuario.Id.ToString());

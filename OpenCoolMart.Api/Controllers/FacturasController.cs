@@ -19,10 +19,10 @@ namespace OpenCoolMart.Api.Controllers
     {
         private readonly IFacturasService _facturasService;
         private readonly IMapper _mapper;
-        public FacturasController(FacturasService facturasService, IMapper mapper)
+        public FacturasController(IFacturasService facturasService, IMapper mapper)
         {
-            this._facturasService = facturasService;
-            this._mapper = mapper;
+            _facturasService = facturasService;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -30,7 +30,7 @@ namespace OpenCoolMart.Api.Controllers
             var facturas = await _facturasService.GetFacturas();
             var facturasDto = _mapper.Map<IEnumerable<Facturas>, IEnumerable<FacturaResponseDto>>(facturas);
             var response = new ApiResponse<IEnumerable<FacturaResponseDto>>(facturasDto);
-            return Ok(facturasDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]

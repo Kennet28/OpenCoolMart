@@ -29,7 +29,7 @@ namespace OpenCoolMart.Api.Controllers
             var empleados = await _empleadoService.GetEmpleados();
             var empleadosDto = _mapper.Map<IEnumerable<Empleado>, IEnumerable<EmpleadoResponseDto>>(empleados);
             var response = new ApiResponse<IEnumerable<EmpleadoResponseDto>>(empleadosDto);
-            return Ok(empleadosDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]

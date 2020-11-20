@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Responses;
@@ -6,7 +7,10 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+<<<<<<< HEAD
 using Microsoft.AspNetCore.Http;
+=======
+>>>>>>> 949fe4bc02241fd8b215111e0d9741055ebf1def
 namespace OpenCoolMart.Gui.Controllers
 {
     public class ProductoController : Controller
@@ -15,6 +19,7 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> Index()
         {
             //https://localhost:44315/api/Producto
+<<<<<<< HEAD
 
             if (HttpContext.Session.GetString("Id") != null)
             {
@@ -27,10 +32,17 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+=======
+            var httpClient = new HttpClient();
+            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto");
+            var ListProductos = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductoResponseDto>>>(Json);
+            return View(ListProductos.Data);
+>>>>>>> 949fe4bc02241fd8b215111e0d9741055ebf1def
         }
 
         public async Task<IActionResult> Details(int Id)
         {
+<<<<<<< HEAD
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var httpClient = new HttpClient();
@@ -42,6 +54,12 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+=======
+            var httpClient = new HttpClient();
+            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/"+Id);
+            var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
+            return View(producto.Data);
+>>>>>>> 949fe4bc02241fd8b215111e0d9741055ebf1def
         }
 
         public IActionResult Create()
@@ -72,6 +90,7 @@ namespace OpenCoolMart.Gui.Controllers
 
         public async Task<IActionResult> Update(int Id)
         {
+<<<<<<< HEAD
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var httpClient = new HttpClient();
@@ -84,6 +103,12 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index", "Home");
             }
             
+=======
+            var httpClient = new HttpClient();
+            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
+            var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoRequestDto>>(Json);
+            return View(producto.Data);
+>>>>>>> 949fe4bc02241fd8b215111e0d9741055ebf1def
         }
         [HttpPost]
         public IActionResult Update(int Id, ProductoRequestDto productoDto)

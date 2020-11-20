@@ -19,7 +19,7 @@ namespace OpenCoolMart.Api.Controllers
     {
         private readonly ICajaService _cajaService;
         private readonly IMapper _mapper;
-        public CajaController(CajaService cajaService, IMapper mapper)
+        public CajaController(ICajaService cajaService, IMapper mapper)
         {
             this._cajaService = cajaService;
             this._mapper = mapper;
@@ -30,7 +30,7 @@ namespace OpenCoolMart.Api.Controllers
             var cajas = await _cajaService.GetCajas();
             var cajasDto = _mapper.Map<IEnumerable<Caja>, IEnumerable<CajaResponseDto>>(cajas);
             var response = new ApiResponse<IEnumerable<CajaResponseDto>>(cajasDto);
-            return Ok(cajasDto);
+            return Ok(response);
         }
 
         [HttpGet("{id:int}")]
