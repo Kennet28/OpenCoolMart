@@ -6,10 +6,6 @@ using OpenCoolMart.Gui.Responses;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-<<<<<<< HEAD
-using Microsoft.AspNetCore.Http;
-=======
->>>>>>> 949fe4bc02241fd8b215111e0d9741055ebf1def
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -29,7 +25,6 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpGet]
         public async Task<IActionResult> GetVentas()
         {
-<<<<<<< HEAD
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var httpClient = new HttpClient();
@@ -57,19 +52,6 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index");
             }
             
-=======
-            var httpClient = new HttpClient();
-            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta");
-            var Listventas = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<VentaResponseDto>>>(Json);
-            return View(Listventas.Data);
-        }
-        public async Task <IActionResult> Details(int Id)
-        {
-            var httpClient = new HttpClient();
-            var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta/" + Id);
-            var venta = JsonConvert.DeserializeObject<ApiResponse<VentaResponseDto>>(Json);
-            return View(venta.Data);
->>>>>>> 949fe4bc02241fd8b215111e0d9741055ebf1def
         }
     }
 }
