@@ -1,7 +1,10 @@
 ﻿@model OpenCoolMart.Domain.DTOs.FacturaRequestDto
 @{
     ViewData["Title"] = "Factura ";
+    //obtiene ventas
     List<SelectListItem> ventas = (List<SelectListItem>)ViewBag.Ventas;
+    //obtiene clientes
+    List<SelectListItem> clientes = (List<SelectListItem>)ViewBag.Clientes;
 }
 <!DOCTYPE html>
 <html lang="es-mx">
@@ -35,15 +38,30 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.Cliente, new { htmlAttributes = new { @class = "form-control" } })
+                <div class="col-md-8">
+                    @Html.DropDownList("Clientes", clientes, "Selecciona...", new { htmlAttributes = new { @class = "form-control col-md-2" } })
                     @Html.ValidationMessageFor(model => model.Cliente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            @*DATOS DEL CLIENTE*@
+            <div class="form-group form-row">
+                <div class="col-md-3">
+                    <input id="Correo" asp-for="@Model.Cliente.Correo" type="text" readonly />
+                </div>
+                <div class="col-md-3">
+                    <input id="Domicilio" asp-for="@Model.Cliente.Domicilio" type="text" readonly />
+                </div>
+                <div class="col-md-3">
+                    <input id="RFC" asp-for="@Model.Cliente.RFC" type="text" readonly />
+                </div>
+                <div class="col-md-3">
+                    <input id="Telefono" asp-for="@Model.Cliente.Telefono" type="text" readonly />
                 </div>
             </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.Venta, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.DropDownList("Ventas", ventas,"Selecciona...", htmlAttributes: new { @class = "control-label col-md-2" } )
+                    @Html.DropDownList("Ventas", ventas, "Selecciona...", htmlAttributes: new { @class = "control-label col-md-2" })
                     @Html.ValidationMessageFor(model => model.Venta, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -70,15 +88,52 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="form-group form-row">
                 <div class="col-md-4"></div>
-                <input type="submit" value="Crear Empleado" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Factua" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
+                <input type="submit" value="Crear Factura" class="btn btn-primary col-md-2" style="margin:10px" />
+                <a asp-controller="Factura" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
             </div>
 
         </div>
     }
 </body>
-</html>
 
+</html>
+<script type="text/javascript">
+    //Obtiene el id del cliente
+    var comboCli = document.getElementById("Clientes");
+    comboCli.addEventListener("change", Refresh);
+    Refresh();
+    //llena los datos del cliente
+    function Refresh() {
+        //obtiene el cliente
+        fetch("https://localhost:44315/api/cliente/" + comboCli.value)
+            .then(function (result) {
+                //comprueba si el servidor responde 200
+                if (result.ok) {
+                    //retorna el resultado en un archivo json
+                    return result.json();
+                }
+                else {
+                    alert("Algo a ocurrido: " + result.status);
+                }
+            })
+            .then(function (data) {
+                //RELLENA LOS INPUT CON LOS DATOS DEL CLIENTE
+                Domicilio = document.getElementById("Domicilio");
+                RFC = document.getElementById("RFC");
+                Telefono = document.getElementById("Telefono");
+                Correo = document.getElementById("Correo");
+                $.each(data, function (index, obj) {
+                    console.log(obj);
+                    Domicilio.value = obj.domicilio;
+                    RFC.value = obj.rfc;
+                    Telefono.value = obj.telefono;
+                    Correo.value = obj.correo;
+                });
+            })
+        //TODO: AGREGAR EL METODO FECTH PARA LAS VENTAS
+
+    }
+</script>

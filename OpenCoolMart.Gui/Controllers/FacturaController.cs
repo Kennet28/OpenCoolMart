@@ -45,8 +45,20 @@ namespace OpenCoolMart.Gui.Controllers
                         Value = Ven.Id.ToString(),
                         Selected = false
                     };
+                }); 
+                string json2 = await client.GetStringAsync("https://localhost:44315/api/cliente/");
+                var Listclientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json2);
+                List<SelectListItem> Clientes = Listclientes.Data.ConvertAll(client =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = client.Nombre,
+                        Value = client.Id.ToString(),
+                        Selected = false
+                    };
                 });
                 ViewBag.Ventas = Ventas;
+                ViewBag.Clientes = Clientes;
                 return View();
             }
             else
@@ -65,6 +77,7 @@ namespace OpenCoolMart.Gui.Controllers
             }
             return View(Factura);
         }
+        [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
             if (HttpContext.Session.GetString("Id") != null)
@@ -82,7 +95,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url+id);
+                var json = await client.GetStringAsync("https://localhost:44315/api/facturas/"+id);
                 var _Factura = JsonConvert.DeserializeObject<ApiResponse<FacturaRequestDto>>(json);
                 return View(_Factura.Data);
             }
