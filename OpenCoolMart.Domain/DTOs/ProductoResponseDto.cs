@@ -14,5 +14,9 @@ namespace OpenCoolMart.Domain.DTOs
         public int Stock { get; set; }
         public int CodigoProducto { get; set; }
         public bool Status { get; set; }
+        public DateTime CreateAt { get; set; }
+        public int? CreatedBy { get; set; }
+        public DateTime? UpdateAt { get; set; }
+        public int? UpdatedBy { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                ViewData["Usuario"] = HttpContext.Session.GetString("Id");
                 return View();
             }
             else

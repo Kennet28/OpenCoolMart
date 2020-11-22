@@ -9,5 +9,7 @@
         public int Stock { get; set; }
         public int CodigoProducto { get; set; }
         public bool Status { get; set; }
+        public int? CreatedBy { get; set; }
+        public int? UpdatedBy { get; set; }
     }
 }

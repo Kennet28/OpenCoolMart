@@ -120,6 +120,7 @@
         var SubTotalCompra = 0;
         var valorresta = 0;
         var SubTotal = 0;
+        var Empleado = @ViewData["Usuario"];
         function press_Enter() {
             tecla_enter = event.keyCode;
             if (tecla_enter == 13 && $("#codigoprod").val().length!=0) {
@@ -139,7 +140,7 @@
                     else if (productos.indexOf(data.data.id) >= 0) {
                          Sumar_Productos(data.data);
                     }
-                    else {                        
+                    else {
                         productos.push(data.data.id);
                         agregarfila(data.data);
                     }
@@ -193,19 +194,19 @@
                 });
             });
         };
-        
-        function aumentarCantidad() {            
+
+        function aumentarCantidad() {
             cantidad = parseInt(prompt("Escoge la cantidad de productos", 1));
             $("a.aumenta").click(function () {
                 var Indice = $(this).parents("tr").index();
                 var CantidadAc = $(this).parents("tr").find("td").eq(3).html();
                 var precioUni = $(this).parents("tr").find("td").eq(4).html();
-                
+
                 if (cantidad >= 1 && Indice >= 0) {
                     var diferencia=cantidad - CantidadAc;
                     document.getElementById("tablaventa").rows[Indice + 1].cells[3].innerHTML = cantidad;
                     document.getElementById("tablaventa").rows[Indice + 1].cells[5].innerHTML = cantidad * precioUni;
-                    
+
                     if (diferencia > 0) {
                         SubTotal = diferencia * precioUni;
                         sumar();
@@ -216,7 +217,7 @@
                     }
                 };
             });
-            
+
         };
 
         function Sumar_Productos(data) {
@@ -239,15 +240,15 @@
             }
             else {
                 RealizarVenta();
-            } 
+            }
         }
         function RealizarVenta() {
-            efectivo = $("#Efectivo").val();
-            valorcompra = $("#TotalCompra").val();
+            var efectivo = $("#Efectivo").val();
+            var valorcompra = $("#TotalCompra").val();
             cambio = efectivo - valorcompra
             var i = 0;
-            if (efectivo >= valorcompra) {
-                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + $("#SubTotal").val() + ",Efectivo:" + efectivo + ",Cambio:" + cambio + ",Iva:16,FormaPago:'Efectivo',EmpleadoId:1,CajaId:1,Status:true,";
+            if (parseFloat(efectivo) >= parseFloat(valorcompra)) {
+                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + $("#SubTotal").val() + ",Efectivo:" + efectivo + ",Cambio:" + cambio + ",Iva:16,FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,";
                 $("#tablaventa tbody tr").each(function (index) {
                     if (i == 0) {
                         enviar += "detallesVentas:[{ProductoId:" + $(this).find('td').eq(0).text() +
@@ -262,7 +263,7 @@
                     i++;
                 });
                 enviar += "]}";
-                
+
                 var json = eval("(" + enviar + ')');
                 /*var json3=JSON.stringify(json)
                 alert(json3);*/
@@ -273,14 +274,14 @@
                     type: "POST",
                     //async: false,//this makes the ajax-call blocking
                     contentType: 'application/json;charset=UTF-8',
-                    dataType: 'json'                    
+                    dataType: 'json'
                 }).done(function (data) {
                     alert("El cambio de la venta es" + cambio)
                     Limpiar()
                 }).fail(function (jqXHR, textStatus, error) {
                     alert(textStatus);
                 });;
-                
+
             }
             else {
                 alert("El dinero pagado es menor al valor de la compra");
@@ -348,7 +349,7 @@
             }
             else {
                 Limpiar();
-            }                        
+            }
         }
 
         function Limpiar() {
