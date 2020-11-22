@@ -24,7 +24,10 @@ namespace OpenCoolMart.Infraestructure.Validators
             RuleFor(producto => producto.Clasificacion)
                 .NotNull().WithMessage("Este campo no puede ser null")
                 .NotEmpty().WithMessage("Este campo no puede ser vacio")
-                .Length(3, 50);                
+                .Length(3, 50);
+            RuleFor(producto => producto.Descuento)
+                .LessThanOrEqualTo(1)
+                .GreaterThanOrEqualTo(0);
         }
     }
 }

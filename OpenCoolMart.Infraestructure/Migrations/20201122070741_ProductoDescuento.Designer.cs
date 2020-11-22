@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenCoolMart.Infraestructure.Data;
 
 namespace OpenCoolMart.Infraestructure.Migrations
 {
     [DbContext(typeof(OpenCoolMartContext))]
-    partial class OpenCoolMartContextModelSnapshot : ModelSnapshot
+    [Migration("20201122070741_ProductoDescuento")]
+    partial class ProductoDescuento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,7 +256,59 @@ namespace OpenCoolMart.Infraestructure.Migrations
                     b.ToTable("Permisos");
                 });
 
-            
+            modelBuilder.Entity("OpenCoolMart.Domain.Entities.Producto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Clasificacion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("CodigoProducto")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Descuento")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Marca")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Precio")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("builderit");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Productos");
+
+                    b.HasAnnotation("ProductVersion", "3.1.9");
+
+                    b.HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+                    b.HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                });
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Usuario", b =>
                 {
@@ -290,9 +344,86 @@ namespace OpenCoolMart.Infraestructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
-                });     
+                });
 
-            
+            modelBuilder.Entity("OpenCoolMart.Domain.Entities.Venta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CajaId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Cambio")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Efectivo")
+                        .HasColumnType("float");
+
+                    b.Property<int>("EmpleadoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaVenta")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FormaPago")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Iva")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("SubTotal")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<double>("VentaTotal")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CajaId");
+
+                    b.HasIndex("EmpleadoId");
+
+                    b.ToTable("Ventas");
+
+                    b.HasAnnotation("ProductVersion", "3.1.9");
+
+                    b.HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+                    b.HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                });
+
+            modelBuilder.Entity("OpenCoolMart.Domain.Entities.DetallesVenta", b =>
+                {
+                    b.HasOne("OpenCoolMart.Domain.Entities.Producto", "Producto")
+                        .WithMany("DetallesVentas")
+                        .HasForeignKey("ProductoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OpenCoolMart.Domain.Entities.Venta", null)
+                        .WithMany("DetallesVentas")
+                        .HasForeignKey("VentaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Facturas", b =>
                 {

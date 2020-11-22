@@ -89,9 +89,9 @@
                     <table id="tablaproductos" class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Codigo</th>
-                                <th>Descripción</th>
+                                <th>Descripcion</th>
+                                <th>Descuento</th>
                                 <th>Precio</th>
                                 <th>Status</th>
                                 <th>Opciones</th>
@@ -153,14 +153,15 @@
 
         function agregarfila(data) {
             var cantidad = 1
-            SubTotal = parseInt(data.precio) * cantidad;
+            var descuento=parseFloat(1-data.descuento)
+            SubTotal = parseInt(data.precio) * cantidad*descuento;
             var cadena;
             cadena = "<tr>"
             cadena = cadena + "<td>" + data.id + "</td>";
             cadena = cadena + "<td>" + data.codigoProducto + "</td>";
             cadena = cadena + "<td>" + data.descripcion + "</td>";
             cadena = cadena + "<td>" + cantidad + "</td>";
-            cadena = cadena + "<td>" + data.precio + "</td>";
+            cadena = cadena + "<td>" + parseInt(data.precio*descuento) + "</td>";
             cadena = cadena + "<td>" + SubTotal + "</td>";
             cadena = cadena + "<td style='width: 150px;'> <a class='aumenta' > <button class='btn' style='width:40px; heigh=40px'; onclick='aumentarCantidad()'><i class='material-icons'>&#xE254;</i></button></a > <a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
 
@@ -223,12 +224,13 @@
         function Sumar_Productos(data) {
             var fila = productos.indexOf(data.id) + 1
             var cantidadproducto = document.getElementById("tablaventa").rows[fila].cells[3].innerHTML;
+            var precioUnitario = document.getElementById("tablaventa").rows[fila].cells[4].innerHTML;
             var subtotalproducto = document.getElementById("tablaventa").rows[fila].cells[5].innerHTML;
-
-            SubTotal = data.precio;
-
+           
+            
+            SubTotal = parseFloat(precioUnitario);
             document.getElementById("tablaventa").rows[fila].cells[3].innerHTML =parseInt(cantidadproducto) + 1;
-            document.getElementById("tablaventa").rows[fila].cells[5].innerHTML = parseInt(subtotalproducto) + data.precio;
+            document.getElementById("tablaventa").rows[fila].cells[5].innerHTML = parseFloat(subtotalproducto) + parseFloat(precioUnitario);
             sumar();
         }
 
@@ -276,7 +278,7 @@
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json'
                 }).done(function (data) {
-                    alert("El cambio de la venta es" + cambio)
+                    alert("El cambio de la venta es: " + cambio)
                     Limpiar()
                 }).fail(function (jqXHR, textStatus, error) {
                     alert(textStatus);
@@ -304,9 +306,9 @@
             var cadena;
             $.each(data, function (index, obj) {
                 cadena = "<tr>"
-                cadena = cadena + "<td>" + obj.id + "</td>";
                 cadena = cadena + "<td>" + obj.codigoProducto + "</td>";
                 cadena = cadena + "<td>" + obj.descripcion + "</td>";
+                cadena = cadena + "<td>" + obj.descuento + "</td>";
                 cadena = cadena + "<td>" + obj.precio + "</td>";
                 cadena = cadena + "<td>" + obj.status + "</td>";
                 cadena = cadena + "<td>" +

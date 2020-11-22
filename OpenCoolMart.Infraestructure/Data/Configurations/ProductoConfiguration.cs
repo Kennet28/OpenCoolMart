@@ -49,7 +49,8 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
             builder.Property<DateTime?>("UpdateAt")
                 .HasColumnType("datetime2");
 
-            
+            builder.Property<double?>("Descuento")
+                        .HasColumnType("float");
 
             builder.HasKey("Id");
 
