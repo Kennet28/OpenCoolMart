@@ -25,4 +25,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCoolMart.Api\OpenCoolMart.Api.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Gui\OpenCoolMart.Gui.csproj" />
+  </ItemGroup>
+
 </Project>
