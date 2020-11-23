@@ -65,7 +65,7 @@
             <div class="form-group row">
                 <div class="col-md-7">
                     <p>Subtotal: <input id="SubTotal" disabled /> </p>
-                    <p>Iva: <label id="Iva">16</label>%</p>
+                    <p>Iva: <input id="Iva" disabled/></p>
                     <p>Total: <input id="TotalCompra" disabled /></p>
                 </div>
                 <div>
@@ -121,6 +121,7 @@
         var valorresta = 0;
         var SubTotal = 0;
         var Empleado = @ViewData["Usuario"];
+        var Iva = 0;
         function press_Enter() {
             tecla_enter = event.keyCode;
             if (tecla_enter == 13 && $("#codigoprod").val().length!=0) {
@@ -172,8 +173,10 @@
 
         function sumar() {
             SubTotalCompra = SubTotalCompra + SubTotal;
+            Iva = SubTotalCompra * 0.16;
             TotalCompra = SubTotalCompra * 1.16;
             $("#SubTotal").val(SubTotalCompra);
+            $("#Iva").val(Iva);
             $("#TotalCompra").val(TotalCompra);
         }
 
@@ -247,10 +250,11 @@
         function RealizarVenta() {
             var efectivo = $("#Efectivo").val();
             var valorcompra = $("#TotalCompra").val();
+
             cambio = efectivo - valorcompra
             var i = 0;
             if (parseFloat(efectivo) >= parseFloat(valorcompra)) {
-                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + $("#SubTotal").val() + ",Efectivo:" + efectivo + ",Cambio:" + cambio + ",Iva:16,FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,";
+                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + $("#SubTotal").val() + ",Efectivo:" + efectivo + ",Cambio:" + cambio + ",Iva:"+Iva+",FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,";
                 $("#tablaventa tbody tr").each(function (index) {
                     if (i == 0) {
                         enviar += "detallesVentas:[{ProductoId:" + $(this).find('td').eq(0).text() +
@@ -360,11 +364,13 @@
             $("#SubTotal").val('');
             $("#TotalCompra").val('');
             $("#Efectivo").val('');
+            $("#Iva").val('');
             productos = new Array();
             TotalCompra;
             SubTotalCompra = 0;
             valorresta = 0;
             SubTotal = 0;
+            Iva = 0;
         }
     </script>
 }

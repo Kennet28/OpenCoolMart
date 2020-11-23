@@ -89,17 +89,21 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public IActionResult Update(int Id, ProductoRequestDto productoDto)
         {
+            
             var httpClient = new HttpClient();
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
             //TODO: obtener id del usuario que inicio sesion con int.Parse(HttpContext.Session.GetString("Id")) e integrar UpdatedBy 
             var putTask = httpClient.PutAsJsonAsync<ProductoRequestDto>("?id=" + Id, productoDto);
             putTask.Wait();
-
+            
             var result = putTask.Result;
-            if (result.IsSuccessStatusCode)
+            if (!result.IsSuccessStatusCode)
             {
-
+                ViewData["Message"] = "Error";                
+            }
+            else if (result.IsSuccessStatusCode)
+            {                
                 return RedirectToAction("Index");
             }
             return View(productoDto);
