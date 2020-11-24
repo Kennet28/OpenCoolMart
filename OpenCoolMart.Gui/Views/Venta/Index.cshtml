@@ -64,12 +64,12 @@
 
             <div class="form-group row">
                 <div class="col-md-7">
-                    <p>Subtotal: <input id="SubTotal" disabled /> </p>
-                    <p>Iva: <input id="Iva" disabled/></p>
-                    <p>Total: <input id="TotalCompra" disabled /></p>
+                    <p>Subtotal: <input type="number" id="SubTotal" disabled step="0.01"/> </p>
+                    <p>Iva: <input type="number" id="Iva" disabled step="0.01"/></p>
+                    <p>Total: <input type="number" id="TotalCompra" disabled step="0.01"/></p>
                 </div>
                 <div>
-                    <p>Efectivo: <input id="Efectivo" /></p>
+                    <p>Efectivo: <input type="number" id="Efectivo" step="0.01"/></p>
                     <button class="btn btn-success boton" style="margin-left:100px; margin-top:10px;" onclick="RealizarVenta()">Pagar</button>
                 </div>
             </div>
@@ -172,19 +172,22 @@
         }
 
         function sumar() {
+
             SubTotalCompra = SubTotalCompra + SubTotal;
             Iva = SubTotalCompra * 0.16;
             TotalCompra = SubTotalCompra * 1.16;
-            $("#SubTotal").val(SubTotalCompra);
-            $("#Iva").val(Iva);
-            $("#TotalCompra").val(TotalCompra);
+            $("#SubTotal").val(SubTotalCompra.toFixed(2));
+            $("#Iva").val(Iva.toFixed(2));
+            $("#TotalCompra").val(TotalCompra.toFixed(2));
         }
 
         function restar() {
             SubTotalCompra = SubTotalCompra - valorresta;
+            Iva = SubTotalCompra * 0.16;            
             TotalCompra = SubTotalCompra * 1.16;
-            $("#SubTotal").val(SubTotalCompra);
-            $("#TotalCompra").val(TotalCompra);
+            $("#Iva").val(Iva.toFixed(2));
+            $("#SubTotal").val(SubTotalCompra.toFixed(2));
+            $("#TotalCompra").val(TotalCompra.toFixed(2));
         }
 
         function fn_dar_eliminar() {
@@ -200,7 +203,7 @@
         };
 
         function aumentarCantidad() {
-            cantidad = parseInt(prompt("Escoge la cantidad de productos", 1));
+            var cantidad = parseInt(prompt("Escoge la cantidad de productos", 1));
             $("a.aumenta").click(function () {
                 var Indice = $(this).parents("tr").index();
                 var CantidadAc = $(this).parents("tr").find("td").eq(3).html();
@@ -248,13 +251,14 @@
             }
         }
         function RealizarVenta() {
-            var efectivo = $("#Efectivo").val();
+            var efectivo =parseFloat($("#Efectivo").val());
             var valorcompra = $("#TotalCompra").val();
-
-            cambio = efectivo - valorcompra
+            var ivacompra = $("#Iva").val();
+            var subtotalcompra = $("#SubTotal").val();
+            var cambio = parseFloat(efectivo - valorcompra);
             var i = 0;
             if (parseFloat(efectivo) >= parseFloat(valorcompra)) {
-                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + $("#SubTotal").val() + ",Efectivo:" + efectivo + ",Cambio:" + cambio + ",Iva:"+Iva+",FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,";
+                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + subtotalcompra + ",Efectivo:" + efectivo.toFixed(2) + ",Cambio:" + cambio + ",Iva:"+ivacompra+",FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,";
                 $("#tablaventa tbody tr").each(function (index) {
                     if (i == 0) {
                         enviar += "detallesVentas:[{ProductoId:" + $(this).find('td').eq(0).text() +
@@ -282,8 +286,8 @@
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json'
                 }).done(function (data) {
-                    alert("El cambio de la venta es: " + cambio)
-                    Limpiar()
+                    alert("El cambio de la venta es: " + cambio.toFixed(2));
+                    Limpiar();
                 }).fail(function (jqXHR, textStatus, error) {
                     alert(textStatus);
                 });;

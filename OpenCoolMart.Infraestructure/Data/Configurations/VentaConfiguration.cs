@@ -62,6 +62,8 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
 
             builder.Property<double>("VentaTotal")
                 .HasColumnType("float");
+            builder.Property<int>("Folio")
+                        .HasColumnType("int");
 
             builder.HasKey("Id");
 

@@ -13,6 +13,7 @@ namespace OpenCoolMart.Gui.Models
         public double Efectivo { get; set; }
         public double Cambio { get; set; }
         public double Iva { get; set; }
+        public int Folio { get; set; }
         public string FormaPago { get; set; }
         public DateTime FechaVenta { get; set; }
         public int EmpleadoId { get; set; }

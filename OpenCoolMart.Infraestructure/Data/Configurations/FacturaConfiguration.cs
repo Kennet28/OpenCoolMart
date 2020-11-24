@@ -17,7 +17,7 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
                          .HasColumnType("int")
                          .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            builder.Property<int?>("ClienteId")
+            builder.Property<int>("ClienteId")
                 .HasColumnType("int");
 
             builder.Property<DateTime>("CreateAt")
@@ -47,7 +47,7 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
             builder.Property<string>("UsoCFDI")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property<int?>("VentaId")
+            builder.Property<int>("VentaId")
                 .HasColumnType("int");
 
             builder.HasKey("Id");

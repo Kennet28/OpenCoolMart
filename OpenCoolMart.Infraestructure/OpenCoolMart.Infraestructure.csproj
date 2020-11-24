@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20201124234015_CorrectionError.cs" />
+    <Compile Remove="Migrations\20201124234015_CorrectionError.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Filters\" />
   </ItemGroup>
 
