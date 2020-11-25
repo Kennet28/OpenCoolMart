@@ -66,7 +66,6 @@ namespace OpenCoolMart.Api.Controllers
             var factura = _mapper.Map<Facturas>(facturaResponse);
             factura.Id = id;
             factura.UpdateAt = DateTime.Now;
-            factura.UpdatedBy = 1;
             await _facturasService.UpdateFactura(factura);
             var result = new ApiResponse<bool>(true);
             return Ok(result);

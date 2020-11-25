@@ -5,8 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20201124234015_CorrectionError.cs" />
-    <Compile Remove="Migrations\20201124234015_CorrectionError.Designer.cs" />
+    <Compile Remove="Migrations\20201124231901_newcolumns.cs" />
+    <Compile Remove="Migrations\20201124231901_newcolumns.Designer.cs" />
+    <Compile Remove="Migrations\20201124233414_newcolumns.cs" />
+    <Compile Remove="Migrations\20201124233414_newcolumns.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,7 +21,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
            
         }
-        HttpClient client = new HttpClient();
+       private readonly HttpClient client = new HttpClient();
         public string url = "https://localhost:44315/api/Usuario";
         public IActionResult Index()
         {
@@ -30,7 +30,7 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> IndexAsync(LoginModel login)
         {
-            var json = await client.GetStringAsync("https://localhost:44315/api/Usuario");
+            var json = await client.GetStringAsync("https://localhost:44315/api/Usuario/");
             var Usuarios = JsonConvert.DeserializeObject<ApiResponse<List<UsuarioResponseDto>>>(json);
             var _Usuario = Usuarios.Data.FirstOrDefault(e => e.Correo.Equals(login.Email) && e.Contrasenia.Equals(login.Password));
             if (_Usuario != null && _Usuario.PerfilId.Equals(1))

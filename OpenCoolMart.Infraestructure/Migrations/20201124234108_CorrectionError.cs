@@ -20,24 +20,6 @@ namespace OpenCoolMart.Infraestructure.Migrations
                 nullable: false,
                 defaultValue: 0);
 
-            migrationBuilder.AlterColumn<int>(
-                name: "VentaId",
-                table: "Facturas",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<int>(
-                name: "ClienteId",
-                table: "Facturas",
-                type: "int",
-                nullable: false,
-                oldClrType: typeof(int),
-                oldType: "int",
-                oldNullable: true);
-
             migrationBuilder.AddForeignKey(
                 name: "FK_Facturas_Clientes_ClienteId",
                 table: "Facturas",

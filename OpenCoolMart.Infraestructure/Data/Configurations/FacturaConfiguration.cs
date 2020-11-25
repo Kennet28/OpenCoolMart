@@ -52,9 +52,6 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
 
             builder.HasKey("Id");
 
-            builder.HasIndex("ClienteId");
-
-            builder.HasIndex("VentaId");
 
             builder.ToTable("Facturas");
         }

@@ -372,9 +372,6 @@ namespace OpenCoolMart.Infraestructure.Migrations
                     b.Property<DateTime>("FechaVenta")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Folio")
-                        .HasColumnType("int");
-
                     b.Property<string>("FormaPago")
                         .HasColumnType("nvarchar(max)");
 
@@ -428,13 +425,13 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Facturas", b =>
                 {
-                    b.HasOne("OpenCoolMart.Domain.Entities.Cliente", "Cliente")
+                    b.HasOne("OpenCoolMart.Domain.Entities.Cliente", null)
                         .WithMany("Factura")
                         .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OpenCoolMart.Domain.Entities.Venta", "Venta")
+                    b.HasOne("OpenCoolMart.Domain.Entities.Venta", null)
                         .WithMany("Factura")
                         .HasForeignKey("VentaId")
                         .OnDelete(DeleteBehavior.Cascade)

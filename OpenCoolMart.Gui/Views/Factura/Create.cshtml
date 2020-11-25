@@ -5,6 +5,8 @@
     List<SelectListItem> ventas = (List<SelectListItem>)ViewBag.Ventas;
     //obtiene clientes
     List<SelectListItem> clientes = (List<SelectListItem>)ViewBag.Clientes;
+    //Obtiene los Usos de CFDI
+    List<SelectListItem> UsosCFDI = (List<SelectListItem>)ViewBag.UsosCFDI;
 }
 <!DOCTYPE html>
 <html lang="es-mx">
@@ -37,39 +39,65 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Cliente, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-8">
-                    @Html.DropDownList("Clientes", clientes, "Selecciona...", new { htmlAttributes = new { @class = "form-control col-md-2" } })
-                    @Html.ValidationMessageFor(model => model.Cliente, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.ClienteId, clientes, "Selecciona...", new { htmlAttributes = new { @class = "form-control col-md-2" } })
+                    @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
                 </div>
             </div>
             @*DATOS DEL CLIENTE*@
             <div class="form-group form-row">
                 <div class="col-md-3">
-                    <input id="Correo" asp-for="@Model.Cliente.Correo" type="text" readonly />
+                    <Label>Correo</Label>
+                    <input id="Correo" type="text" readonly />
                 </div>
                 <div class="col-md-3">
-                    <input id="Domicilio" asp-for="@Model.Cliente.Domicilio" type="text" readonly />
+                    <Label>Domicilio</Label>
+                    <input id="Domicilio" type="text" readonly class="form-control" />
                 </div>
                 <div class="col-md-3">
-                    <input id="RFC" asp-for="@Model.Cliente.RFC" type="text" readonly />
+                    <Label>RFC</Label>
+                    <input id="RFC" type="text" readonly class="form-control" />
                 </div>
                 <div class="col-md-3">
-                    <input id="Telefono" asp-for="@Model.Cliente.Telefono" type="text" readonly />
+                    <Label>Telefono</Label>
+                    <input id="Telefono" type="text" readonly class="form-control"/>
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.Venta, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.VentaId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.DropDownList("Ventas", ventas, "Selecciona...", htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.ValidationMessageFor(model => model.Venta, "", new { @class = "text-danger" })
+                    @Html.DropDownListFor(model => model.VentaId, ventas, "Selecciona...", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.ValidationMessageFor(model => model.VentaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            @*DATOS DE La Venta*@
+            <div class="form-group form-row">
+                <div class="col-md-3">
+                    <Label>Folio de venta</Label>
+                    <input id="folio" type="number" readonly class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <Label>Subtotal</Label>
+                    <input id="subtotal" type="number" readonly class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <Label>Iva</Label>
+                    <input id="iva" type="number" readonly class="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <Label>Total</Label>
+                    <input id="total" type="number" readonly class="form-control" />
                 </div>
             </div>
             <div class="form-group form-row">
                 <div class="col-md-4">
+
                     @Html.LabelFor(model => model.UsoCFDI, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-12">
-                        @Html.EditorFor(model => model.UsoCFDI, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.DropDownListFor(model => model.UsoCFDI, UsosCFDI, "Selecciona...",  htmlAttributes: new { @class = "form-control" } )
+
                         @Html.ValidationMessageFor(model => model.UsoCFDI, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -97,16 +125,33 @@
 
         </div>
     }
+    @*//Detalles de venta*@
+    @*<div id="tablaventa">
+        <table class="table table-striped table-hover table-bordered card">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Codigo de producto</th>
+                    <th>Descripcion</th>
+                    <th>Cantidad </th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>*@
 </body>
 
 </html>
 <script type="text/javascript">
     //Obtiene el id del cliente
-    var comboCli = document.getElementById("Clientes");
-    comboCli.addEventListener("change", Refresh);
-    Refresh();
+    var comboCli = document.getElementById("ClienteId");
+    var comboVen = document.getElementById("VentaId");
+    comboCli.addEventListener("change", RefreshCliente);
+    comboVen.addEventListener("change", RefreshVenta);
     //llena los datos del cliente
-    function Refresh() {
+    function RefreshCliente() {
         //obtiene el cliente
         fetch("https://localhost:44315/api/cliente/" + comboCli.value)
             .then(function (result) {
@@ -126,14 +171,57 @@
                 Telefono = document.getElementById("Telefono");
                 Correo = document.getElementById("Correo");
                 $.each(data, function (index, obj) {
-                    console.log(obj);
                     Domicilio.value = obj.domicilio;
                     RFC.value = obj.rfc;
                     Telefono.value = obj.telefono;
                     Correo.value = obj.correo;
                 });
             })
-        //TODO: AGREGAR EL METODO FECTH PARA LAS VENTAS
+        
+    }
+    function RefreshVenta() {
+        fetch("https://localhost:44315/api/venta/" + comboVen.value)
+            .then(function (result) {
+                //comprueba si el servidor responde 200
+                if (result.ok) {
+                    //retorna el resultado en un archivo json
+                    return result.json();
+                }
+                else {
+                    alert("Algo a ocurrido: " + result.status);
+                }
+            })
+            .then(function (data) {
+                //RELLENA LOS INPUT CON LOS DATOS DEL CLIENTE
+                subtotal = document.getElementById("subtotal");
+                folio = document.getElementById("folio");
+                iva = document.getElementById("iva");
+                total = document.getElementById("total");
+                $.each(data, function (index, obj) {
+                    console.log(obj);
+                    subtotal.value = obj.subTotal;
+                    iva.value = obj.iva;
+                    total.value = obj.ventaTotal;
+                    folio.value = obj.folio;
+                    console.log(obj.detallesVentas);
+                //LLenarTablaProductos(obj.detallesVentas.producto);
+
+                });
+            })
 
     }
+    //function LLenarTablaProductos(data) {
+    //    $('#tablaventa tbody tr').remove();
+    //    var cadena;
+    //    console.log(data);
+    //    $.each(data, function (index, obj) {
+    //        cadena = "<tr>"
+    //        cadena = cadena + "<td>" + obj.codigoProducto + "</td>";
+    //        cadena = cadena + "<td>" + obj.descripcion + "</td>";
+    //        cadena = cadena + "<td>" + obj.descuento + "</td>";
+    //        cadena = cadena + "<td>" + obj.precio + "</td>";
+    //        cadena = cadena + "<td>";
+    //        $("#tablaventa").append(cadena);
+    //    });
+    //}
 </script>

@@ -12,7 +12,7 @@ namespace OpenCoolMart.Domain.Entities
         public string Nombre { get; set; }
         public DateTime FechaContratacion { get; set; }
         public long Telefono { get; set; }
-        [ForeignKey("UsuarioId")]
+        [ForeignKey("Usuario")]
         public int UsuarioId { get; set; }
         public int CodigoEmpleado { get; set; }
     }
