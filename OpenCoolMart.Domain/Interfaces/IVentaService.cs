@@ -10,6 +10,6 @@ namespace OpenCoolMart.Domain.Interfaces
     {
         public Task CrearVerta(Venta venta);
         public Task<Venta> VerVenta(int id);
-        Task<IEnumerable<Venta>> GetAll();
+        Task<IEnumerable<Venta>> GetVentas();
     }
 }

@@ -5,6 +5,7 @@ using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
@@ -24,7 +25,7 @@ namespace OpenCoolMart.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var ventas = await _service.GetAll();
+            var ventas = await _service.GetVentas();
             var ventasDto = _mapper.Map<IEnumerable<Venta>, IEnumerable<VentaResponseDto>>(ventas);
             var response = new ApiResponse<IEnumerable<VentaResponseDto>>(ventasDto);
             return Ok(response);
@@ -42,7 +43,19 @@ namespace OpenCoolMart.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(VentaRequestDto ventaDto)
         {
+            var ventas = await _service.GetVentas();
+            Venta nuevaventa= new Venta();
+            if (ventas.Any())
+            {
+                nuevaventa = ventas.Last();
+                 
+            }
+            else
+            {
+                nuevaventa.Folio = 100000;
+            }
             var venta = _mapper.Map<VentaRequestDto, Venta>(ventaDto);
+            venta.Folio = nuevaventa.Folio + 1;
             await _service.CrearVerta(venta);
             var ventaResponseDto = _mapper.Map<Venta, VentaResponseDto>(venta);
             return Ok(ventaResponseDto);

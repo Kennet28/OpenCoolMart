@@ -19,14 +19,14 @@ namespace OpenCoolMart.Application.Services
             await _unitOfWork.VentaRepository.CrearVerta(venta);
         }
 
-        public Task<IEnumerable<Venta>> GetAll()
+        public async Task<IEnumerable<Venta>> GetVentas()
         {
-            return _unitOfWork.VentaRepository.GetAll();
+            return await _unitOfWork.VentaRepository.GetAll();
         }
 
-        public Task<Venta> VerVenta(int id)
+        public async Task<Venta> VerVenta(int id)
         {
-            return _unitOfWork.VentaRepository.VerVenta(id);
+            return await _unitOfWork.VentaRepository.VerVenta(id);
         }
     }
 }
