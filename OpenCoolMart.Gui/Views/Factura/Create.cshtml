@@ -26,121 +26,123 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="container-xl table-wrapper">
-            <hr />
-            <h1 class="text-center">Detalles</h1>
+    <div class="container-xl table-wrapper">
+        <hr />
+        <h1 class="text-center">Detalles</h1>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Folio, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.Folio, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Folio, "", new { @class = "text-danger" })
-                </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Folio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Folio, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Folio, "", new { @class = "text-danger" })
             </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-8">
-                    @Html.DropDownListFor(model => model.ClienteId, clientes, "Selecciona...", new { htmlAttributes = new { @class = "form-control col-md-2" } })
-                    @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            @*DATOS DEL CLIENTE*@
-            <div class="form-group form-row">
-                <div class="col-md-3">
-                    <Label>Correo</Label>
-                    <input id="Correo" type="text" readonly />
-                </div>
-                <div class="col-md-3">
-                    <Label>Domicilio</Label>
-                    <input id="Domicilio" type="text" readonly class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <Label>RFC</Label>
-                    <input id="RFC" type="text" readonly class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <Label>Telefono</Label>
-                    <input id="Telefono" type="text" readonly class="form-control"/>
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.VentaId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.DropDownListFor(model => model.VentaId, ventas, "Selecciona...", htmlAttributes: new { @class = "control-label col-md-2" })
-                    @Html.ValidationMessageFor(model => model.VentaId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            @*DATOS DE La Venta*@
-            <div class="form-group form-row">
-                <div class="col-md-3">
-                    <Label>Folio de venta</Label>
-                    <input id="folio" type="number" readonly class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <Label>Subtotal</Label>
-                    <input id="subtotal" type="number" readonly class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <Label>Iva</Label>
-                    <input id="iva" type="number" readonly class="form-control" />
-                </div>
-                <div class="col-md-3">
-                    <Label>Total</Label>
-                    <input id="total" type="number" readonly class="form-control" />
-                </div>
-            </div>
-            <div class="form-group form-row">
-                <div class="col-md-4">
-
-                    @Html.LabelFor(model => model.UsoCFDI, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.DropDownListFor(model => model.UsoCFDI, UsosCFDI, "Selecciona...",  htmlAttributes: new { @class = "form-control" } )
-
-                        @Html.ValidationMessageFor(model => model.UsoCFDI, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group form-row">
-                <div class="col-md-4"></div>
-                <input type="submit" value="Crear Factura" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Factura" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
-            </div>
-
         </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-8">
+                @Html.DropDownListFor(model => model.ClienteId, clientes, "Selecciona...", new { htmlAttributes = new { @class = "form-control col-md-2" } })
+                @Html.ValidationMessageFor(model => model.ClienteId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @*DATOS DEL CLIENTE*@
+        <div class="form-group form-row">
+            <div class="col-md-3">
+                <Label>Correo</Label>
+                <input id="Correo" type="text" readonly />
+            </div>
+            <div class="col-md-3">
+                <Label>Domicilio</Label>
+                <input id="Domicilio" type="text" readonly class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <Label>RFC</Label>
+                <input id="RFC" type="text" readonly class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <Label>Telefono</Label>
+                <input id="Telefono" type="text" readonly class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.VentaId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.DropDownListFor(model => model.VentaId, ventas, "Selecciona...", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.VentaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*DATOS DE La Venta*@
+        <div class="form-group form-row">
+            <div class="col-md-3">
+                <Label>Folio de venta</Label>
+                <input id="folio" type="number" readonly class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <Label>Subtotal</Label>
+                <input id="subtotal" type="number" readonly class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <Label>Iva</Label>
+                <input id="iva" type="number" readonly class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <Label>Total</Label>
+                <input id="total" type="number" readonly class="form-control" />
+            </div>
+        </div>
+        @*//Detalles de venta*@
+        <div id="tabla">
+            <table id="tablaventa" style="width:auto;" class="table table-striped table-hover table-bordered card">
+                <thead>
+                    <tr>
+                        <th style="width:40px;">Codigo</th>
+                        <th style="width:235px;">Descripción</th>
+                        <th style="width:100px;">Cantidad</th>
+                        <th style="width:100px;">Precio U.</th>
+                        <th style="width:100px;">Subtotal</th>
+
+                    </tr>
+                </thead>
+                <tbody style="width: auto;">
+                </tbody>
+            </table>
+        </div>
+        <div class="form-group form-row">
+            <div class="col-md-4">
+
+                @Html.LabelFor(model => model.UsoCFDI, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.DropDownListFor(model => model.UsoCFDI, UsosCFDI, "Selecciona...", htmlAttributes: new { @class = "form-control" })
+
+                    @Html.ValidationMessageFor(model => model.UsoCFDI, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Observaciones, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-md-4">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group form-row">
+            <div class="col-md-4"></div>
+            <input type="submit" value="Crear Factura" class="btn btn-primary col-md-2" style="margin:10px" />
+            <a asp-controller="Factura" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
+        </div>
+
+    </div>
     }
-    @*//Detalles de venta*@
-    @*<div id="tablaventa">
-        <table class="table table-striped table-hover table-bordered card">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Codigo de producto</th>
-                    <th>Descripcion</th>
-                    <th>Cantidad </th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>*@
+   
 </body>
 
 </html>
@@ -177,7 +179,7 @@
                     Correo.value = obj.correo;
                 });
             })
-        
+
     }
     function RefreshVenta() {
         fetch("https://localhost:44315/api/venta/" + comboVen.value)
@@ -203,25 +205,25 @@
                     iva.value = obj.iva;
                     total.value = obj.ventaTotal;
                     folio.value = obj.folio;
-                    console.log(obj.detallesVentas);
-                //LLenarTablaProductos(obj.detallesVentas.producto);
+                    //console.log(obj.detallesVentas);
+                    LLenarTablaProductos(obj.detallesVentas);
 
                 });
             })
 
     }
-    //function LLenarTablaProductos(data) {
-    //    $('#tablaventa tbody tr').remove();
-    //    var cadena;
-    //    console.log(data);
-    //    $.each(data, function (index, obj) {
-    //        cadena = "<tr>"
-    //        cadena = cadena + "<td>" + obj.codigoProducto + "</td>";
-    //        cadena = cadena + "<td>" + obj.descripcion + "</td>";
-    //        cadena = cadena + "<td>" + obj.descuento + "</td>";
-    //        cadena = cadena + "<td>" + obj.precio + "</td>";
-    //        cadena = cadena + "<td>";
-    //        $("#tablaventa").append(cadena);
-    //    });
-    //}
+    function LLenarTablaProductos(data) {
+        $('#tablaventa tbody tr').remove();
+        var cadena;
+        //console.log(data);
+        $.each(data, function (index, obj) {
+            cadena = "<tr>"
+            cadena = cadena + "<td>" + obj.producto.codigoProducto + "</td>";
+            cadena = cadena + "<td>" + obj.producto.descripcion + "</td>";
+            cadena = cadena + "<td>" + obj.cantiProd + "</td>";
+            cadena = cadena + "<td>" + obj.producto.precio + "</td>";
+            cadena = cadena + "<td>" + obj.ventaProductos + "</td>";
+            $("#tablaventa").append(cadena);
+        });
+    }
 </script>

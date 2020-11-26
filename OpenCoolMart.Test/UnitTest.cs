@@ -20,7 +20,7 @@ namespace OpenCoolMart.Test
         }
 
         [Fact]
-        public async Task Usuario_Contraseña_CorrectosAsync()
+        public void Usuario_Contraseña_CorrectosAsync()
         {
             //Navegator.Url = "https://localhost:44368";
             //Quita acepta que el localhost es inseguro y continua a la pagina
