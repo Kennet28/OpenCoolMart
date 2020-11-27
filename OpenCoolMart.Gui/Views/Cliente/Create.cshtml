@@ -75,7 +75,7 @@
             <div class="form-group form-row">
                 <div class="col-md-4"></div>
                 <input type="submit" value="Crear Cliente" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Cliente" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
+                <a asp-controller="Cliente" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px" onclick="validarcampos()">Cancelar</a>
             </div>
 
         </div>
@@ -83,3 +83,24 @@
 </body>
 </html>
 
+@section Scripts{
+    <script>
+        var modificar;
+        $(document).ready(function () {
+            $("input,select").change(function () {
+                modificar = true;
+            });
+        });
+
+        function validarcampos() {
+            if (modificar) {
+                if (confirm('¿Estas seguro de cancelar el nuevo registro?') == false) {
+                    event.stopPropagation();
+                    event.preventDefault();
+                    return false
+                }
+                return true
+            }
+        }
+    </script>
+}

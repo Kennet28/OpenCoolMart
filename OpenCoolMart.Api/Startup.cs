@@ -33,27 +33,15 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-<<<<<<< HEAD
             services.AddDbContext<OpenCoolMartContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
             );
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            /*services.AddDbContext<OpenCoolMartContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
-            );*/
-=======
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
-            //);
-            services.AddDbContext<OpenCoolMartContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Roger"))
-            );
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
             //);
->>>>>>> df3a989fb8e1d36dd52c8e01e770c6f140254827
 
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));

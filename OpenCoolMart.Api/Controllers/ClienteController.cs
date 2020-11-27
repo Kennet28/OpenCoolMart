@@ -60,7 +60,7 @@ namespace OpenCoolMart.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(int id, ClienteResponseDto clienteResponse)
+        public async Task<IActionResult> Put(int id, ClienteRequestDto clienteResponse)
         {
             var cliente = _mapper.Map<Cliente>(clienteResponse);
             cliente.Id = id;
