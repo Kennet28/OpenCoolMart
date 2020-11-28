@@ -10,7 +10,7 @@ namespace OpenCoolMart.Test
     //Api = localhost:44315
     //Gui = localhost:44368
 
-    public class UnitTest /*: BaseTest*/
+    public class UnitTest
     {
         public HomeController ObjHomeController { get; }
 
@@ -20,28 +20,54 @@ namespace OpenCoolMart.Test
         }
 
         [Fact]
-        public void Usuario_Contraseña_CorrectosAsync()
+        public async Task Usuario_Contraseña_CorrectosAsync()
         {
-            //Navegator.Url = "https://localhost:44368";
-            //Quita acepta que el localhost es inseguro y continua a la pagina
-            //Navegator.FindElement(By.Id("details-button")).Click();
-            //Navegator.FindElement(By.Id("proceed-link")).Click();
-            //Valida que el navegador este en la pagina del login
-            //Navegator.FindElement(By.Id("Email")).Click();
-            //Navegator.FindElement(By.Id("Email")).SendKeys("kennetavila@gmail.com");
-            //Navegator.FindElement(By.Id("Password")).Click();
-            //Navegator.FindElement(By.Id("Password")).SendKeys("123456");
-            //Navegator.FindElement(By.Id("boton")).Click();
             LoginModel login = new LoginModel
             {
-                Email = "kennetavila@gmail.com"/*Navegator.FindElement(By.Id("Email")).Text*/,
+                Email = "kennetavila@gmail.com",
                 Password = "123456"
             };
-            //Act
-            //ViewResult ObjResult =  as ViewResult;
-            //Assert
-            //Assert.Equal(RedirectToAction("Menu"), await ObjHomeController.IndexAsync(login));
+            var result = await ObjHomeController.IndexAsync(login) as RedirectToActionResult;
+            Assert.Equal("Menu",result.ActionName);
+        }
+        [Fact]
+        public async Task Usuario_Contraseña_No_ExistentesAsync()
+        {
+            LoginModel login = new LoginModel
+            {
+                Email = "kennetavila@gmail.com",
+                Password = "1213131516"
+            };
+            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
+            Assert.Null(result.ViewName);
+        }
+        [Fact]
+        public async Task Usuario_Contraseña_VaciosAsync()
+        {
+            LoginModel login = new LoginModel();
+            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
+            Assert.Null(result.Model);
+        }
 
+        [Fact]
+        public async Task Contraseña_VaciaAsync()
+        {
+            LoginModel login = new LoginModel()
+            {
+                Email = "kennetavila@gmail.com",
+            };
+            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
+            Assert.Null(result.ViewName);
+        }
+        [Fact]
+        public async Task Usuario_VacioAsync()
+        {
+            LoginModel login = new LoginModel() 
+            {
+                Password = "1213131516"
+            };
+            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
+            Assert.Null(result.ViewName);
         }
     }
 }
