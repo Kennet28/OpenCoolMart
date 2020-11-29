@@ -64,7 +64,7 @@ namespace OpenCoolMart.MSTest
             await Task.Delay(10);
             Assert.AreEqual("Index", result.ActionName);
         }
-
+        [TestMethod]
         public async Task ReactivarProductoConCamposVacios()
         {
             var controller = new ProductoController();

@@ -22,6 +22,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
         {
             _context.Add(venta);
             Producto producto = new Producto();
+            
             foreach(var detalles in venta.DetallesVentas)
             {
                 producto =_producto.AsNoTracking().SingleOrDefault(x => x.Id == detalles.ProductoId);
