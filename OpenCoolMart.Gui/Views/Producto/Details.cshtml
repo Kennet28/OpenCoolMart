@@ -21,7 +21,7 @@
         <h1 class="text-center">Detalles</h1>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.CodigoProducto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="col-md-12">Código del Producto</label>
             <div class="col-md-12">
                 @Html.EditorFor(model => model.CodigoProducto, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                 @Html.ValidationMessageFor(model => model.CodigoProducto, "", new { @class = "text-danger" })
@@ -29,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="col-md-12">Descripción</label>
             <div class="col-md-12">
                 @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                 @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
@@ -60,7 +60,7 @@
         </div>
         <div class="form-group form-row">
             <div class="col-md-6">
-                @Html.LabelFor(model => model.Clasificacion, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="col-md-12">Clasificación</label>
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.Clasificacion, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                     @Html.ValidationMessageFor(model => model.Clasificacion, "", new { @class = "text-danger" })
@@ -83,14 +83,14 @@
         </div>
         <div class="form-group form-row">
             <div class="col-md-6">
-                @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="col-md-12">Empleado que lo creo</label>
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                     @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-6">
-                @Html.LabelFor(model => model.CreateAt, htmlAttributes: new { @class = "control-label col-md-2" })
+                <label class="col-md-12">Fecha de registro</label>
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.CreateAt, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                     @Html.ValidationMessageFor(model => model.CreateAt, "", new { @class = "text-danger" })
@@ -101,14 +101,14 @@
         {
             <div class="form-group form-row">
                 <div class="col-md-6">
-                    @Html.LabelFor(model => model.UpdatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <label class="col-md-12">Empleado que lo Modifico</label>
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.UpdatedBy, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                         @Html.ValidationMessageFor(model => model.UpdatedBy, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-6">
-                    @Html.LabelFor(model => model.UpdateAt, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <label class="col-md-12">Fecha de Modificación</label>
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.UpdateAt, new { htmlAttributes = new { @class = "form-control", disabled = true } })
                         @Html.ValidationMessageFor(model => model.UpdateAt, "", new { @class = "text-danger" })
