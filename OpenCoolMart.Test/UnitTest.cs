@@ -2,9 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using OpenCoolMart.Gui.Controllers;
 using OpenCoolMart.Gui.Models;
-using OpenQA.Selenium;
 using Xunit;
-
+//using Bogus;
 namespace OpenCoolMart.Test
 {
     //Api = localhost:44315
@@ -13,19 +12,22 @@ namespace OpenCoolMart.Test
     public class UnitTest
     {
         public HomeController ObjHomeController { get; }
+        //public Faker DataFaker { get; set; }
 
         public UnitTest()
         {
             ObjHomeController = new HomeController();
+            //DataFaker = new Faker();
         }
 
         [Fact]
         public async Task Usuario_Contraseña_CorrectosAsync()
         {
+
             LoginModel login = new LoginModel
             {
-                Email = "kennetavila@gmail.com",
-                Password = "123456"
+                //Email = DataFaker.Internet.Email(),
+                //Password = DataFaker.Internet.Password(8)
             };
             var result = await ObjHomeController.IndexAsync(login) as RedirectToActionResult;
             Assert.Equal("Menu",result.ActionName);

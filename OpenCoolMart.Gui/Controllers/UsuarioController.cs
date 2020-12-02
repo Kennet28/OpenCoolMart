@@ -47,7 +47,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync(url);
+                var json = await client.GetStringAsync("https://localhost:44315/api/Usuario/"+id);
                 var _Usuario = JsonConvert.DeserializeObject<ApiResponse<UsuarioResponseDto>>(json);
                 return View(_Usuario.Data);
             }

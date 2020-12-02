@@ -2,15 +2,12 @@
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Gui.Models;
-using OpenCoolMart.Gui.Validators;
 
 namespace OpenCoolMart.Gui.Controllers
 {

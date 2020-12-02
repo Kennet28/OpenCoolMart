@@ -3,12 +3,13 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenCoolMart.Application.Services;
+using OpenCoolMart.Domain.ConstrainsMap;
 using OpenCoolMart.Domain.Interfaces;
 using OpenCoolMart.Infraestructure.Data;
 using OpenCoolMart.Infraestructure.Repositories;
@@ -33,16 +34,19 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-            services.AddDbContext<OpenCoolMartContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
-            );
+            //services.AddDbContext<OpenCoolMartContext>(options =>
+            //        options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+            //);
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //        options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-              //      options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
-            //);
-
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
+            );
+            services.Configure<RouteOptions>(route => 
+            {
+                route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
+            });
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -84,6 +88,9 @@ namespace OpenCoolMart.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapControllerRoute(
+                //   name: "default",
+                //   pattern: "{controller=Home}/{action=Index}/{id:alphanumeric}");
             });
         }
     }

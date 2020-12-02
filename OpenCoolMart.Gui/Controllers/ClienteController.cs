@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
@@ -13,6 +14,7 @@ namespace OpenCoolMart.Gui.Controllers
 {
     public class ClienteController : Controller
     {
+        protected IJSRuntime Js { get; set; }
 
         HttpClient client = new HttpClient();
         string url = "https://localhost:44315/api/cliente/";
@@ -68,7 +70,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var json = await client.GetStringAsync("https://localhost:44315/api/cliente/"+id);
+                var json = await client.GetStringAsync("https://localhost:44315/api/cliente/" + id);
                 var _Cliente = JsonConvert.DeserializeObject<ApiResponse<ClienteRequestDto>>(json);
                 return View(_Cliente.Data);
             }
@@ -89,5 +91,18 @@ namespace OpenCoolMart.Gui.Controllers
             }
             return View(ClienteDto);
         }
+        //[JSInvokable]
+        //public async Task<IActionResult> Buscar(string nombre)
+        //{
+
+        //    var json = await client.GetStringAsync("https://localhost:44315/api/Cliente/");
+        //    var Clientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json);
+        //    var cliente = Clientes.Data.FirstOrDefault(clt => clt.Nombre.Contains(nombre));
+        //    return View(cliente);
+        //}
+        //protected async Task BuscarJavaScript()
+        //{
+        //    await Js.InvokeVoidAsync("");
+        //}
     }
 }

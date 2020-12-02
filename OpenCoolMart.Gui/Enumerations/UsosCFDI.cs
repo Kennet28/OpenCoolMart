@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OpenCoolMart.Gui.Models
+namespace OpenCoolMart.Gui.Enumerations
 {
     public enum UsosCFDI
     {

@@ -41,6 +41,15 @@ namespace OpenCoolMart.Api.Controllers
 
             return Ok(response);
         }
+        [HttpGet("emp/{id:int}")]
+        public async Task<IActionResult> GetByCode(int id)
+        {
+            var empleados = await _empleadoService.GetEmpleados();
+            var empleado = empleados.SingleOrDefault(em => em.CodigoEmpleado == id);
+            var empleadoDto = _mapper.Map<Empleado, EmpleadoResponseDto>(empleado);
+            var response = new ApiResponse<EmpleadoResponseDto>(empleadoDto);
+            return Ok(response);
+        }
         [HttpPost]
         public async Task<IActionResult> Post(EmpleadoRequestDto empleadolDto)
         {

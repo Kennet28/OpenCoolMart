@@ -1,8 +1,6 @@
 ﻿@model List<OpenCoolMart.Domain.DTOs.ClienteResponseDto>
 @{
     ViewData["Title"] = "Menu Cliente";
-    //TODO: AGREGAR FUNCIONALIDAD A LA BARRA DE BUSQUEDA
-    //TODO: AGREGAR VALIDACIONES
 
 }
 <!DOCTYPE html>
@@ -92,7 +90,7 @@
                 var clienteId = $("#cliente").val();
                 if (clienteId != null && clienteId.length != 0) {
                     $.ajax({
-                        url: "https://localhost:44315/api/Cliente/" + clienteId,
+                        url: "https://localhost:44315/api/Cliente/cli/" + clienteId,
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
@@ -131,8 +129,8 @@
             cadena = cadena + "<td>" + data.telefono + "</td>";
             cadena = cadena + "<td>" + data.correo + "</td>";
             cadena = cadena + "<td>" +
-                "<a href='/Producto/Details/" + data.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
-                "<a href='/Producto/Update/" + data.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
+                "<a href='/cliente/Details/" + data.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
+                "<a href='/cliente/Update/" + data.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
                 + "</td>";
 
             $("#tablaclientes").append(cadena);
@@ -147,8 +145,8 @@
                 cadena = cadena + "<td>" + obj.telefono + "</td>";
                 cadena = cadena + "<td>" + obj.correo + "</td>";
                 cadena = cadena + "<td>" +
-                    "<a href='/Producto/Details/" + obj.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
-                    "<a href='/Producto/Update/" + obj.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
+                    "<a href='/Cliente/Details/" + obj.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
+                    "<a href='/Cliente/Update/" + obj.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
                     + "</td>";
 
                 $("#tablaclientes").append(cadena);

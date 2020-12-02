@@ -40,6 +40,16 @@ namespace OpenCoolMart.Api.Controllers
 
             return Ok(response);
         }
+        [HttpGet("usr/{id:alphanumeric}")]
+        public async Task<IActionResult> GetByEmail(string id)
+        {
+            var usuarios = await _usuarioService.GetUsuarios();
+            var usuario = usuarios.SingleOrDefault(usr => usr.Correo.Contains(id));
+            var usuarioDto = _mapper.Map<Usuario, UsuarioResponseDto>(usuario);
+            var response = new ApiResponse<UsuarioResponseDto>(usuarioDto);
+
+            return Ok(response);
+        }
         [HttpPost]
         public async Task<IActionResult> Post(UsuarioRequestDto usuariolDto)
         {

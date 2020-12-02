@@ -1,9 +1,6 @@
 ﻿@model List<OpenCoolMart.Domain.DTOs.EmpleadoResponseDto>
 @{
     ViewData["Title"] = "Menu Empleado";
-    //TODO: AGREGAR FUNCIONALIDAD A LA BARRA DE BUSQUEDA
-    //TODO: AGREGAR VALIDACIONES
-
 }
 <!DOCTYPE html>
 <html lang="es-mx">
@@ -25,17 +22,17 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-8"><h2>Detalles <b>Empleados</b></h2></div>
+                        <div class="col-sm-8"><h2>Menu <b>Empleados</b></h2></div>
                         <div class="col-sm-4">
                             <div class="search-box">
                                 <i class="material-icons">&#xE8B6;</i>
-                                <input type="text" class="form-control" placeholder="Buscar Empleado">
+                                <input id="empleado" type="number" class="form-control" placeholder="Buscar Empleado">
                             </div>
                         </div>
                     </div>
                 </div>
                 <div id="tabla">
-                    <table class="table table-striped table-hover table-bordered">
+                    <table id="tablaempleado" class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -48,16 +45,16 @@
                         <tbody>
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>@Html.DisplayFor(modelItem => item.Id)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
-                                <td>@Html.DisplayFor(modelItem => item.FechaContratacion)</td>
-                                <td>
-                                    <a asp-controller="Empleado" asp-action="Details" asp-route-id="@item.Id" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                    <a asp-controller="Empleado" asp-action="Update" asp-route-id="@item.Id" class="edit" title="Editar" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Telefono)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.FechaContratacion)</td>
+                                    <td>
+                                        <a asp-controller="Empleado" asp-action="Details" asp-route-id="@item.Id" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                        <a asp-controller="Empleado" asp-action="Update" asp-route-id="@item.Id" class="edit" title="Editar" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                    </td>
+                                </tr>
                             }
 
                         </tbody>
@@ -82,3 +79,78 @@
         $('[data-toggle="tooltip"]').tooltip();
     });
 </script>
+@section Scripts{
+    <script>
+        var tecla_enter;
+        function press_Enter() {
+            tecla_enter = event.keyCode;
+            if (tecla_enter == 13) {
+
+                var CodeEmpleado = $("#empleado").val();
+                if (CodeEmpleado != null && CodeEmpleado.length != 0) {
+                    $.ajax({
+                        url: "https://localhost:44315/api/empleado/emp/" + CodeEmpleado,
+                        method: "GET"
+                    }).done(function (data) {
+                        if (data.data == null)
+                            alert("Este empleado no existe")
+                        else {
+                            Buscar(data.data);
+                        }
+                    }).fail(function (jqXHR, textStatus, error) {
+                        alert('lo sentimos ha habido un error: '+error);
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: "https://localhost:44315/api/empleado",
+                        method: "GET"
+                    }).done(function (data) {
+                        if (data.data == null)
+                            alert("No hay empleados registrados")
+                        if (data.data != null)
+                            Llenartabla(data.data);
+                    }).fail(function (jqXHR, textStatus, error) {
+                        alert("lo sentimos ha habido un error");
+                    });
+                }
+
+            }
+        }
+        document.addEventListener('keydown', press_Enter);
+
+        function Buscar(data) {
+            $('#tablaempleado tbody tr').remove();
+            var cadena;
+            console.log(data.data);
+            cadena = "<tr>"
+            cadena = cadena + "<td>" + data.id + "</td>";
+            cadena = cadena + "<td>" + data.nombre + "</td>";
+            cadena = cadena + "<td>" + data.telefono + "</td>";
+            cadena = cadena + "<td>" + data.fechaContratacion + "</td>";
+            cadena = cadena + "<td>" +
+                "<a href='/empleado/Details/" + data.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
+                "<a href='/empleado/Update/" + data.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
+                + "</td>";
+
+            $("#tablaempleado").append(cadena);
+        }
+        function Llenartabla(data) {
+            $('#tablaempleado tbody tr').remove();
+            var cadena;
+            $.each(data, function (index, obj) {
+                cadena = "<tr>"
+                cadena = cadena + "<td>" + obj.id + "</td>";
+                cadena = cadena + "<td>" + obj.nombre + "</td>";
+                cadena = cadena + "<td>" + obj.telefono + "</td>";
+                cadena = cadena + "<td>" + obj.fechaContratacion + "</td>";
+                cadena = cadena + "<td>" +
+                    "<a href='/empleado/Details/" + obj.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
+                    "<a href='/empleado/Update/" + obj.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
+                    + "</td>";
+
+                $("#tablaclientes").append(cadena);
+            });
+        }
+    </script>
+}

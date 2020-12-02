@@ -41,6 +41,15 @@ namespace OpenCoolMart.Api.Controllers
 
             return Ok(response);
         }
+        [HttpGet("cli/{id:alphanumeric}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var clientes = await _clienteService.GetClientes();
+            var cliente = clientes.SingleOrDefault(c => c.Nombre.Contains(id));
+            var clienteDto = _mapper.Map<Cliente, ClienteResponseDto>(cliente);
+            var response = new ApiResponse<ClienteResponseDto>(clienteDto);
+            return Ok(response);
+        }
         [HttpPost]
         public async Task<IActionResult> Post(ClienteRequestDto clientelDto)
         {

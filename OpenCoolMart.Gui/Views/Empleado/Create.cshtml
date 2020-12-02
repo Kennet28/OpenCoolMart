@@ -1,6 +1,7 @@
 ﻿@model OpenCoolMart.Gui.Models.EmpleadoUsuarioModel
 @{
     ViewData["Title"] = "Empleado ";
+    List<SelectListItem> Perfiles = ViewBag.Perfiles;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -22,8 +23,8 @@
         @Html.AntiForgeryToken()
     <div class="container-xl table-wrapper">
         <hr />
-        <h1 class="text-center">Detalles</h1>
-
+        <h1 class="text-center">Agregar empleado</h1>
+        <h2 class="text-danger text-center">@ViewData["Error"]</h2>
         <div class="form-group">
             @Html.LabelFor(model => model.Empleado.CodigoEmpleado, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-12">
@@ -57,14 +58,14 @@
             <div class="col-md-4">
                 @Html.LabelFor(model => model.Usuario.Contrasenia, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.Usuario.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.PasswordFor(model => model.Usuario.Contrasenia, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Usuario.Contrasenia, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="col-md-4">
                 @Html.LabelFor(model => model.Usuario.PerfilId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.Usuario.PerfilId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.DropDownListFor(model => model.Usuario.PerfilId, Perfiles, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Usuario.PerfilId, "", new { @class = "text-danger" })
                 </div>
             </div>

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
+using OpenCoolMart.Gui.Enumerations;
 using OpenCoolMart.Gui.Models;
 using System;
 using System.Collections.Generic;
@@ -74,6 +75,9 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                ViewBag.Ventas = await GetVentasAsync();
+                ViewBag.Clientes = await GetClientesAsync(); ;
+                ViewBag.UsosCFDI = GetUsosCfdi();
                 var json = await client.GetStringAsync("https://localhost:44315/api/facturas/"+id);
                 var _Factura = JsonConvert.DeserializeObject<ApiResponse<FacturaRequestDto>>(json);
                 return View(_Factura.Data);
@@ -83,17 +87,9 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
-        [HttpPut]
+        [HttpPost]
         public async Task<IActionResult> Update(int Id,FacturaRequestDto FacturaDto)
         {
-            
-            
-            
-            
-            
-            ViewBag.Ventas = await GetVentasAsync();
-            ViewBag.Clientes = await GetClientesAsync(); ;
-            ViewBag.UsosCFDI = GetUsosCfdi(); 
             client.BaseAddress = new Uri("https://localhost:44315/api/facturas/");
             FacturaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
             var putTask = await client.PutAsJsonAsync("?id=" + Id, FacturaDto);

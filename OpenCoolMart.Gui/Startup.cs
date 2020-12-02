@@ -6,9 +6,11 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OpenCoolMart.Gui.ConstrainsMap;
 
 namespace OpenCoolMart.Gui
 {
@@ -27,6 +29,10 @@ namespace OpenCoolMart.Gui
 
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.Configure<RouteOptions>(route =>
+            {
+                route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
+            });
             services.AddSession();
             services.AddControllersWithViews();
             services.AddRouting(option =>
@@ -62,6 +68,9 @@ namespace OpenCoolMart.Gui
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id:alphanumeric}");
             });
         }
     }

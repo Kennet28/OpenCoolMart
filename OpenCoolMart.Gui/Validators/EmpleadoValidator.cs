@@ -1,0 +1,31 @@
+﻿using FluentValidation;
+using OpenCoolMart.Gui.Models;
+using System;
+
+namespace OpenCoolMart.Gui.Validators
+{
+    public class EmpleadoValidator:AbstractValidator<EmpleadoUsuarioModel> 
+    {
+        public EmpleadoValidator()
+        {
+            RuleFor(Empleado => Empleado.Empleado.Telefono)
+                .GreaterThan(0).WithMessage("Este campo no puede estar vacio");
+            RuleFor(Empleado => Empleado.Empleado.CodigoEmpleado)
+                .GreaterThan(0).WithMessage("Este campo no puede estar vacio");
+            RuleFor(Empleado => Empleado.Empleado.Nombre)
+                .NotNull().WithMessage("Este campo no puede estar vacio")
+                .NotEmpty().WithMessage("Este campo no puede estar vacio")
+                .Length(3, 50);
+            RuleFor(Usuario => Usuario.Usuario.Contrasenia)
+               .NotNull().WithMessage("Este campo no puede estar vacio")
+               .NotEmpty().WithMessage("Este campo no puede estar vacio")
+               .Length(8, 15);
+            RuleFor(Usuario => Usuario.Usuario.Correo)
+                .NotNull().WithMessage("Este campo no puede ser vacio")
+                .NotEmpty().WithMessage("Este campo no puede estar vacio");
+            RuleFor(Usuario => Usuario.Usuario.PerfilId)
+                .NotNull().WithMessage("Este campo no puede estar vacio ")
+                .NotEmpty().WithMessage("Este campo no puede estar vacio");
+        }
+    }
+}
