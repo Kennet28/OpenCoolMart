@@ -1,4 +1,4 @@
-﻿@model OpenCoolMart.Domain.DTOs.FacturaResponseDto
+﻿@model FacturaResponseDto
 @{
     ViewData["Title"] = "Factura ";
 }
@@ -19,54 +19,112 @@
 <body>
        <div class="container-xl table-wrapper">
             <hr />
-            <h1 class="text-center">Detalles</h1>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Folio, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.Folio, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.ClienteId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.ClienteId, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.LabelFor(model => model.VentaId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-12">
-                    @Html.EditorFor(model => model.VentaId, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
-            </div>
-            <div class="form-group form-row">
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.UsoCFDI, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.UsoCFDI, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group form-row">
-                <div class="col-md-4"></div>
-                <a asp-controller="Factura" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
-            </div>
-
-        </div>
+            <h1 class="text-center">Detalles de factura</h1>
+       <div class="form-group">
+           <div class="form-group form-row">
+               <div class="col-md-4">
+                   <label class="control-label">Folio:</label>
+                   <input asp-for="@Model.Folio" type="text" class="form-control" readonly>
+               </div>
+               <div class="col-md-4">
+                   <label class="control-label">Cliente:</label>
+                   <input asp-for="@Model.ClienteId" id="ClienteId" type="text" class = "form-control" readonly>
+               </div>
+               <div class="col-md-4">
+                   <label for="" class="control-label">Folio de venta:</label>
+                   <input asp-for="@Model.VentaId" id="VentaId" type="text" class="form-control" readonly>
+               </div>
+           </div>
+           <div class="form-group form-row">
+               <div class="col-md-4">
+                   <label for="" class="control-label col-md-6">Uso de CFDI </label>
+                   @Html.EditorFor(model => model.UsoCFDI, new {htmlAttributes = new {@class = "form-control", disabled = true }})
+               </div>
+               <div class="col-md-4">
+                   @Html.LabelFor(model => model.Observaciones, htmlAttributes: new { @class = "control-label col-md-2" })
+                   @Html.EditorFor(model => model.Observaciones, new { htmlAttributes = new { @class = "form-control",disabled = true } })
+               </div>
+               <div class="col-md-4">
+                   <label class="control-label col-md-6">Creado por:</label>
+                   <input asp-for="@Model.CreatedBy" id="empleadoBy" type="text" class="form-control" readonly/>
+               </div>
+           </div>
+           <div class="form-group form-row">
+               <div class="col-md-4">
+                   <label class="control-label col-md-6">Fecha de creación:</label>
+                   <input asp-for="@Model.CreateAt" type="text" class="form-control" readonly/>
+               </div>
+               <div class="col-md-4">
+                   <label class="control-label col-md-6">Actualizado por:</label>
+                   <input asp-for="@Model.UpdatedBy" id="empleadoUpdate" type="text" class="form-control" readonly/>
+               </div>
+               <div class="col-md-4">
+                   <label class="control-label col-md-8">Fecha de actualización:</label>
+                   <input asp-for="@Model.UpdateAt" type="text" class="form-control" readonly/>
+               </div>
+           </div>
+           <div class="form-group form-row">
+               <div class="col-md-4">
+                   <label for="" class="control-label">Estado:</label>
+                   <div class="col-md-8">
+                       @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control",disabled = true } })
+                   </div>
+               </div>
+           </div>
+           <div class="form-group form-row">
+               <a asp-controller="Factura" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px">Cancelar</a>
+           </div>
+       </div>
+       </div>
 </body>
 </html>
-
+@section Scripts
+{
+    <script >
+    var clienteId = document.getElementById("ClienteId");
+    var ventaId = document.getElementById("VentaId");
+    var empleadoBy = document.getElementById("empleadoBy");
+    var empleadoUpdate = document.getElementById("empleadoUpdate")
+    window.addEventListener("load",GetData);
+    // clienteId.addEventListener("change",GetClient)    
+        function GetData() {
+          fetch("https://localhost:44315/api/cliente/"+clienteId.value)
+                  .then(function(result) {
+                      if (result.ok) return result.json();
+                      else alert("Algo a ocurrido en clientes, error:"+result.status);
+                  })
+                  .then(function (data){
+                      if (data !== null) clienteId.value = data.data.nombre;
+                      else alert("No se encontro  el cliente");
+                  })
+          fetch("https://localhost:44315/api/venta/"+ventaId.value)
+                  .then(function(result) {
+                                if (result.ok) return result.json(); 
+                                else alert("Algo a ocurrido en ventas, error:"+result.status);
+                            })
+                  .then(function (data){
+                      if (data !== null) ventaId.value = data.data.folio;
+                      else alert("No se encontro la venta");
+                  })
+           fetch("https://localhost:44315/api/empleado/"+empleadoBy.value)
+           .then(function(result) {
+                if (result.ok) return  result.json();
+                else alert("Algo a ocurrido en empleados, error: "+result.status);            
+           })
+           .then(function(data) {
+               if (data !== null) empleadoBy.value = data.data.nombre;
+               else alert("No se encontro  el empleado");
+           })
+           fetch("https://localhost:44315/api/empleado/"+empleadoUpdate.value)
+                      .then(function(result) {
+                           if (result.ok) return  result.json();
+                           else alert("Algo a ocurrido en empleados, error: "+result.status);            
+                      })
+                      .then(function(data) {
+                          if (data !== null) empleadoUpdate.value = data.data.nombre;
+                          else alert("No se encontro  el empleado");
+                      })
+        }
+        
+    </script>
+}

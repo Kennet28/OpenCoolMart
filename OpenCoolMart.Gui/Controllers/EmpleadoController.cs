@@ -11,6 +11,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using EmpleadoRequestDto = OpenCoolMart.Gui.Models.EmpleadoRequestDto;
+using EmpleadoResponseDto = OpenCoolMart.Gui.Models.EmpleadoResponseDto;
+using UsuarioRequestDto = OpenCoolMart.Gui.Models.UsuarioRequestDto;
+using UsuarioResponseDto = OpenCoolMart.Gui.Models.UsuarioResponseDto;
+
 namespace OpenCoolMart.Gui.Controllers
 {
     public class EmpleadoController : Controller

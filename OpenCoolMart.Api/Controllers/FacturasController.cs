@@ -45,7 +45,12 @@ namespace OpenCoolMart.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(FacturaRequestDto facturalDto)
         {
+            var facturas = await _facturasService.GetFacturas();
+            var nuevaFactura = new Facturas();
+            var facturases = facturas.ToList();
+            if (facturases.Any()) nuevaFactura = facturases.Last(); else nuevaFactura.Folio = 100000;
             var factura = _mapper.Map<FacturaRequestDto, Facturas>(facturalDto);
+            factura.Folio = nuevaFactura.Folio + 1;
             await _facturasService.AddFactura(factura);
             var facturaresponseDto = _mapper.Map<Facturas, FacturaResponseDto>(factura);
             var response = new ApiResponse<FacturaResponseDto>(facturaresponseDto);

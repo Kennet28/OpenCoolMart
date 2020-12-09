@@ -9,6 +9,8 @@ using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
+using ClienteRequestDto = OpenCoolMart.Gui.Models.ClienteRequestDto;
+using ClienteResponseDto = OpenCoolMart.Gui.Models.ClienteResponseDto;
 
 namespace OpenCoolMart.Gui.Controllers
 {

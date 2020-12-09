@@ -14,7 +14,7 @@ namespace OpenCoolMart.Application.Mappings
             CreateMap<FacturaRequestDto, Facturas>().AfterMap(
             ((source, destination) =>{
                 destination.CreateAt = DateTime.Now;
-                destination.CreatedBy = 3;
+                destination.Fecha = DateTime.Now;
                 destination.Status = true;
             }));
             CreateMap<FacturaResponseDto, Facturas>();

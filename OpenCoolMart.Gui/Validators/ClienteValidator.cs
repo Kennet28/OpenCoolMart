@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using OpenCoolMart.Domain.DTOs;
+using ClienteRequestDto = OpenCoolMart.Gui.Models.ClienteRequestDto;
 
 namespace OpenCoolMart.Gui.Validators
 {

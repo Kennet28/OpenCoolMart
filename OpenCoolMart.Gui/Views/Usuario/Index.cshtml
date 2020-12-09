@@ -1,7 +1,5 @@
-﻿@model List<OpenCoolMart.Domain.DTOs.UsuarioResponseDto>
+﻿@model List<UsuarioResponseDto>
 @{
-    //TODO: AGREGAR FUNCIONALIDAD A LA BARRA DE BUSQUEDA
-    //TODO: AGREGAR VALIDACIONES
 
 }
 <head>
@@ -15,7 +13,7 @@
     <link href="~/css/Empleado/Index.css" rel="stylesheet" />
 </head>
 <div id="content">
-    <img src="~/Img/Imagen3.png" class="ribbon">
+    <img src="~/Img/Imagen3.png" class="ribbon" alt="Imagen 3">
 </div>
 <div class="container-xl">
     <div class="table-responsive">
@@ -66,13 +64,13 @@
 
 @section Scripts{
     <script>
-        var tecla_enter;
+        let tecla_enter;
         function press_Enter() {
             tecla_enter = event.keyCode;
-            if (tecla_enter == 13) {
+            if (tecla_enter === 13) {
 
-                var CodeUsuario = $("#usuario").val();
-                if (CodeUsuario != null && CodeUsuario.length != 0) {
+                const CodeUsuario = $("#usuario").val();
+                if (CodeUsuario != null && CodeUsuario.length !== 0) {
                     $.ajax({
                         url: "https://localhost:44315/api/usuario/usr/" + CodeUsuario,
                         method: "GET"
@@ -124,7 +122,7 @@
             $.each(data, function (index, obj) {
                 cadena = "<tr>"
                 cadena = cadena + "<td>" + obj.id + "</td>";
-                cadena = cadena + "<td>" + obj.corro + "</td>";
+                cadena = cadena + "<td>" + obj.correo + "</td>";
                 cadena = cadena + "<td>" + obj.perfilId + "</td>";
                 cadena = cadena + "<td>" +
                     "<a href='/empleado/Details/" + obj.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +

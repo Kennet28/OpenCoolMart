@@ -8,39 +8,35 @@ using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Gui.Models;
+using UsuarioResponseDto = OpenCoolMart.Gui.Models.UsuarioResponseDto;
 
 namespace OpenCoolMart.Gui.Controllers
 {
     public class HomeController : Controller
     {
-
-        public HomeController()
-        {
-           
-        }
-       private readonly HttpClient client = new HttpClient();
-        public string url = "https://localhost:44315/api/Usuario";
+       private readonly HttpClient _client = new HttpClient();
+        // "https://localhost:44315/api/Usuario";
         public IActionResult Index()
         {
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> IndexAsync(LoginModel login)
+        public async Task<IActionResult> Index(LoginModel login)
         {
-            var json = await client.GetStringAsync("https://localhost:44315/api/Usuario/");
-            var Usuarios = JsonConvert.DeserializeObject<ApiResponse<List<UsuarioResponseDto>>>(json);
-            var _Usuario = Usuarios.Data.FirstOrDefault(e => e.Correo.Equals(login.Email) && e.Contrasenia.Equals(login.Password));
-            if (_Usuario != null && _Usuario.PerfilId.Equals(1))
+            var json = await _client.GetStringAsync("https://localhost:44315/api/Usuario/");
+            var users = JsonConvert.DeserializeObject<ApiResponse<List<UsuarioResponseDto>>>(json);
+            var user = users.Data.FirstOrDefault(e => e.Correo.Equals(login.Email) && e.Contrasenia.Equals(login.Password));
+            if (user != null && user.PerfilId.Equals(1))
             {
-                HttpContext.Session.SetString("Id", _Usuario.Id.ToString());
+                HttpContext.Session.SetString("Id", user.Id.ToString());
                 return RedirectToAction("Menu");
             }
-            else if (_Usuario != null && _Usuario.PerfilId.Equals(2))
+            else if (user != null && user.PerfilId.Equals(2))
             {
-                HttpContext.Session.SetString("Id", _Usuario.Id.ToString());
+                HttpContext.Session.SetString("Id", user.Id.ToString());
                 return RedirectToAction("MenuVendedor");
             }
-            else if (_Usuario == null)
+            else if (user == null)
             {
                 
                 login.status = false;

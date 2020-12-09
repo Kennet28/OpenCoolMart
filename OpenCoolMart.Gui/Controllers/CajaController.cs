@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CajaRequestDto = OpenCoolMart.Gui.Models.CajaRequestDto;
+using CajaResponseDto = OpenCoolMart.Gui.Models.CajaResponseDto;
 
 namespace OpenCoolMart.Gui.Controllers
 {

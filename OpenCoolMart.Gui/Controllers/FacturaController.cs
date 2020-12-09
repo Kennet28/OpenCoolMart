@@ -2,15 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
-using OpenCoolMart.Api.Responses;
-using OpenCoolMart.Domain.DTOs;
+using OpenCoolMart.Gui.Responses;
 using OpenCoolMart.Gui.Enumerations;
-using OpenCoolMart.Gui.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Models;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -23,8 +22,8 @@ namespace OpenCoolMart.Gui.Controllers
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync(url);
-                var Facturas = JsonConvert.DeserializeObject<ApiResponse<List<FacturaResponseDto>>>(json);
-                return View(Facturas.Data);
+                var facturas = JsonConvert.DeserializeObject<ApiResponse<List<FacturaResponseDto>>>(json);
+                return View(facturas.Data);
             }
             else
             {
@@ -48,14 +47,12 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(FacturaRequestDto Factura)
         {
-
+            ViewBag.Ventas = await GetVentasAsync();
+            ViewBag.Clientes = await GetClientesAsync(); ;
+            ViewBag.UsosCFDI = GetUsosCfdi();
             Factura.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
-            var Json = await client.PostAsJsonAsync("https://localhost:44315/api/Facturas/", Factura);
-            if (Json.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View(Factura);
+            var json = await client.PostAsJsonAsync("https://localhost:44315/api/Facturas/", Factura);
+            return json.IsSuccessStatusCode ? (IActionResult) RedirectToAction("Index") : View(Factura);
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id)
@@ -63,8 +60,8 @@ namespace OpenCoolMart.Gui.Controllers
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var json = await client.GetStringAsync("https://localhost:44315/api/facturas/"+id);
-                var _Factura = JsonConvert.DeserializeObject<ApiResponse<FacturaResponseDto>>(json);
-                return View(_Factura.Data);
+                var factura = JsonConvert.DeserializeObject<ApiResponse<FacturaResponseDto>>(json);
+                return View(factura.Data);
             }
             else
             {
@@ -75,12 +72,12 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                ViewBag.Ventas = await GetVentasAsync();
-                ViewBag.Clientes = await GetClientesAsync(); ;
-                ViewBag.UsosCFDI = GetUsosCfdi();
+                // ViewBag.Ventas = await GetVentasAsync();
+                // ViewBag.Clientes = await GetClientesAsync(); ;
+                // ViewBag.UsosCFDI = GetUsosCfdi();
                 var json = await client.GetStringAsync("https://localhost:44315/api/facturas/"+id);
-                var _Factura = JsonConvert.DeserializeObject<ApiResponse<FacturaRequestDto>>(json);
-                return View(_Factura.Data);
+                var factura = JsonConvert.DeserializeObject<ApiResponse<FacturaRequestDto>>(json);
+                return View(factura.Data);
             }
             else
             {
@@ -88,57 +85,45 @@ namespace OpenCoolMart.Gui.Controllers
             }
         }
         [HttpPost]
-        public async Task<IActionResult> Update(int Id,FacturaRequestDto FacturaDto)
+        public async Task<IActionResult> Update(int id,FacturaRequestDto facturaDto)
         {
             client.BaseAddress = new Uri("https://localhost:44315/api/facturas/");
-            FacturaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
-            var putTask = await client.PutAsJsonAsync("?id=" + Id, FacturaDto);
-            if (putTask.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Index");
-            }
-            return View(FacturaDto);
+            facturaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
+            var putTask = await client.PutAsJsonAsync("?id=" + id, facturaDto);
+            return putTask.IsSuccessStatusCode ? (IActionResult) RedirectToAction("Index") : View(facturaDto);
         }
         public async Task<List<SelectListItem>> GetVentasAsync() 
         {
             string json = await client.GetStringAsync("https://localhost:44315/api/venta/");
-            var Listventas = JsonConvert.DeserializeObject<ApiResponse<List<Models.VentaResponseDto>>>(json);
-            List<SelectListItem> Ventas = Listventas.Data.ConvertAll(Ven =>
+            var listventas = JsonConvert.DeserializeObject<ApiResponse<List<Models.VentaResponseDto>>>(json);
+            var ventas = listventas.Data.ConvertAll(ven => new SelectListItem()
             {
-                return new SelectListItem()
-                {
-                    Text = Ven.Id.ToString(),
-                    Value = Ven.Id.ToString(),
-                    Selected = false
-                };
+                Text = ven.Folio.ToString(),
+                Value = ven.Id.ToString(),
+                Selected = false
             });
-            return Ventas;
+            return ventas;
 
         }
     public async Task<List<SelectListItem>> GetClientesAsync()
         {
             string json2 = await client.GetStringAsync("https://localhost:44315/api/cliente/");
-            var Listclientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json2);
-            List<SelectListItem> Clientes = Listclientes.Data.ConvertAll(client =>
+            var listclientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json2);
+            var clientes = listclientes.Data.ConvertAll(cliente => new SelectListItem()
             {
-                return new SelectListItem()
-                {
-                    Text = client.Nombre,
-                    Value = client.Id.ToString(),
-                    Selected = false
-                };
+                Text = cliente.Nombre,
+                Value = cliente.Id.ToString(),
+                Selected = false
             });
-            return Clientes;
+            return clientes;
         }
         public List<SelectListItem> GetUsosCfdi() 
         {
-             List<SelectListItem> usosCFDIs = Enum.GetValues(typeof(UsosCFDI)).Cast<UsosCFDI>().ToList().ConvertAll(uso => {
-                return new SelectListItem()
-                {
-                    Text = uso.ToString(),
-                    Value = uso.ToString()
-                };
-            });
+             var usosCFDIs = Enum.GetValues(typeof(UsosCFDI)).Cast<UsosCFDI>().ToList().ConvertAll(uso => new SelectListItem()
+             {
+                 Text = uso.ToString(),
+                 Value = uso.ToString()
+             });
             return usosCFDIs;
         }
     }

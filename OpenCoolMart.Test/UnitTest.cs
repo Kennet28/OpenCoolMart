@@ -1,17 +1,18 @@
-using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using OpenCoolMart.Gui.Controllers;
 using OpenCoolMart.Gui.Models;
 using Xunit;
+
 //using Bogus;
-namespace OpenCoolMart.Test
+namespace OpenCoolMart.XUnitTest
 {
     //Api = localhost:44315
     //Gui = localhost:44368
 
     public class UnitTest
     {
-        public HomeController ObjHomeController { get; }
+        private HomeController ObjHomeController { get; }
         //public Faker DataFaker { get; set; }
 
         public UnitTest()
@@ -24,52 +25,47 @@ namespace OpenCoolMart.Test
         public async Task Usuario_Contraseña_CorrectosAsync()
         {
 
-            LoginModel login = new LoginModel
+            var login = new LoginModel
             {
                 //Email = DataFaker.Internet.Email(),
                 //Password = DataFaker.Internet.Password(8)
             };
-            var result = await ObjHomeController.IndexAsync(login) as RedirectToActionResult;
-            Assert.Equal("Menu",result.ActionName);
+            if (await ObjHomeController.Index(login) is RedirectToActionResult result) Assert.Equal("Menu", result.ActionName);
         }
         [Fact]
         public async Task Usuario_Contraseña_No_ExistentesAsync()
         {
-            LoginModel login = new LoginModel
+            var login = new LoginModel
             {
                 Email = "kennetavila@gmail.com",
                 Password = "1213131516"
             };
-            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
-            Assert.Null(result.ViewName);
+            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
         }
         [Fact]
         public async Task Usuario_Contraseña_VaciosAsync()
         {
-            LoginModel login = new LoginModel();
-            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
-            Assert.Null(result.Model);
+            var login = new LoginModel();
+            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.Model);
         }
 
         [Fact]
         public async Task Contraseña_VaciaAsync()
         {
-            LoginModel login = new LoginModel()
+            var login = new LoginModel()
             {
                 Email = "kennetavila@gmail.com",
             };
-            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
-            Assert.Null(result.ViewName);
+            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
         }
         [Fact]
         public async Task Usuario_VacioAsync()
         {
-            LoginModel login = new LoginModel() 
+            var login = new LoginModel() 
             {
                 Password = "1213131516"
             };
-            var result = await ObjHomeController.IndexAsync(login) as ViewResult;
-            Assert.Null(result.ViewName);
+            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
         }
     }
 }

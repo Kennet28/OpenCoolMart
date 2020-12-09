@@ -8,15 +8,15 @@ namespace OpenCoolMart.Gui.Validators
     {
         public EmpleadoValidator()
         {
-            RuleFor(Empleado => Empleado.Empleado.Telefono)
+            RuleFor(empleado => empleado.Empleado.Telefono)
                 .GreaterThan(0).WithMessage("Este campo no puede estar vacio");
-            RuleFor(Empleado => Empleado.Empleado.CodigoEmpleado)
+            RuleFor(empleado => empleado.Empleado.CodigoEmpleado)
                 .GreaterThan(0).WithMessage("Este campo no puede estar vacio");
-            RuleFor(Empleado => Empleado.Empleado.Nombre)
+            RuleFor(empleado => empleado.Empleado.Nombre)
                 .NotNull().WithMessage("Este campo no puede estar vacio")
                 .NotEmpty().WithMessage("Este campo no puede estar vacio")
                 .Length(3, 50);
-            RuleFor(Usuario => Usuario.Usuario.Contrasenia)
+            RuleFor(usuario => usuario.Usuario.Contrasenia)
                .NotNull().WithMessage("Este campo no puede estar vacio")
                .NotEmpty().WithMessage("Este campo no puede estar vacio")
                .Length(8, 15);
