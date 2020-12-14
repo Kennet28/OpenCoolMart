@@ -1,5 +1,6 @@
 ﻿using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
+using OpenCoolMart.Domain.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -23,9 +24,12 @@ namespace OpenCoolMart.Application.Services
             await _unitOfWork.VentaRepository.CrearVerta(venta);
         }
 
-        public async Task<IEnumerable<Venta>> GetVentas()
+        public IEnumerable<Venta> GetVentas(VentaQueryFilter filter)
         {
-            return await _unitOfWork.VentaRepository.GetAll();
+            var ventas = _unitOfWork.VentaRepository.GetVentas(filter);
+            
+            
+            return ventas;
         }
 
         public async Task<Venta> VerVenta(int id)

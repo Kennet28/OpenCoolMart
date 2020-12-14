@@ -37,9 +37,9 @@ namespace OpenCoolMart.Infraestructure.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> FindByCondition(Expression<Func<T, bool>> expression)
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            return await _entities.Where(expression).AsNoTracking().ToListAsync();
+            return _entities.Where(expression).AsNoTracking().AsQueryable();
         }
 
         public async Task<IEnumerable<T>> GetAll()

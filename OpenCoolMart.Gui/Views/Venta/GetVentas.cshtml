@@ -94,13 +94,13 @@
                 var codigo = $("#buscarventas").val();
                 if (codigo != null && codigo.length != 0) {
                     $.ajax({
-                        url: "https://localhost:44315/api/Venta/" + codigo,
+                        url: "https://localhost:44315/api/Venta?Folio=" + codigo,
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
                             alert("Este producto no existe")
                         else {
-                            Buscar(data.data);
+                            Llenartabla(data.data);
                         }
                     }).fail(function (jqXHR, textStatus, error) {
                         alert("lo sentimos ha habido un error");
@@ -124,7 +124,7 @@
         }
         document.addEventListener('keydown', press_Enter);
 
-        function Buscar(data) {
+        /*function Buscar(data) {
             $('#tablaventas tbody tr').remove();
             var cadena;
             cadena = "<tr>"
@@ -141,7 +141,7 @@
                 + "</td>";
 
             $("#tablaventas").append(cadena);
-        }
+        }*/
         function Llenartabla(data) {
             $('#tablaventas tbody tr').remove();
             var cadena;

@@ -18,7 +18,7 @@ namespace OpenCoolMart.Application.Services
         public async Task AddUsuario(Usuario usuario)
         {
             Expression<Func<Usuario, bool>> expression = item => item.Id == usuario.Id;
-            var usuarios = await _unitOfWork.UsuarioRepository.FindByCondition(expression);
+            var usuarios = _unitOfWork.UsuarioRepository.FindByCondition(expression);
             if (usuarios.Any(item => item.Id == usuario.Id))
                 throw new Exception("Este usuario ya ha sido registrado");
             await _unitOfWork.UsuarioRepository.Add(usuario);

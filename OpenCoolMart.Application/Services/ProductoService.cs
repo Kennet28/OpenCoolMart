@@ -21,7 +21,7 @@ namespace OpenCoolMart.Application.Services
         public async Task AddProducto(Producto producto)
         {
             Expression<Func<Producto, bool>> expression = item => item.CodigoProducto == producto.CodigoProducto;
-            var productos = await _unitOfWork.ProductoRepository.FindByCondition(expression);
+            var productos = _unitOfWork.ProductoRepository.FindByCondition(expression);
             if (productos.Any(item => item.CodigoProducto == producto.CodigoProducto))
                 throw new Exception("Este codigo ya ha sido registrado");
 
@@ -47,9 +47,9 @@ namespace OpenCoolMart.Application.Services
         public async Task UpdateProducto(Producto producto)
         {
             Expression<Func<Producto, bool>> expression = item => item.CodigoProducto == producto.CodigoProducto;
-            var productos = await _unitOfWork.ProductoRepository.FindByCondition(expression);
+            var productos = _unitOfWork.ProductoRepository.FindByCondition(expression);
             Expression<Func<Producto, bool>> expressionId = item => item.CodigoProducto == producto.CodigoProducto;
-            var productosId = await _unitOfWork.ProductoRepository.FindByCondition(expression);
+            var productosId = _unitOfWork.ProductoRepository.FindByCondition(expression);
             if (productos.Any(item => item.CodigoProducto == producto.CodigoProducto) && productos.All(item=>item.Id!=producto.Id))
                 throw new Exception("Este codigo ya ha sido registrado");
             await _unitOfWork.ProductoRepository.Update(producto);

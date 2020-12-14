@@ -19,7 +19,7 @@ namespace OpenCoolMart.Application.Services
         public async Task AddFactura(Facturas Factura)
         {
             Expression<Func<Facturas, bool>> expression = item => item.Id == Factura.Id;
-            var facturas = await _unitOfWork.FacturaRepository.FindByCondition(expression);
+            var facturas = _unitOfWork.FacturaRepository.FindByCondition(expression);
             if (facturas.Any(item => item.Id == Factura.Id))
                 throw new Exception("Esta factura ya ha sido registrado");
             await _unitOfWork.FacturaRepository.Add(Factura);

@@ -4,6 +4,7 @@ using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
+using OpenCoolMart.Domain.QueryFilters;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -23,11 +24,12 @@ namespace OpenCoolMart.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery]VentaQueryFilter filter)
         {
-            var ventas = await _service.GetVentas();
+            var ventas = _service.GetVentas(filter);
             var ventasDto = _mapper.Map<IEnumerable<Venta>, IEnumerable<VentaResponseDto>>(ventas);
             var response = new ApiResponse<IEnumerable<VentaResponseDto>>(ventasDto);
+            await Task.Delay(10);
             return Ok(response);
         }
 
@@ -43,7 +45,8 @@ namespace OpenCoolMart.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post(VentaRequestDto ventaDto)
         {
-            var ventas = await _service.GetVentas();
+            VentaQueryFilter filter= new VentaQueryFilter();
+            var ventas = _service.GetVentas(filter);
             Venta nuevaventa= new Venta();
             if (ventas.Any())
             {

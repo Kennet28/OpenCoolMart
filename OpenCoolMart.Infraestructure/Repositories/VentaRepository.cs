@@ -1,12 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LinqKit;
 using Microsoft.EntityFrameworkCore;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
+using OpenCoolMart.Domain.QueryFilters;
 using OpenCoolMart.Infraestructure.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace OpenCoolMart.Infraestructure.Repositories
@@ -33,6 +34,24 @@ namespace OpenCoolMart.Infraestructure.Repositories
                 _producto.Update(producto);                
             }
             await _context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Venta> GetVentas(VentaQueryFilter filter)
+        {
+            Expression<Func<Venta, bool>> expression = animal => animal.Id > 0;
+
+            if (filter.Folio.HasValue)
+            {
+                Expression<Func<Venta, bool>> expr = venta=>venta.Folio == filter.Folio.Value;
+                expression = expression.And(expr);
+            }
+            if (filter.NumVenta.HasValue)
+            {
+                Expression<Func<Venta, bool>> expr = venta => venta.Id == filter.NumVenta.Value;
+                expression = expression.And(expr);
+            }
+
+            return FindByCondition(expression);
         }
 
         public async Task<Venta> VerVenta(int id)

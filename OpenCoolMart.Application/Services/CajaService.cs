@@ -19,7 +19,7 @@ namespace OpenCoolMart.Application.Services
         public async Task AddCaja(Caja caja)
         {
             Expression<Func<Caja, bool>> expression = item => item.Id == caja.Id;
-            var cajas = await _unitOfWork.CajaRepository.FindByCondition(expression);
+            var cajas = _unitOfWork.CajaRepository.FindByCondition(expression);
             if (cajas.Any(item => item.Id == caja.Id))
                 throw new Exception("Este codigo ya ha sido registrado");
 

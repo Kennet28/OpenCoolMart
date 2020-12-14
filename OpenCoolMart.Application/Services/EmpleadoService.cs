@@ -19,7 +19,7 @@ namespace OpenCoolMart.Application.Services
         public async Task AddEmpleado(Empleado empleado)
         {
             Expression<Func<Empleado, bool>> expression = item => item.Id == empleado.Id;
-            var empleados = await _unitOfWork.EmpleadoRepository.FindByCondition(expression);
+            var empleados = _unitOfWork.EmpleadoRepository.FindByCondition(expression);
             if (empleados.Any(item => item.Id == empleado.Id))
                 throw new Exception("Este empleado ya ha sido registrado");
 

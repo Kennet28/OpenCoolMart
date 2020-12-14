@@ -19,7 +19,7 @@ namespace OpenCoolMart.Application.Services
         public async Task AddCliente(Cliente cliente)
         {
             Expression<Func<Cliente, bool>> expression = item => item.RFC == cliente.RFC;
-            var clientes = await _unitOfWork.ClienteRepository.FindByCondition(expression);
+            var clientes = _unitOfWork.ClienteRepository.FindByCondition(expression);
             if (clientes.Any(item => item.RFC == cliente.RFC))
                 throw new Exception("Este RFC ya ha sido registrado");
 
@@ -44,7 +44,7 @@ namespace OpenCoolMart.Application.Services
         public async Task UpdateCliente(Cliente cliente)
         {
             Expression<Func<Cliente, bool>> expression = item => item.RFC== cliente.RFC;
-            var clientes = await _unitOfWork.ClienteRepository.FindByCondition(expression);
+            var clientes = _unitOfWork.ClienteRepository.FindByCondition(expression);
             if (clientes.Any(item => item.RFC == cliente.RFC) && clientes.All(item => item.Id != cliente.Id))
                 throw new Exception("Este RFC ya ha sido registrado");
             await _unitOfWork.ClienteRepository.Update(cliente);

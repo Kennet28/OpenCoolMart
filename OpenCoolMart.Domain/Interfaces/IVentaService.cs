@@ -1,4 +1,5 @@
 ﻿using OpenCoolMart.Domain.Entities;
+using OpenCoolMart.Domain.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,6 +11,6 @@ namespace OpenCoolMart.Domain.Interfaces
     {
         public Task CrearVerta(Venta venta);
         public Task<Venta> VerVenta(int id);
-        Task<IEnumerable<Venta>> GetVentas();
+        public IEnumerable<Venta> GetVentas(VentaQueryFilter filter);
     }
 }
