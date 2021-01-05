@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
     <link href="~/css/Venta/Venta.css" rel="stylesheet" />
 
 </head>
@@ -64,12 +64,12 @@
 
             <div class="form-group row">
                 <div class="col-md-7">
-                    <p>Subtotal: <input type="number" id="SubTotal" disabled step="0.01"/> </p>
-                    <p>Iva: <input type="number" id="Iva" disabled step="0.01"/></p>
-                    <p>Total: <input type="number" id="TotalCompra" disabled step="0.01"/></p>
+                    <p>Subtotal: <input type="number" id="SubTotal" disabled step="0.01" /> </p>
+                    <p>Iva: <input type="number" id="Iva" disabled step="0.01" /></p>
+                    <p>Total: <input type="number" id="TotalCompra" disabled step="0.01" /></p>
                 </div>
                 <div>
-                    <p>Efectivo: <input type="number" id="Efectivo" step="0.01"/></p>
+                    <p>Efectivo: <input type="number" id="Efectivo" step="0.01" /></p>
                     <button class="btn btn-success boton" style="margin-left:100px; margin-top:10px;" onclick="RealizarVenta()">Pagar</button>
                 </div>
             </div>
@@ -97,8 +97,7 @@
                                 <th>Opciones</th>
                             </tr>
                         </thead>
-                        <tbody>                            
-
+                        <tbody>
                         </tbody>
                     </table>
                 </div>
@@ -111,8 +110,8 @@
 </body>
 </html>
 
-@section Scripts{ 
-
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var productos = new Array();
         var tecla_enter;
@@ -133,11 +132,11 @@
                     method: "GET"
                 }).done(function (data) {
                     if (data.data == null)
-                        alert("Este producto no existe")
+                        Alerta("error","Error","Este producto no existe")
                     else if (parseInt(data.data.stock) <= 0)
-                        alert("cantidad del producto insufuciente para vender");
+                        Alerta("warning","Stock insuficiente","cantidad del producto insufuciente para vender");
                     else if (data.data.status == false)
-                        alert("Este producto esta desactivado");
+                        Alerta("warning","producto desactivado","Este producto esta desactivado");
                     else if (productos.indexOf(data.data.id) >= 0) {
                          Sumar_Productos(data.data);
                     }
@@ -146,7 +145,7 @@
                         agregarfila(data.data);
                     }
                 }).fail(function (jqXHR, textStatus, error) {
-                    alert("lo sentimos ha habido un error");
+                    Alerta("error","Error","lo sentimos ha habido un error");
                 });
             }
         }
@@ -183,7 +182,7 @@
 
         function restar() {
             SubTotalCompra = SubTotalCompra - valorresta;
-            Iva = SubTotalCompra * 0.16;            
+            Iva = SubTotalCompra * 0.16;
             TotalCompra = SubTotalCompra * 1.16;
             $("#Iva").val(Iva.toFixed(2));
             $("#SubTotal").val(SubTotalCompra.toFixed(2));
@@ -203,28 +202,43 @@
         };
 
         function aumentarCantidad() {
-            var cantidad = parseInt(prompt("Escoge la cantidad de productos", 1));
+            
+
+
             $("a.aumenta").click(function () {
-                var Indice = $(this).parents("tr").index();
-                var CantidadAc = $(this).parents("tr").find("td").eq(3).html();
-                var precioUni = $(this).parents("tr").find("td").eq(4).html();
+                (async () => {
+                    const { value: result } = await Swal.fire({
+                        input: 'number',
+                        inputLabel: 'Cantidad de piezas',
+                        inputPlaceholder: 'Cantidad'
+                    })
+                
+                    if (result) {
+                        var cantidad = result
+                        var Indice = $(this).parents("tr").index();
+                        var CantidadAc = $(this).parents("tr").find("td").eq(3).html();
+                        var precioUni = $(this).parents("tr").find("td").eq(4).html();
 
-                if (cantidad >= 1 && Indice >= 0) {
-                    var diferencia=cantidad - CantidadAc;
-                    document.getElementById("tablaventa").rows[Indice + 1].cells[3].innerHTML = cantidad;
-                    document.getElementById("tablaventa").rows[Indice + 1].cells[5].innerHTML = cantidad * precioUni;
+                        if (cantidad >= 1 && Indice >= 0) {
+                            var diferencia = cantidad - CantidadAc;
+                            document.getElementById("tablaventa").rows[Indice + 1].cells[3].innerHTML = cantidad;
+                            document.getElementById("tablaventa").rows[Indice + 1].cells[5].innerHTML = cantidad * precioUni;
 
-                    if (diferencia > 0) {
-                        SubTotal = diferencia * precioUni;
-                        sumar();
+                            if (diferencia > 0) {
+                                SubTotal = diferencia * precioUni;
+                                sumar();
+                            }
+                            else if (diferencia < 0) {
+                                valorresta = diferencia * precioUni * -1;
+                                restar();
+                            }
+
+                        };
                     }
-                    else if (diferencia < 0) {
-                        valorresta = diferencia * precioUni * -1;
-                        restar();
-                    }
-                };
-            });
-
+                })()
+                });
+                    
+            
         };
 
         function Sumar_Productos(data) {
@@ -232,8 +246,8 @@
             var cantidadproducto = document.getElementById("tablaventa").rows[fila].cells[3].innerHTML;
             var precioUnitario = document.getElementById("tablaventa").rows[fila].cells[4].innerHTML;
             var subtotalproducto = document.getElementById("tablaventa").rows[fila].cells[5].innerHTML;
-           
-            
+
+
             SubTotal = parseFloat(precioUnitario);
             document.getElementById("tablaventa").rows[fila].cells[3].innerHTML =parseInt(cantidadproducto) + 1;
             document.getElementById("tablaventa").rows[fila].cells[5].innerHTML = parseFloat(subtotalproducto) + parseFloat(precioUnitario);
@@ -241,7 +255,7 @@
         }
 
         function ConfirmarVenta() {
-            if (confirm('¿Estas seguro de querer descartar los cambios?') == false) {
+            if (confirm('¿Estas seguro de querer Realizar la venta?') == false) {
                 event.stopPropagation();
                 event.preventDefault();
                 return false
@@ -286,15 +300,15 @@
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json'
                 }).done(function (data) {
-                    alert("El cambio de la venta es: " + cambio.toFixed(2));
+                    Alerta("success" ,"La venta se ha realizado con exito","El cambio es " + cambio.toFixed(2));
                     Limpiar();
                 }).fail(function (jqXHR, textStatus, error) {
-                    alert(textStatus);
+                    Alerta("error","Error", "Ha ocurrido un error");
                 });;
 
             }
             else {
-                alert("El dinero pagado es menor al valor de la compra");
+                Alerta("warning","Dinero infuficiente","El dinero pagado es menor al valor de la compra");
             }
         }
 
@@ -305,7 +319,7 @@
             }).done(function (data) {
                 LLenarTablaProductos(data.data);
             }).fail(function (jqXHR, textStatus, error) {
-                alert("lo sentimos ha habido un error");
+                Alerta("error","Error","lo sentimos ha habido un error");
             });
         }
 
@@ -331,11 +345,11 @@
                 method: "GET"
             }).done(function (data) {
                 if (data.data == null)
-                    alert("Este producto no existe")
+                    Alerta("error","Producto Inexistente","Este producto no existe")
                 else if (parseInt(data.data.stock) <= 0)
-                    alert("cantidad del producto insufuciente para vender");
+                    Alerta("warning","Stock insuficiente","cantidad del producto insufuciente para vender");
                 else if (data.data.status == false)
-                    alert("Este producto esta desactivado");
+                    Alerta("warning","Producto Desactivado","Este producto esta desactivado");
                 else if (productos.indexOf(data.data.id) >= 0) {
                     Sumar_Productos(data.data);
                 }
@@ -347,19 +361,24 @@
                 $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
                 $('.modal-backdrop').remove();//eliminamos el backdrop del modal
             }).fail(function (jqXHR, textStatus, error) {
-                alert("lo sentimos ha habido un error");
+                Alerta("error","Error","lo sentimos ha habido un error");
             });
         }
 
         function CancelarVenta() {
-            if (confirm('¿Estas seguro de querer descartar los cambios?') == false) {
-                event.stopPropagation();
-                event.preventDefault();
-                return false
-            }
-            else {
-                Limpiar();
-            }
+            Swal.fire({
+                title: "Cancelar Venta",
+                text: "Estas seguro de cancelar la venta?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Limpiar();
+                }
+            })
         }
 
         function Limpiar() {
@@ -375,6 +394,16 @@
             valorresta = 0;
             SubTotal = 0;
             Iva = 0;
+        }
+
+        function Alerta(icono,titulo,texto) {
+            Swal.fire({
+                position: 'Center',
+                icon: icono,
+                title: titulo,
+                text:texto,
+                //showConfirmButton: false,
+            })
         }
     </script>
 }

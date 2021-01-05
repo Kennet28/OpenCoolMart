@@ -15,7 +15,7 @@
         <img src="~/Img/Imagen3.png" class="ribbon">
     </div>
     <br />
-    @using (Html.BeginForm())
+    @using (Html.BeginForm(null, null, FormMethod.Post,new { id = "Id" }))
     {
         @Html.AntiForgeryToken()
 <div class="container-xl table-wrapper">
@@ -87,8 +87,8 @@
 
     <div class="form-group form-row">
         <div class="col-md-4"></div>
-        <input type="submit" value="Actualizar" class="btn btn-primary col-md-2" style="margin:10px" onclick="validarStatus()" />
-        <a onclick="validarcampos()" asp-controller="Producto" asp-action="Index" class="btn btn-danger col-md-2" style="margin:10px">Cancelar</a>
+        <input type="submit" value="Actualizar" class="btn btn-primary col-md-2" style="margin:10px" onclick="validarStatus()" id="confirmar" />
+        <a asp-action="Index" asp-controller="Producto" onclick="validarcampos()" class="btn btn-danger col-md-2" style="margin:10px">Cancelar</a>
     </div>
 
 </div>
@@ -97,6 +97,7 @@
 </body>
 
 @section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var modificar;
         $(document).ready(function () {
@@ -108,33 +109,52 @@
         var estatus = $("#Status").is(":checked")
         function validarcampos() {
             if (modificar) {
-                if (confirm('¿Estas seguro de querer descartar los cambios?') == false) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    return false
-                }
-                return true
+                Alerta("warning", "Cancelar Cambios", "¿Estas seguro de descartar todos los cambios?");
             }                
         }
-        
+
+        function Alerta(icono, text1, text2) {
+            event.preventDefault();
+            Swal.fire({
+                title: text1,
+                text: text2,
+                icon: icono,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "https://localhost:44368/producto/"
+                }
+            }) 
+        }
+
         function validarStatus() { 
             var nuevoestatus = $("#Status").is(":checked")
             if (estatus ==true && nuevoestatus == false) {
-                if (confirm('¿Estas seguro de desactivar este producto?') == false) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    return false
-                }
-                return true
+                Status("question", "Desactivar Producto", "¿Estas seguro de desactivar este producto?");
             }
             if (estatus==false && nuevoestatus == true) {
-                if (confirm('¿Estas seguro de reactivar este producto?') == false) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    return false
-                }
-                return true
+                Status("question", "Reactivar Producto", "¿Estas seguro de reactivar este producto?");
             }
+        }
+
+        function Status(icono, text1, text2) {
+            event.preventDefault();
+            Swal.fire({
+                title: text1,
+                text: text2,
+                icon: icono,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#Id').submit();
+                }
+            })
         }
     </script>
 }

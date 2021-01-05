@@ -83,7 +83,7 @@
             <div class="form-group form-row">
                 <div class="col-md-4"></div>
                 <input type="submit" value="Crear Producto" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Producto" asp-action="Index" class="btn btn-danger col-md-2" style="margin:10px" onclick="validarcampos()">Cancelar</a>
+                <a asp-action="Index" asp-controller="Producto" onclick="validarcampos()" class="btn btn-danger col-md-2" style="margin:10px">Cancelar</a>                
             </div>
 
         </div>
@@ -91,6 +91,7 @@
 
 </body>
 @section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
         var modificar;
         $(document).ready(function () {
@@ -101,13 +102,25 @@
 
         function validarcampos() {
             if (modificar) {
-                if (confirm('¿Estas seguro de cancelar el nuevo registro?') == false) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                    return false
-                }
-                return true
+                Alerta("warning", "Cancelar registro", "¿Estas seguro de cancelar el nuevo registro?")
             }
+        }
+
+        function Alerta(icono, text1, text2) {
+            event.preventDefault();
+            Swal.fire({
+                title: text1,
+                text: text2,
+                icon: icono,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "https://localhost:44368/producto/"
+                }
+            }) 
         }
     </script>
 }
