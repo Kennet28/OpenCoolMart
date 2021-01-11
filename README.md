@@ -1,6 +1,29 @@
 # Proyecto OpenCoolMart
 
-Objetivo: (aun no definido)
+Objetivo: Desarrollar una aplicación que proporcione a pequeñas y medianas empresas un entorno que facilite la administración, simplifique procesos y respalde información, creando un ambiente amigable entre los usuarios para mayor comodidad y facilidad 
+
+
+problemas a evitar 
+
+- Una mala administración de los trabajadores  
+
+- Evitar posibles fugas de información o bien del capital 
+
+- Perdida de información en ventas, clientes etc. 
+
+ 
+
+Ventajas 
+
+- Optimizar los procesos cotidianos en un punto de venta  
+
+- Eficiencia a la hora de vender productos 
+
+- Administración eficiente 
+
+- Información respaldada  
+
+- Fácil de usar para los empleados y los administrativos pro 
 
 ## Datos del autor
 
