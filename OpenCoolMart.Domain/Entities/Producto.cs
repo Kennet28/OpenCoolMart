@@ -14,5 +14,6 @@ namespace OpenCoolMart.Domain.Entities
         public double? Descuento { get; set; }
 
         public IEnumerable<DetallesVenta> DetallesVentas { get; set; }
+        public ICollection<CompraProducto> CompraProductos { get; set; }
     }
 }

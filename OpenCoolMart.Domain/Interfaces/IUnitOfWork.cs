@@ -16,6 +16,8 @@ namespace OpenCoolMart.Domain.Interfaces
         public IRepository<Empleado> EmpleadoRepository { get; }
         // public IRepository<Facturas> FacturaRepository { get;}
         public IRepository<Usuario> UsuarioRepository { get; }
+        public ICompraRepository CompraRepository { get; }
+        public IRepository<Proveedor> ProveedorRepository { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();

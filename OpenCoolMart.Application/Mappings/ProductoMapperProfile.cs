@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Domain.Entities;
-using System;
 
 namespace OpenCoolMart.Application.Mappings
 {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpenCoolMart.Domain.Entities
 {
@@ -6,7 +7,13 @@ namespace OpenCoolMart.Domain.Entities
     {
         [ForeignKey("Proveedor")]
         public int ProveedorId { get; set; }
+        [ForeignKey("Empleado")]
+        public int EmpleadoId { get; set; }
         public double PrecioTotal { get; set; }
+
+        public ICollection<CompraProducto> CompraProductos { get; set; }
         public Proveedor Proveedor { get; set; }
+        public Empleado Empleado { get; set; }
+       
     }
 }
