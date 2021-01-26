@@ -12,6 +12,6 @@ namespace OpenCoolMart.Domain.Entities
         public string RFC { get; set; }
         public string Correo { get; set; }
 
-        public virtual ICollection<Facturas> Factura { get; set; }
+        // public virtual ICollection<Facturas> Factura { get; set; }
     }
 }

@@ -9,15 +9,15 @@ namespace OpenCoolMart.Application.Mappings
     {
         public FacturaMapperProfile()
         {
-            CreateMap<Facturas, FacturaRequestDto>();
-            CreateMap<Facturas, FacturaResponseDto>();
-            CreateMap<FacturaRequestDto, Facturas>().AfterMap(
-            ((source, destination) =>{
-                destination.CreateAt = DateTime.Now;
-                destination.Fecha = DateTime.Now;
-                destination.Status = true;
-            }));
-            CreateMap<FacturaResponseDto, Facturas>();
+            // CreateMap<Facturas, FacturaRequestDto>();
+            // CreateMap<Facturas, FacturaResponseDto>();
+            // CreateMap<FacturaRequestDto, Facturas>().AfterMap(
+            // ((source, destination) =>{
+            //     destination.CreateAt = DateTime.Now;
+            //     destination.Fecha = DateTime.Now;
+            //     destination.Status = true;
+            // }));
+            // CreateMap<FacturaResponseDto, Facturas>();
         }
     }
 }
