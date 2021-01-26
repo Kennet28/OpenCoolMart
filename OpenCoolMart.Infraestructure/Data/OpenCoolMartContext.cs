@@ -21,7 +21,7 @@ namespace OpenCoolMart.Infraestructure.Data
         DbSet<DetallesVenta> DetallesVentas { get; set; }
         DbSet<Producto> Productos { get; set; }
         DbSet<Caja> Cajas { get; set; }     
-        DbSet<Facturas> Facturas { get; set; }
+        // DbSet<Facturas> Facturas { get; set; }
         DbSet<Cliente> Clientes { get; set; }
         DbSet<Compra> Compras { get; set; }
         DbSet<Proveedor> Proveedors { get; set; }
@@ -34,7 +34,7 @@ namespace OpenCoolMart.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new ProductoConfiguration());
             modelBuilder.ApplyConfiguration(new DetallesVentaConfiguration());
             modelBuilder.ApplyConfiguration(new VentaConfiguration());
-            modelBuilder.ApplyConfiguration(new FacturaConfiguration());
+            // modelBuilder.ApplyConfiguration(new FacturaConfiguration());
         }
     }
 }

@@ -93,7 +93,6 @@ namespace OpenCoolMart.Gui.Controllers
             var httpClient = new HttpClient();
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
-            //TODO: obtener id del usuario que inicio sesion con int.Parse(HttpContext.Session.GetString("Id")) e integrar UpdatedBy 
             var putTask = httpClient.PutAsJsonAsync<ProductoRequestDto>("?id=" + Id, productoDto);
             putTask.Wait();
             

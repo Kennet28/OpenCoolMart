@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenCoolMart.Domain\OpenCoolMart.Domain.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Infraestructure\OpenCoolMart.Infraestructure.csproj" />
   </ItemGroup>
 
 </Project>
