@@ -23,10 +23,14 @@ namespace OpenCoolMart.Infraestructure.Data
         DbSet<Caja> Cajas { get; set; }     
         DbSet<Facturas> Facturas { get; set; }
         DbSet<Cliente> Clientes { get; set; }
+        DbSet<Compra> Compras { get; set; }
+        DbSet<Proveedor> Proveedors { get; set; }
+        DbSet<CompraProducto> CompraProductos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DetallesVenta>().HasKey(x => new { x.VentaId, x.ProductoId });
+            modelBuilder.Entity<CompraProducto>().HasKey(x => new { x.CompraId, x.ProductoId });
             modelBuilder.ApplyConfiguration(new ProductoConfiguration());
             modelBuilder.ApplyConfiguration(new DetallesVentaConfiguration());
             modelBuilder.ApplyConfiguration(new VentaConfiguration());
