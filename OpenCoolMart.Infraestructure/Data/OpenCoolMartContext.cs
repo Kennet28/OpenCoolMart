@@ -9,6 +9,10 @@ namespace OpenCoolMart.Infraestructure.Data
 {
     public class OpenCoolMartContext:DbContext
     {
+        public OpenCoolMartContext()
+        {
+
+        }
         public OpenCoolMartContext(DbContextOptions<OpenCoolMartContext> options) : base(options)
         {
         }
@@ -17,14 +21,14 @@ namespace OpenCoolMart.Infraestructure.Data
         DbSet<Perfil> Perfils { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empleado> Empleados { get; set; }
-        DbSet<Venta> Ventas { get; set; }
+        public virtual DbSet<Venta> Ventas { get; set; }
         DbSet<DetallesVenta> DetallesVentas { get; set; }
-        DbSet<Producto> Productos { get; set; }
+        public virtual DbSet<Producto> Productos { get; set; }
         DbSet<Caja> Cajas { get; set; }     
         // DbSet<Facturas> Facturas { get; set; }
         DbSet<Cliente> Clientes { get; set; }
-        DbSet<Compra> Compras { get; set; }
-        DbSet<Proveedor> Proveedors { get; set; }
+        public virtual DbSet<Compra> Compras { get; set; }
+        public virtual DbSet<Proveedor> Proveedors { get; set; }
         DbSet<CompraProducto> CompraProductos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

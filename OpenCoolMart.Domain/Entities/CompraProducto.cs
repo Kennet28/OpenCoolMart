@@ -13,6 +13,5 @@ namespace OpenCoolMart.Domain.Entities
         public double TotalPorProducto { get; set; }
 
         public Producto Producto { get; set; }
-        public Compra Compra { get; set; }
     }
 }

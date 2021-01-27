@@ -60,6 +60,9 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> Create(ProductoRequestDto requestDto)
         {
             requestDto.CreatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
+
+            requestDto.PrecioCompra = 1;
+
             var httpClient = new HttpClient();
             var Json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Producto/", requestDto);
             if (Json.IsSuccessStatusCode)
@@ -89,7 +92,8 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public IActionResult Update(int Id, ProductoRequestDto productoDto)
         {
-            
+            productoDto.PrecioCompra = 1;
+
             var httpClient = new HttpClient();
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");

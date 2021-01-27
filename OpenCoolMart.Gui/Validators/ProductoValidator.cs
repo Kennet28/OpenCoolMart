@@ -13,8 +13,10 @@ namespace OpenCoolMart.Gui.Validators
                 .NotNull().WithMessage("Este campo no puede ser null")
                 .NotEmpty().WithMessage("Este campo no puede ser vacio")
                 .Length(3, 75);
-            RuleFor(producto => producto.Precio)
+            RuleFor(producto => producto.PrecioCompra)
                 .GreaterThan(0);
+            RuleFor(producto => producto.PrecioVenta)
+                .GreaterThan(producto=>producto.PrecioCompra);
             RuleFor(producto => producto.Stock)
                 .GreaterThan(0);
             RuleFor(producto => producto.Marca)

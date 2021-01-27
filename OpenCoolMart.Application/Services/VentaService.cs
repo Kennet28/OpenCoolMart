@@ -27,8 +27,6 @@ namespace OpenCoolMart.Application.Services
         public IEnumerable<Venta> GetVentas(VentaQueryFilter filter)
         {
             var ventas = _unitOfWork.VentaRepository.GetVentas(filter);
-            
-            
             return ventas;
         }
 

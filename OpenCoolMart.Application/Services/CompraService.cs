@@ -13,19 +13,27 @@ namespace OpenCoolMart.Application.Services
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public Task CrearVerta(Compra venta)
+        public CompraService(IUnitOfWork unitOfWork)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<Venta> GetVentas(VentaQueryFilter filter)
+        public async Task CrearCompra(Compra compra)
         {
-            throw new NotImplementedException();
+            
+            await _unitOfWork.CompraRepository.CrearCompra(compra);
         }
 
-        public Task<Compra> VerVenta(int id)
+        public IEnumerable<Compra> GetCompras(CompraQueryFilter filter)
         {
-            throw new NotImplementedException();
+            var compras = _unitOfWork.CompraRepository.GetCompras(filter);
+            return compras;
         }
+
+        public async Task<Compra> VerCompra(int id)
+        {
+            return await _unitOfWork.CompraRepository.VerCompra(id);
+        }
+
     }
 }

@@ -59,6 +59,9 @@ namespace OpenCoolMart.Api.Controllers
         {
             var producto = _mapper.Map<ProductoRequestDto, Producto>(productolDto);
             producto.CreateAt = DateTime.Now;
+
+            producto.PrecioCompra = 1;
+
             await _productoService.AddProducto(producto);
             var productoresponseDto = _mapper.Map<Producto, ProductoResponseDto>(producto);
             var response = new ApiResponse<ProductoResponseDto>(productoresponseDto);
@@ -78,6 +81,9 @@ namespace OpenCoolMart.Api.Controllers
         {
             var producto = _mapper.Map<Producto>(productoResponse);
             producto.Id = id;
+
+            producto.PrecioCompra = 1;
+
             producto.UpdateAt = DateTime.Now;
             await _productoService.UpdateProducto(producto);
             var result = new ApiResponse<bool>(true);

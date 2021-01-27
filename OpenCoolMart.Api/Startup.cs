@@ -65,7 +65,8 @@ namespace OpenCoolMart.Api
             services.AddScoped<IVentaRepository, VentaRepository>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddScoped<ISettingsRepository, SettingsRepository>();
-
+            services.AddTransient<ICompraService, CompraService>();
+            services.AddTransient<IProveedorService, ProveedorService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

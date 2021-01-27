@@ -10,8 +10,8 @@ namespace OpenCoolMart.Domain.Interfaces
 {
     public interface ICompraService
     {
-        public Task CrearVerta(Compra venta);
-        public Task<Compra> VerVenta(int id);
-        public IEnumerable<Venta> GetVentas(VentaQueryFilter filter);
+        public Task CrearCompra(Compra compra);
+        public Task<Compra> VerCompra(int id);
+        public IEnumerable<Compra> GetCompras(CompraQueryFilter filter);
     }
 }

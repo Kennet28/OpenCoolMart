@@ -37,9 +37,11 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
             builder.Property<string>("Marca")
                 .HasColumnType("nvarchar(max)");
 
-            builder.Property<double>("Precio")
-                .HasColumnType("float");
+            builder.Property<double>("PrecioCompra")
+                        .HasColumnType("float");
 
+            builder.Property<double>("PrecioVenta")
+                       .HasColumnType("float");
             builder.Property<bool>("Status")
                 .HasColumnType("builderit");
 

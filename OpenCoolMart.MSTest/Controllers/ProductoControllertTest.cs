@@ -56,7 +56,7 @@ namespace OpenCoolMart.MSTest
             producto.Clasificacion = "Equipo de computo";
             producto.Descripcion = "Producto 1";
             producto.Marca = "Samsung";
-            producto.Precio = 100;
+            producto.PrecioVenta = 100;
             producto.Status = false;
             producto.Stock = 10;
             producto.CreatedBy = 1;
@@ -84,7 +84,7 @@ namespace OpenCoolMart.MSTest
             producto.Clasificacion = "Equipo de computo";
             producto.Descripcion = "Producto 1";
             producto.Marca = "Samsung";
-            producto.Precio = 100;
+            producto.PrecioVenta = 100;
             producto.Status = true;
             producto.Stock = 10;
             producto.CreatedBy = 1;

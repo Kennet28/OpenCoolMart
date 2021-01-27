@@ -14,9 +14,11 @@ namespace OpenCoolMart.Infraestructure.Repositories
 {
     public class VentaRepository : SQLRepository<Venta>, IVentaRepository
     {
+        private readonly OpenCoolMartContext _context;
         private DbSet<Producto> _producto;
         public VentaRepository(OpenCoolMartContext context):base(context)
         {
+            _context = context;
             this._producto = _context.Set<Producto>();
         }
         public async Task CrearVerta(Venta venta)

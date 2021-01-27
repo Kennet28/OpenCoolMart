@@ -154,14 +154,14 @@
         function agregarfila(data) {
             var cantidad = 1
             var descuento=parseFloat(1-data.descuento)
-            SubTotal = parseInt(data.precio) * cantidad*descuento;
+            SubTotal = parseInt(data.precioVenta) * cantidad*descuento;
             var cadena;
             cadena = "<tr>"
             cadena = cadena + "<td>" + data.id + "</td>";
             cadena = cadena + "<td>" + data.codigoProducto + "</td>";
             cadena = cadena + "<td>" + data.descripcion + "</td>";
             cadena = cadena + "<td>" + cantidad + "</td>";
-            cadena = cadena + "<td>" + parseInt(data.precio*descuento) + "</td>";
+            cadena = cadena + "<td>" + parseInt(data.precioVenta*descuento) + "</td>";
             cadena = cadena + "<td>" + SubTotal + "</td>";
             cadena = cadena + "<td style='width: 150px;'> <a class='aumenta' > <button class='btn' style='width:40px; heigh=40px'; onclick='aumentarCantidad()'><i class='material-icons'>&#xE254;</i></button></a > <a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
 
@@ -331,7 +331,7 @@
                 cadena = cadena + "<td>" + obj.codigoProducto + "</td>";
                 cadena = cadena + "<td>" + obj.descripcion + "</td>";
                 cadena = cadena + "<td>" + obj.descuento + "</td>";
-                cadena = cadena + "<td>" + obj.precio + "</td>";
+                cadena = cadena + "<td>" + obj.precioVenta + "</td>";
                 cadena = cadena + "<td>" + obj.status + "</td>";
                 cadena = cadena + "<td>" +
                     "<button class='btn' style='width:40px; heigh=40px'; onclick = 'LLenarPorModal(" +obj.codigoProducto+")' > <i class='material-icons'>&#xE254;</i></button ></td>";

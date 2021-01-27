@@ -12,7 +12,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
 {
     public class SQLRepository<T> : IRepository<T> where T : BaseEntity
     {
-        protected readonly OpenCoolMartContext _context;
+        private readonly OpenCoolMartContext _context;
         private DbSet<T> _entities;
         
         public SQLRepository(OpenCoolMartContext context)

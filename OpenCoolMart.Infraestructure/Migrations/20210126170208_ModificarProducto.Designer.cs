@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenCoolMart.Infraestructure.Data;
 
 namespace OpenCoolMart.Infraestructure.Migrations
 {
     [DbContext(typeof(OpenCoolMartContext))]
-    partial class OpenCoolMartContextModelSnapshot : ModelSnapshot
+    [Migration("20210126170208_ModificarProducto")]
+    partial class ModificarProducto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -291,6 +293,9 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
                     b.Property<string>("Marca")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Precio")
+                        .HasColumnType("float");
 
                     b.Property<double>("PrecioCompra")
                         .HasColumnType("float");
