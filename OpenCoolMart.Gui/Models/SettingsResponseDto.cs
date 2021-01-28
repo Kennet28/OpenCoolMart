@@ -1,14 +1,12 @@
-﻿using OpenCoolMart.Domain.Entities;
+﻿using System;
 
-namespace OpenCoolMart.Domain.DTOs
+namespace OpenCoolMart.Gui.Models
 {
     public class SettingsResponseDto
     {
         public int Ncaja { get; set; }
         public string Ip { get; set; }
         public string RutaRespaldo { get; set; }
-        public Empleado Empleado { get; set; }
         public string BDConexion { get; set; }
-        public string TipoImpuesto { get; set;}
     }
 }

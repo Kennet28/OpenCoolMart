@@ -1,0 +1,39 @@
+﻿@model OpenCoolMart.Gui.Models.SettingsResponseDto
+
+@{
+    ViewBag.Title = "Configuraciones";
+}
+
+<h2 class="text-center">Configuraciones</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label>Numero de caja</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ncaja)
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Ip de la caja</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ip)
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Ubicacion de respaldo</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.RutaRespaldo)
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Conexión a base de datos</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.BDConexion)
+            </div>
+        </div>
+        <div class="form-row">
+            <input type="submit" value="update">
+        </div>
+    </div>
+}
