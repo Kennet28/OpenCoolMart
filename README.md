@@ -35,5 +35,5 @@ Ventajas
 - Grado y grupo: 4A
 - Carrera: Tecnologías de la Informacion y comunicación
 - Area: Desarrollo de software multiplataforma
-- Tecnologias: ASP.Net core 3.1, Razor Pages, APIS
+- Tecnologias: ASP.Net core 5.0, Razor Pages, ASP.Net Core Web Api
 - Editor: Visual Studio 2019
