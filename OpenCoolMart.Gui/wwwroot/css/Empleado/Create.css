@@ -8,14 +8,6 @@
     height: 110px;
     padding: 10px;
 }
-
-body {
-    color: #fff;
-    background-image: url(/img/inventario.jpg);
-    background-size: cover;
-    font-family: 'Roboto', sans-serif;
-}
-
 .form-control {
     height: 40px;
     box-shadow: none;
