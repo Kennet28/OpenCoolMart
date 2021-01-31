@@ -15,8 +15,9 @@
 }
 
 body {
-    color: #fff;
-    background-image: url(/img/fondo2.jpg);
+    
+    background-color ##06ffef;
+   
     background-size: cover;
     font-family: 'Roboto', sans-serif;
 }

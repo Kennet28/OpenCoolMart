@@ -11,8 +11,8 @@
 
 
 body {
-    /* color: #fff;*/
-    background-image: url(/img/compra.jpg);
+    background: #e2eaef;
+    /* background-image: url(/img/compra.jpg);*/
 }
 
 .form-control {

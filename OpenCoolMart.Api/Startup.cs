@@ -34,15 +34,15 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-             // services.AddDbContext<OpenCoolMartContext>(options =>
-             //         options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
-             // );
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-            //        options.UseSqlServer(Configuration.GetConnectionString("Roger"))
-            //);
+            // services.AddDbContext<OpenCoolMartContext>(options =>
+            //         options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+            // );
             services.AddDbContext<OpenCoolMartContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
+                    options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             );
+            //services.AddDbContext<OpenCoolMartContext>(options =>
+            //  options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
+            //);
             services.Configure<RouteOptions>(route => 
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
