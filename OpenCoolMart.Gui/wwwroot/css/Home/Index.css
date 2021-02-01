@@ -11,8 +11,8 @@
 
 
 body {
-    background: #e2eaef;
-    /* background-image: url(/img/compra.jpg);*/
+    background-image: url(/Img/compra.jpg);
+    font-family: "Open Sans", sans-serif;
 }
 
 .form-control {

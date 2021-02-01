@@ -1,4 +1,8 @@
-﻿.ribbon {
+﻿body {
+    background-color: #e2eaef;
+    font-family: "Open Sans", sans-serif;
+}
+.ribbon {
     position: absolute;
     margin: 25px auto;
     left: 0;

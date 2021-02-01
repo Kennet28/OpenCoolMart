@@ -1,4 +1,8 @@
-﻿.ribbon {
+﻿body {
+    background-color: #e2eaef;
+    font-family: "Open Sans", sans-serif;
+}
+.ribbon {
     position: absolute;
     margin: 25px auto;
     left: 0;
@@ -14,7 +18,7 @@
 
 .table-wrapper {
     min-width: 1000px;
-    background: #747d89;
+    background: #fcfcfc;
     padding: 20px;
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
