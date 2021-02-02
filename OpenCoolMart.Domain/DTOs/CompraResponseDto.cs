@@ -1,9 +1,6 @@
 ﻿using OpenCoolMart.Domain.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenCoolMart.Domain.DTOs
 {
@@ -19,5 +16,6 @@ namespace OpenCoolMart.Domain.DTOs
         public int? CreatedBy { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int? UpdatedBy { get; set; }
+        public ProveedorResponseDto Proveedor { get; set; }
     }
 }

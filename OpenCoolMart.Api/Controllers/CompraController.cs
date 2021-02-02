@@ -36,8 +36,9 @@ namespace OpenCoolMart.Api.Controllers
         [HttpGet("{Id:int}")]
         public async Task<IActionResult> Get(int Id)
         {
+
             var compra = await _service.VerCompra(Id);
-            var CompraDto = _mapper.Map<Compra, CompraResponseDto>(compra);
+            var CompraDto = _mapper.Map<Compra, CompraResponseDto>(compra);            
             var response = new ApiResponse<CompraResponseDto>(CompraDto);
             return Ok(response);
         }

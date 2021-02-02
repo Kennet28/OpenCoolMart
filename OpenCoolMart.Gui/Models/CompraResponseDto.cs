@@ -19,5 +19,6 @@ namespace OpenCoolMart.Gui.Models
         public int? CreatedBy { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int? UpdatedBy { get; set; }
+        public ProveedorResponseDto Proveedor { get; set; }
     }
 }
