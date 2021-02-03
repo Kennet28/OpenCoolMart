@@ -37,15 +37,16 @@ namespace OpenCoolMart.Infraestructure.Repositories
 
         public IEnumerable<Compra> GetCompras(CompraQueryFilter filter)
         {
-            Expression<Func<Compra, bool>> expression = animal => animal.Id > 0;
-            if(!string.IsNullOrEmpty(filter.Proveedor) && !string.IsNullOrWhiteSpace(filter.Proveedor))
+            Expression<Func<Compra, bool>> expression = compra => compra.Id > 0;
+            if (!string.IsNullOrEmpty(filter.Proveedor) && !string.IsNullOrWhiteSpace(filter.Proveedor))
             {
                 Expression<Func<Proveedor, bool>> expr = proveedor => proveedor.Nombre == filter.Proveedor;
                 var proveedores = _context.Proveedors.Where(expr)
                .Include(x => x.Compra).Select(x => x.Compra);
                 return proveedores.Where(expression).AsEnumerable();
             }
-            return FindByCondition(expression);
+            var compras =_context.Compras.Include(x => x.Proveedor).AsEnumerable();
+            return compras;
         }
 
         public async Task<Compra> VerCompra(int id)

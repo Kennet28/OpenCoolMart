@@ -14,7 +14,7 @@ namespace OpenCoolMart.Application.Mappings
         public CompraMapperProfile()
         {
             CreateMap<Compra, CompraRequestDto>();
-            CreateMap<Compra, CompraResponseDto>();
+            CreateMap<Compra, CompraResponseDto>().IgnoreAllPropertiesWithAnInaccessibleSetter();
             CreateMap<CompraRequestDto, Compra>().AfterMap(
                 ((source, destination) =>
                 {
