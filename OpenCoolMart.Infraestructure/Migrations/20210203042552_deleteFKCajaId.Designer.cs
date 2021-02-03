@@ -3,21 +3,65 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OpenCoolMart.Infraestructure.Data;
 
 namespace OpenCoolMart.Infraestructure.Migrations
 {
     [DbContext(typeof(OpenCoolMartContext))]
-    partial class OpenCoolMartContextModelSnapshot : ModelSnapshot
+    [Migration("20210203042552_deleteFKCajaId")]
+    partial class deleteFKCajaId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
+
+            modelBuilder.Entity("OpenCoolMart.Domain.Entities.Caja", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<double>("CantidadDiaria")
+                        .HasColumnType("float");
+
+                    b.Property<double>("CantidadTotal")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("MontoRetirado")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Observaciones")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("UpdatedBy")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cajas");
+                });
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Cliente", b =>
                 {
@@ -404,6 +448,8 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CajaId");
+
                     b.HasIndex("EmpleadoId");
 
                     b.ToTable("Ventas");
@@ -468,6 +514,12 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Venta", b =>
                 {
+                    b.HasOne("OpenCoolMart.Domain.Entities.Caja", "Caja")
+                        .WithMany("Ventas")
+                        .HasForeignKey("CajaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("OpenCoolMart.Domain.Entities.Empleado", "Empleado")
                         .WithMany()
                         .HasForeignKey("EmpleadoId")
@@ -475,7 +527,14 @@ namespace OpenCoolMart.Infraestructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Caja");
+
                     b.Navigation("Empleado");
+                });
+
+            modelBuilder.Entity("OpenCoolMart.Domain.Entities.Caja", b =>
+                {
+                    b.Navigation("Ventas");
                 });
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Compra", b =>

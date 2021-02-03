@@ -67,7 +67,6 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
 
             builder.HasKey("Id");
 
-            builder.HasIndex("CajaId");
 
             builder.HasIndex("EmpleadoId");
 
@@ -79,12 +78,6 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Ventas_Empleados_EmpleadoId")
                 .IsRequired();
-            builder.HasOne(d => d.Caja)
-                .WithMany(p => p.Ventas)
-                .HasForeignKey(d => d.CajaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Ventas_Cajas_CajaId");
-
         }
     }
 }

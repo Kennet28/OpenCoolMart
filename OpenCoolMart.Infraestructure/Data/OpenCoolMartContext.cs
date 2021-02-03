@@ -9,10 +9,10 @@ namespace OpenCoolMart.Infraestructure.Data
 {
     public class OpenCoolMartContext:DbContext
     {
-        public OpenCoolMartContext()
-        {
+        //public OpenCoolMartContext()
+        //{
 
-        }
+        //}
         public OpenCoolMartContext(DbContextOptions<OpenCoolMartContext> options) : base(options)
         {
         }
@@ -24,7 +24,7 @@ namespace OpenCoolMart.Infraestructure.Data
         public virtual DbSet<Venta> Ventas { get; set; }
         DbSet<DetallesVenta> DetallesVentas { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
-        DbSet<Caja> Cajas { get; set; }     
+        //DbSet<Caja> Cajas { get; set; }     
         // DbSet<Facturas> Facturas { get; set; }
         DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Compra> Compras { get; set; }

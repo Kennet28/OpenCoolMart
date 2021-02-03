@@ -17,10 +17,10 @@ namespace OpenCoolMart.Application.Services
         }
         public async Task CrearVerta(Venta venta)
         {
-            Caja caja = new Caja();
-            caja = await _unitOfWork.CajaRepository.GetById(venta.CajaId);
-            caja.CantidadTotal = caja.CantidadTotal+venta.VentaTotal;
-            await _unitOfWork.CajaRepository.Update(caja);
+            //Caja caja = new Caja();
+            //caja = await _unitOfWork.CajaRepository.GetById(venta.CajaId);
+            //caja.CantidadTotal = caja.CantidadTotal+venta.VentaTotal;
+            //await _unitOfWork.CajaRepository.Update(caja);
             await _unitOfWork.VentaRepository.CrearVerta(venta);
         }
 
