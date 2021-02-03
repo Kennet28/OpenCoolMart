@@ -5,8 +5,7 @@ namespace OpenCoolMart.Domain.Interfaces
 {
     public interface ISettingsService
     {
-        void CreateSettings(Configurarciones configurarcion);
-        Configurarciones GetSettings();
-        void UpdateSettings(Configurarciones configurarcion);
+        Configuraciones GetSettings();
+        void UpdateSettings(Configuraciones configurarcion);
     }
 }

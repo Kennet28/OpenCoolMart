@@ -1,11 +1,10 @@
 ﻿@{
-    ViewData["Title"] = "menuModel";
+    ViewData["Title"] = "Menu";
     Layout = "_LayoutPages";
 }
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Bootstrap Multiple Item Product Carousel</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Open+Sans">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,7 +15,6 @@
 
 </head>
 <body>
-<center>
 <div class="row">
     <div class="col-md-12">
         <h2>Menú<b></b></h2>
@@ -24,41 +22,28 @@
             <div class="carousel-inner">
                 <div class="item carousel-item active">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="thumb-wrapper">
                                 <div class="img-box">
-                                    <img src="~/Img/Empleado.png" class="img-fluid" alt="logotipo">
+                                    <img src="~/Img/cuenta.png" class="img-fluid" alt="logotipo">
                                 </div>
                                 <div class="thumb-content">
                                     <a class="btn btn-primary" asp-area="" asp-controller="Usuario" asp-action="Index">Usuarios</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="thumb-wrapper">
-
                                 <div class="img-box">
-                                    <img src="~/img/cuenta.png" class="img-fluid" alt="cuentas">
+                                    <img src="~/img/Empleado.png" class="img-fluid" alt="cuentas">
                                 </div>
                                 <div class="thumb-content">
                                     <a class="btn btn-primary" asp-area="" asp-controller="Empleado" asp-action="Index">Empleado</a>
                                 </div>
                             </div>
                         </div>
-                        @* <div class="col-sm-3"> *@
-                        @*     <div class="thumb-wrapper"> *@
-                        @*         <div class="img-box"> *@
-                        @*             <img src="~/img/caja.png" class="img-fluid" alt="caja"> *@
-                        @*         </div> *@
-                        @*         <div class="thumb-content"> *@
-                        @*             <a class="btn btn-primary" asp-area="" asp-controller="Caja" asp-action="Index">Cajas</a> *@
-                        @* *@
-                        @*         </div> *@
-                        @*     </div> *@
-                        @* </div> *@
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="thumb-wrapper">
-
                                 <div class="img-box">
                                     <img src="~/img/clientes.png" class="img-fluid" alt="clientes">
                                 </div>
@@ -75,48 +60,30 @@
             <div class="carousel-inner">
                 <div class="item carousel-item active">
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="thumb-wrapper">
-
                                 <div class="img-box">
                                     <img src="~/img/Ventas.png" class="img-fluid" alt="ventas">
                                 </div>
                                 <div class="thumb-content">
                                     <h4></h4>
-
                                     <a class="btn btn-primary" asp-controller="Venta" asp-action="Index">Ventas</a>
                                 </div>
                             </div>
                         </div>
-                        @* <div class="col-sm-3"> *@
-                        @*     <div class="thumb-wrapper"> *@
-                        @* *@
-                        @*         <div class="img-box"> *@
-                        @*             <img src="~/img/Facturas.png" class="img-fluid" alt="facturas"> *@
-                        @*         </div> *@
-                        @*         <div class="thumb-content"> *@
-                        @*             <a class="btn btn-primary" asp-area="" asp-controller="Factura" asp-action="Index">Facturas</a> *@
-                        @* *@
-                        @*         </div> *@
-                        @*     </div> *@
-                        @* </div> *@
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="thumb-wrapper">
 
                                 <div class="img-box">
                                     <img src="~/img/Productos.png" class="img-fluid" alt="productos">
                                 </div>
                                 <div class="thumb-content">
-
-
-
                                     <a class="btn btn-primary" asp-controller="Producto" asp-action="Index">productos</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <div class="thumb-wrapper">
-
                                 <div class="img-box">
                                     <img src="~/img/proveedor.png" class="img-fluid" alt="productos">
                                 </div>
@@ -129,27 +96,8 @@
                 </div>
             </div>
         </div>
-        @* <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="0"> *@
-        @*     <div class="carousel-inner"> *@
-        @*         <div class="item carousel-item active"> *@
-        @*             <div class="row"> *@
-        @*                 <div class="col-sm-3"> *@
-        @*                     <div class="thumb-wrapper"> *@
-        @*                         <div class="img-box"> *@
-        @*                             <img src="~/img/salir.png" class="img-fluid" alt="salir"> *@
-        @*                         </div> *@
-        @*                         <div class="thumb-content"> *@
-        @*                             <a asp-controller="Home" asp-action="LogOut">Cerrar sesión</a> *@
-        @*                         </div> *@
-        @*                     </div> *@
-        @*                 </div> *@
-        @*             </div> *@
-        @*         </div> *@
-        @*     </div> *@
-        @* </div> *@
     </div>
 </div>
-</center>
 </body>
 <script type="text/javascript">
     $(document).ready(function () {

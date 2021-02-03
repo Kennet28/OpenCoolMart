@@ -48,6 +48,7 @@
                                 <th>Iva</th>
                                 <th>Total</th>
                                 <th>Empleado</th>
+                                <th># Caja</th>
                                 <th>Detalles</th>
                             </tr>
                         </thead>
@@ -64,6 +65,7 @@
                                         <td>@item.Iva</td>
                                         <td>@item.VentaTotal</td>
                                         <td>@item.EmpleadoId</td>
+                                        <td>@item.CajaId</td>
                                         <td>
                                             <a asp-controller="Venta" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
 

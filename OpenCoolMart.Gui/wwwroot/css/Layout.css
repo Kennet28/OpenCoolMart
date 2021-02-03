@@ -7,8 +7,14 @@ a.navbar-brand {
   text-align: center;
   word-break: break-all;
 }
-
-/* Provide sufficient contrast against white background */
+.ribbon {
+  position: absolute;
+  margin: 25px auto;
+  left: auto;
+  right: 75px;
+  /*top: 20px;*/
+  padding: 10px;
+}
 a {
   color: #0366d6;
 }

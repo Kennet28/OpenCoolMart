@@ -12,60 +12,60 @@ namespace OpenCoolMart.XUnitTest
 
     public class UnitTest
     {
-        private HomeController ObjHomeController { get; }
-        //public Faker DataFaker { get; set; }
+        // private HomeController ObjHomeController { get; }
+        // //public Faker DataFaker { get; set; }
 
-        public UnitTest()
-        {
-            ObjHomeController = new HomeController();
-            //DataFaker = new Faker();
-        }
+        // public UnitTest()
+        // {
+        //     ObjHomeController = new HomeController();
+        //     //DataFaker = new Faker();
+        // }
 
-        [Fact]
-        public async Task Usuario_Contraseña_CorrectosAsync()
-        {
+        // [Fact]
+        // public async Task Usuario_Contraseï¿½a_CorrectosAsync()
+        // {
 
-            var login = new LoginModel
-            {
-                //Email = DataFaker.Internet.Email(),
-                //Password = DataFaker.Internet.Password(8)
-            };
-            if (await ObjHomeController.Index(login) is RedirectToActionResult result) Assert.Equal("Menu", result.ActionName);
-        }
-        [Fact]
-        public async Task Usuario_Contraseña_No_ExistentesAsync()
-        {
-            var login = new LoginModel
-            {
-                Email = "kennetavila@gmail.com",
-                Password = "1213131516"
-            };
-            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
-        }
-        [Fact]
-        public async Task Usuario_Contraseña_VaciosAsync()
-        {
-            var login = new LoginModel();
-            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.Model);
-        }
+        //     var login = new LoginModel
+        //     {
+        //         //Email = DataFaker.Internet.Email(),
+        //         //Password = DataFaker.Internet.Password(8)
+        //     };
+        //     if (await ObjHomeController.Index(login) is RedirectToActionResult result) Assert.Equal("Menu", result.ActionName);
+        // }
+        // [Fact]
+        // public async Task Usuario_Contraseï¿½a_No_ExistentesAsync()
+        // {
+        //     var login = new LoginModel
+        //     {
+        //         Email = "kennetavila@gmail.com",
+        //         Password = "1213131516"
+        //     };
+        //     if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
+        // }
+        // [Fact]
+        // public async Task Usuario_Contraseï¿½a_VaciosAsync()
+        // {
+        //     var login = new LoginModel();
+        //     if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.Model);
+        // }
 
-        [Fact]
-        public async Task Contraseña_VaciaAsync()
-        {
-            var login = new LoginModel()
-            {
-                Email = "kennetavila@gmail.com",
-            };
-            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
-        }
-        [Fact]
-        public async Task Usuario_VacioAsync()
-        {
-            var login = new LoginModel() 
-            {
-                Password = "1213131516"
-            };
-            if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
-        }
+        // [Fact]
+        // public async Task Contraseï¿½a_VaciaAsync()
+        // {
+        //     var login = new LoginModel()
+        //     {
+        //         Email = "kennetavila@gmail.com",
+        //     };
+        //     if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
+        // }
+        // [Fact]
+        // public async Task Usuario_VacioAsync()
+        // {
+        //     var login = new LoginModel() 
+        //     {
+        //         Password = "1213131516"
+        //     };
+        //     if (await ObjHomeController.Index(login) is ViewResult result) Assert.Null(result.ViewName);
+        // }
     }
 }

@@ -4,8 +4,7 @@ namespace OpenCoolMart.Domain.Interfaces
 {
     public interface ISettingsRepository
     {
-        public void Create(Configurarciones config);
-        public Configurarciones Get();
-        public void Update(Configurarciones config);
+        public Configuraciones Get();
+        public void Update(Configuraciones config);
     }
 }

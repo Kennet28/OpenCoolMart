@@ -22,23 +22,14 @@ namespace OpenCoolMart.Api.Controllers
         public IActionResult Get()
         {
             var settings = _settingsService.GetSettings();
-            var response = new ApiResponse<Configurarciones>(settings);
+            var response = new ApiResponse<Configuraciones>(settings);
             return Ok(response);
         }
-
-        [HttpPost]
-        public IActionResult Post(Configurarciones config)
-        {
-            _settingsService.CreateSettings(config);
-            var response = new ApiResponse<Configurarciones>(config);
-            return Ok(response);
-        }
-
         [HttpPut]
-        public IActionResult Put(Configurarciones config)
+        public IActionResult Put(Configuraciones config)
         {
             _settingsService.UpdateSettings(config);
-            var response = new ApiResponse<Configurarciones>(config);
+            var response = new ApiResponse<Configuraciones>(config);
             return Ok(response);
         }
     }

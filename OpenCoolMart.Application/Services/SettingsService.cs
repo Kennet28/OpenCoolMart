@@ -13,17 +13,12 @@ namespace OpenCoolMart.Application.Services
         {
             _settingsRepository = settingsRepository;
         }
-        public void CreateSettings(Configurarciones configurarcion)
-        {
-            _settingsRepository.Create(configurarcion);
-        }
-
-        public Configurarciones GetSettings()
+        public Configuraciones GetSettings()
         {
             return _settingsRepository.Get();
         }
 
-        public void UpdateSettings(Configurarciones configurarcion)
+        public void UpdateSettings(Configuraciones configurarcion)
         { 
             _settingsRepository.Update(configurarcion);
         }

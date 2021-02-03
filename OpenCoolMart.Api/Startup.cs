@@ -18,37 +18,39 @@ namespace OpenCoolMart.Api
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+        
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
 
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
 
-             services.AddDbContext<OpenCoolMartContext>(options =>
-                     options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
-             );
+             // services.AddDbContext<OpenCoolMartContext>(options =>
+             //         options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+             // );
             //services.AddDbContext<OpenCoolMartContext>(options =>
               //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-            //  options.UseSqlServer(Configuration.GetConnectionString("Kennet"))
-            //);
-            services.Configure<RouteOptions>(route => 
-            {
-                route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
-            });
-            //services.AddMvc().AddFluentValidation(options =>
-            //        options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
+            // var config = new ConfigurationBuilder()
+            // .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            // .AddJsonFile("appsettings.json",optional: true, reloadOnChange: true).Build();
+            // services.AddDbContext<OpenCoolMartContext>(options =>
+            //     options.UseSqlServer(config["BDConexion"]));
+            // services.Configure<RouteOptions>(route => 
+            // {
+            //     route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
+            // });
+            services.AddMvc().AddFluentValidation(options =>
+            options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
@@ -69,7 +71,6 @@ namespace OpenCoolMart.Api
             services.AddTransient<IProveedorService, ProveedorService>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(options =>
@@ -92,9 +93,6 @@ namespace OpenCoolMart.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                //endpoints.MapControllerRoute(
-                //   name: "default",
-                //   pattern: "{controller=Home}/{action=Index}/{id:alphanumeric}");
             });
         }
     }

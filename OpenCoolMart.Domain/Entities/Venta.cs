@@ -17,7 +17,6 @@ namespace OpenCoolMart.Domain.Entities
         [ForeignKey("Empleado")]
         public int EmpleadoId { get; set; }
         public int CajaId { get; set; }
-
         public ICollection<DetallesVenta> DetallesVentas { get; set; }
         public Empleado Empleado { get; set; }
         //public Caja Caja { get; set; }

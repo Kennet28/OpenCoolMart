@@ -20,7 +20,8 @@ namespace OpenCoolMart.Application.Services
             //Caja caja = new Caja();
             //caja = await _unitOfWork.CajaRepository.GetById(venta.CajaId);
             //caja.CantidadTotal = caja.CantidadTotal+venta.VentaTotal;
-            //await _unitOfWork.CajaRepository.Update(caja);
+            // await _unitOfWork.CajaRepository.Update(caja);
+            venta.CajaId = int.Parse(_unitOfWork.SettingsRepository.Get().Ncaja);
             await _unitOfWork.VentaRepository.CrearVerta(venta);
         }
 
