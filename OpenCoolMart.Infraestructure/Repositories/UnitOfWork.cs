@@ -29,7 +29,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
 
         public IRepository<Producto> ProductoRepository => _productoRepository ?? new SQLRepository<Producto>(_context);
         public IVentaRepository VentaRepository => _ventaRepository ?? new VentaRepository(_context);
-        public ISettingsRepository SettingsRepository => _settingsRepository ?? new SettingsRepository();
+        public ISettingsRepository SettingsRepository => _settingsRepository ?? new SettingsRepository(_context);
 
         public IRepository<Cliente> ClienteRepository => _clienteRepository ?? new SQLRepository<Cliente>(_context);
         public IRepository<Caja> CajaRepository => _cajaRepository ?? new SQLRepository<Caja>(_context);

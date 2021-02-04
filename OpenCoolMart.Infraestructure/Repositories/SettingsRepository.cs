@@ -6,12 +6,19 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
+using OpenCoolMart.Infraestructure.Data;
 using IConfiguration = AutoMapper.Configuration.IConfiguration;
 
 namespace OpenCoolMart.Infraestructure.Repositories
 {
     public class SettingsRepository:ISettingsRepository
     {
+        private readonly OpenCoolMartContext _context;
+
+        public SettingsRepository(OpenCoolMartContext context)
+        {
+            _context = context;
+        }
         public Configuraciones Get()
         {
             // var config = new ConfigurationBuilder()
@@ -36,6 +43,11 @@ namespace OpenCoolMart.Infraestructure.Repositories
             };
             var result = JsonConvert.SerializeObject(updateConfig);
             File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "appsettings.json"),result);
+        }
+
+        public async Task BackUp()
+        {
+           
         }
     }
 }

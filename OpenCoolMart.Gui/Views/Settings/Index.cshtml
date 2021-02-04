@@ -5,35 +5,44 @@
     Layout = "_layoutPages";
 }
 
-<h2 class="text-center">Configuraciones</h2>
+<div class="card">
+<h2 class="text-center card-title">Configuraciones</h2>
 @using (Html.BeginForm())
 {
-    <div class="form-horizontal align-content-center">
-        <div class="form-group">
+    <div class="form-row form-horizontal">
+        <div class="form-group col-md-2">
             <label>Numero de caja</label>
-            <div class="col-md-1">
+            <div class="col-md-6">
                 @Html.EditorFor(model => model.Ncaja, new {htmlAttributes = new {@class = "form-control text-center"}})
             </div>
+        </div>
+        <div class="form-group col-md-5">
             <label>Ip de la caja</label>
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.Ip, new {htmlAttributes = new {@class = "form-control text-center"}})
+            <div>
+                @Html.EditorFor(model => model.Ip, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
-        
-        <div class="form-group">
+        <div class="form-group col-md-5">
             <label>Ubicacion de respaldo</label>
-            <div class="col-md-6">
-                @Html.TextBoxFor(model => model.RutaRespaldo,new { type = "file",htmlAttributes = new { @class = "form-control"} })
+            <div>
+                @Html.EditorFor(model => model.RutaRespaldo, new {htmlAttributes = new {@class = "form-control"}})
             </div>
         </div>
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label>Conexión a base de datos</label>
-            <div class="col-md-6">
+            <div>
                 @Html.EditorFor(model => model.BDConexion,new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
-        <div class="form-row align-content-md-center">
-            <input type="submit" class="btn btn-primary" value="update">
-        </div>
+    </div>
+    <div>
+        <input type="submit" class="btn btn-primary col-md-12" value="Actualizar">
     </div>
 }
+<div>
+    <h2 class="text-center title">Respaldo</h2>
+    <div>
+        <input asp-action="Backup" asp-controller="Settings" type="button" class="btn btn-primary col-md-12" value="Respaldar base de datos">
+    </div>
+</div>
+</div>

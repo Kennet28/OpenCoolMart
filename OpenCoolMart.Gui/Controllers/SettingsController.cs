@@ -9,10 +9,10 @@ namespace OpenCoolMart.Gui.Controllers
 {
     public class SettingsController : Controller
     {
-        HttpClient client = new HttpClient();
+        private readonly HttpClient _client = new HttpClient();
         public async Task<IActionResult> Index()
         {
-            var json = await client.GetStringAsync("https://localhost:44315/api/settings");
+            var json = await _client.GetStringAsync("https://localhost:44315/api/settings");
             var settings = JsonConvert.DeserializeObject<ApiResponse<SettingsResponseDto>>(json);
             return View(settings.Data);
         }
@@ -20,7 +20,7 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> IndexAsync(SettingsResponseDto setting)
         {
             // client.BaseAddress = new Uri("");
-            var json = await client.PutAsJsonAsync("https://localhost:44315/api/settings",setting);
+            var json = await _client.PutAsJsonAsync("https://localhost:44315/api/settings",setting);
             return RedirectToAction("Index");;
         }
     }
