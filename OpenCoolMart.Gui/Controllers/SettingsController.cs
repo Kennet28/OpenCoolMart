@@ -23,5 +23,14 @@ namespace OpenCoolMart.Gui.Controllers
             var json = await _client.PutAsJsonAsync("https://localhost:44315/api/settings",setting);
             return RedirectToAction("Index");;
         }
+<<<<<<< HEAD
+=======
+        [HttpGet]
+        public async Task<IActionResult> Respaldar()
+        {
+            await _client.GetStringAsync("https://localhost:44315/api/settings/backup");
+            return RedirectToAction("Index");
+        }
+>>>>>>> a3a3ce209b3e29b1e3e25d655ef2dbd98679b5b3
     }
 }

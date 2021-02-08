@@ -32,9 +32,15 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
+<<<<<<< HEAD
               services.AddDbContext<OpenCoolMartContext>(options =>
                       options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
               );
+=======
+             // services.AddDbContext<OpenCoolMartContext>(options =>
+             //         options.UseSqlServer(Configuration.GetConnectionString("Alejandro"))
+             // );
+>>>>>>> a3a3ce209b3e29b1e3e25d655ef2dbd98679b5b3
             //services.AddDbContext<OpenCoolMartContext>(options =>
               //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);

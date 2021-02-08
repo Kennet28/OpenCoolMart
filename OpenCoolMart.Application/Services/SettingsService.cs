@@ -22,5 +22,13 @@ namespace OpenCoolMart.Application.Services
         { 
             _settingsRepository.Update(configurarcion);
         }
+<<<<<<< HEAD
+=======
+
+        public async Task BackUp()
+        {
+            await _settingsRepository.BackUp();
+        }
+>>>>>>> a3a3ce209b3e29b1e3e25d655ef2dbd98679b5b3
     }
 }
