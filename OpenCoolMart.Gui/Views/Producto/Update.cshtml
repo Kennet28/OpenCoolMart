@@ -1,0 +1,161 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model OpenCoolMart.Gui.Models.ProductoRequestDto
+
+@{
+    ViewData["Title"] = "Update";
+}
+<!DOCTYPE html>
+<head>
+    <link href="~/css/Producto/Producto.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="content">
+        <img src="~/Img/Imagen3.png" class="ribbon">
+    </div>
+    <br />
+    @using (Html.BeginForm(null, null, FormMethod.Post,new { id = "Id" }))
+    {
+        @Html.AntiForgeryToken()
+<div class="container-xl table-wrapper">
+    <hr />
+    <h1 class="text-center">Actualizar producto</h1>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CreatedBy)
+    @Html.HiddenFor(model => model.PrecioCompra)
+    <div class="form-group">
+        <label class="col-md-12">Código del Producto</label>
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.CodigoProducto, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CodigoProducto, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-md-12">Descripción</label>
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Descripcion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group form-row">
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.PrecioVenta, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.PrecioVenta, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrecioVenta, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Stock, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Stock, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Stock, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="form-group form-row">
+        <div class="col-md-6">
+            <label class="col-md-12">Clasificación</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Clasificacion, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Clasificacion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-4">
+            @Html.LabelFor(model => model.Descuento, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Descuento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descuento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-md-2">
+            <br />
+            <div class="col-md-12">
+                Status @Html.CheckBoxFor(model => model.Status)
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group form-row">
+        <div class="col-md-4"></div>
+        <input type="submit" value="Actualizar" class="btn btn-primary col-md-2" style="margin:10px" onclick="validarStatus()" id="confirmar" />
+        <a asp-action="Index" asp-controller="Producto" onclick="validarcampos()" class="btn btn-danger col-md-2" style="margin:10px">Cancelar</a>
+    </div>
+
+</div>
+    }
+
+</body>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        var modificar;
+        $(document).ready(function () {
+            $("input,select").change(function () {
+                modificar = true;
+            });
+        });
+       
+        var estatus = $("#Status").is(":checked")
+        function validarcampos() {
+            if (modificar) {
+                Alerta("warning", "Cancelar Cambios", "¿Estas seguro de descartar todos los cambios?");
+            }                
+        }
+
+        function Alerta(icono, text1, text2) {
+            event.preventDefault();
+            Swal.fire({
+                title: text1,
+                text: text2,
+                icon: icono,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location = "https://localhost:44368/producto/"
+                }
+            }) 
+        }
+
+        function validarStatus() { 
+            var nuevoestatus = $("#Status").is(":checked")
+            if (estatus ==true && nuevoestatus == false) {
+                Status("question", "Desactivar Producto", "¿Estas seguro de desactivar este producto?");
+            }
+            if (estatus==false && nuevoestatus == true) {
+                Status("question", "Reactivar Producto", "¿Estas seguro de reactivar este producto?");
+            }
+        }
+
+        function Status(icono, text1, text2) {
+            event.preventDefault();
+            Swal.fire({
+                title: text1,
+                text: text2,
+                icon: icono,
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#Id').submit();
+                }
+            })
+        }
+    </script>
+}

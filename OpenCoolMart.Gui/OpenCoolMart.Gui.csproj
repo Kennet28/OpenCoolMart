@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="pruebas\**" />
+    <Content Remove="Interfaces\**" />
+    <Content Remove="pruebas\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="pruebas\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="pruebas\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Caja\" />
+    <Folder Include="Views\Factura\" />
+    <Folder Include="Views\Usuario\" />
+    <Folder Include="wwwroot\css\Factura\" />
+    <Folder Include="wwwroot\css\Usuario\" />
+    <Folder Include="wwwroot\Img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.3.0" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenCoolMart.Api\OpenCoolMart.Api.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Application\OpenCoolMart.Application.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Domain\OpenCoolMart.Domain.csproj" />
+    <ProjectReference Include="..\OpenCoolMart.Infraestructure\OpenCoolMart.Infraestructure.csproj" />
+  </ItemGroup>
+
+</Project>

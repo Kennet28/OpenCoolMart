@@ -1,0 +1,77 @@
+﻿@model ClienteResponseDto
+@{
+}
+<html>
+<body>
+    <div class="container-xl table-wrapper">
+        <hr />
+        <h1 class="text-center">Detalles</h1>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.RFC, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.RFC, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Domicilio, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.Domicilio, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.Domicilio, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreateAt, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.CreateAt, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.CreateAt, "", new { @class = "text-danger" })
+            </div>
+        </div><div class="form-group">
+            @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.CreatedBy, "", new { @class = "text-danger" })
+            </div>
+        </div><div class="form-group">
+            @Html.LabelFor(model => model.UpdateAt, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.UpdateAt, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.UpdateAt, "", new { @class = "text-danger" })
+            </div>
+        </div><div class="form-group">
+            @Html.LabelFor(model => model.UpdatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.UpdatedBy, new { htmlAttributes = new { @class = "form-control", disabled = true } })
+                @Html.ValidationMessageFor(model => model.UpdatedBy, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group text-center">
+            <a asp-controller="Cliente" asp-action="Index" class="btn btn-primary col-md-2">Volver</a>
+        </div>
+    </div>
+</body>
+</html>
+

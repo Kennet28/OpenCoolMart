@@ -1,0 +1,136 @@
+﻿@model List<UsuarioResponseDto>
+@{
+
+}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/css/Empleado/Index.css" rel="stylesheet" />
+</head>
+<div id="content">
+    <img src="~/Img/Imagen3.png" class="ribbon" alt="Imagen 3">
+</div>
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-8"><h2>Usuarios</h2></div>
+                    <div class="col-sm-4">
+                        <div class="search-box">
+                            <i class="material-icons">&#xE8B6;</i>
+                            <input id="usuario" type="text" class="form-control" placeholder="Buscar Usuarios">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tabla">
+                <table id="tablausuario" class="table table-striped table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Correo </th>
+                            <th>PerfilId</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Correo</td>
+                                <td>@item.PerfilId</td>
+                                <td>
+                                    <a asp-controller="Usuario" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                                    <a asp-controller="Usuario" asp-route-Id="@item.Id" asp-action="Update" class="edit" title="Editar" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <a asp-controller="Home" asp-action="Menu" class="btn btn-primary btn-lg  btn-block">Menú</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        let tecla_enter;
+        function press_Enter() {
+            tecla_enter = event.keyCode;
+            if (tecla_enter === 13) {
+
+                const CodeUsuario = $("#usuario").val();
+                if (CodeUsuario != null && CodeUsuario.length !== 0) {
+                    $.ajax({
+                        url: "https://localhost:44315/api/usuario/usr/" + CodeUsuario,
+                        method: "GET"
+                    }).done(function (data) {
+                        if (data.data == null)
+                            alert("Este empleado no existe")
+                        else {
+                            Buscar(data.data);
+                        }
+                    }).fail(function (jqXHR, textStatus, error) {
+                        alert('lo sentimos ha habido un error: '+error);
+                    });
+                }
+                else {
+                    $.ajax({
+                        url: "https://localhost:44315/api/usuario",
+                        method: "GET"
+                    }).done(function (data) {
+                        if (data.data == null)
+                            alert("No hay empleados registrados")
+                        if (data.data != null)
+                            Llenartabla(data.data);
+                    }).fail(function (jqXHR, textStatus, error) {
+                        alert("lo sentimos ha habido un error");
+                    });
+                }
+
+            }
+        }
+        document.addEventListener('keydown', press_Enter);
+
+        function Buscar(data) {
+            $('#tablausuario tbody tr').remove();
+            var cadena;
+            cadena = "<tr>"
+            cadena = cadena + "<td>" + data.id + "</td>";
+            cadena = cadena + "<td>" + data.correo + "</td>";
+            cadena = cadena + "<td>" + data.perfilId + "</td>";
+            cadena = cadena + "<td>" +
+                "<a href='/empleado/Details/" + data.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
+                "<a href='/empleado/Update/" + data.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
+                + "</td>";
+
+            $("#tablausuario").append(cadena);
+        }
+        function Llenartabla(data) {
+            $('#tablausuario tbody tr').remove();
+            var cadena;
+            $.each(data, function (index, obj) {
+                cadena = "<tr>"
+                cadena = cadena + "<td>" + obj.id + "</td>";
+                cadena = cadena + "<td>" + obj.correo + "</td>";
+                cadena = cadena + "<td>" + obj.perfilId + "</td>";
+                cadena = cadena + "<td>" +
+                    "<a href='/empleado/Details/" + obj.id + "' class='view' title='Ver' data-toggle='tooltip'><i class='material-icons'>&#xE417;</i></a>" +
+                    "<a href='/empleado/Update/" + obj.id + "' class='edit' title='Editar' data-toggle='tooltip'><i class='material-icons'>&#xE254;</i></a>"
+                    + "</td>";
+
+                $("#tablausuario").append(cadena);
+            });
+        }
+    </script>
+}
