@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OpenCoolMart.Domain.Entities
 {
-    public class Respaldos
+    public class Respaldos:BaseEntity
     {
-        public DateTime Fecha { get; set; }
-        public Empleado Empleado { get; set; }
+        [ForeignKey("Empleado")]
+        public int EmpleadoId { get; set; }
+        public string Ruta { get; set; }
     }
 }

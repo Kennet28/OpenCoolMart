@@ -26,6 +26,7 @@ namespace OpenCoolMart.Infraestructure.Data
         public virtual DbSet<Producto> Productos { get; set; }
         //DbSet<Caja> Cajas { get; set; }     
         // DbSet<Facturas> Facturas { get; set; }
+        DbSet<Respaldos> Respaldo { get; set; }
         DbSet<Cliente> Clientes { get; set; }
         public virtual DbSet<Compra> Compras { get; set; }
         public virtual DbSet<Proveedor> Proveedors { get; set; }
