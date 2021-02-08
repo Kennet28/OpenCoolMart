@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using AutoMapper.Configuration;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using OpenCoolMart.Domain.Entities;
@@ -46,7 +48,14 @@ namespace OpenCoolMart.Infraestructure.Repositories
         }
 
         public async Task BackUp()
-        {
+        { 
+            var dir = Get().RutaRespaldo+"\\OpenCoolMart-"+DateTime.Now.ToShortDateString().Replace(' ','-').Replace('/','-').Replace(':','-')+".bak";
+           var dataBase = _context.Database;
+           const string query = @"BACKUP DATABASE [OpenCoolMart] TO  DISK = @dir WITH NOFORMAT, NOINIT,  NAME = N'OpenCoolMart-Full Database Backup', SKIP, NOREWIND, NOUNLOAD,  STATS = 10";
+           await dataBase.ExecuteSqlRawAsync(query, new []
+           {
+               new SqlParameter("@dir",dir)
+           });
            
         }
     }

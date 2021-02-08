@@ -1,4 +1,5 @@
-﻿using OpenCoolMart.Domain.Entities;
+﻿using System.Threading.Tasks;
+using OpenCoolMart.Domain.Entities;
 
 namespace OpenCoolMart.Domain.Interfaces
 {
@@ -6,5 +7,6 @@ namespace OpenCoolMart.Domain.Interfaces
     {
         public Configuraciones Get();
         public void Update(Configuraciones config);
+        public Task BackUp();
     }
 }

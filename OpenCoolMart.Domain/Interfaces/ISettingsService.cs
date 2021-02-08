@@ -7,5 +7,6 @@ namespace OpenCoolMart.Domain.Interfaces
     {
         Configuraciones GetSettings();
         void UpdateSettings(Configuraciones configurarcion);
+        public Task BackUp();
     }
 }
