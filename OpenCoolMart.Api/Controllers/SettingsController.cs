@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-﻿using Microsoft.AspNetCore.Mvc;
-=======
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
->>>>>>> a3a3ce209b3e29b1e3e25d655ef2dbd98679b5b3
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Application.Services;
 using OpenCoolMart.Domain.DTOs;
@@ -37,14 +33,11 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<Configuraciones>(config);
             return Ok(response);
         }
-<<<<<<< HEAD
-=======
         [Route("backup")]
         public async Task<IActionResult> BackUp()
         {
             await _settingsService.BackUp();
             return Ok();
         }
->>>>>>> a3a3ce209b3e29b1e3e25d655ef2dbd98679b5b3
     }
 }

@@ -272,11 +272,9 @@
             var cambio = parseFloat(efectivo - valorcompra);
             var i = 0;
             if (parseFloat(efectivo) >= parseFloat(valorcompra)) {
-<<<<<<< HEAD
-                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + subtotalcompra + ",Efectivo:" + efectivo.toFixed(2) + ",Cambio:" + cambio + ",Iva:"+ivacompra+",FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,ClienteId:1";
-=======
-                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + subtotalcompra + ",Efectivo:" + efectivo.toFixed(2) + ",Cambio:" + cambio + ",Iva:"+ivacompra+",FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,";
->>>>>>> a3a3ce209b3e29b1e3e25d655ef2dbd98679b5b3
+
+                var enviar = "{VentaTotal:" + valorcompra + ",SubTotal:" + subtotalcompra + ",Efectivo:" + efectivo.toFixed(2) + ",Cambio:" + cambio + ",Iva:"+ivacompra+",FormaPago:'Efectivo',EmpleadoId:" + Empleado+",CajaId:1,Status:true,ClienteId:1,";
+
                 $("#tablaventa tbody tr").each(function (index) {
                     if (i == 0) {
                         enviar += "detallesVentas:[{ProductoId:" + $(this).find('td').eq(0).text() +

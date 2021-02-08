@@ -52,8 +52,8 @@ namespace OpenCoolMart.Infraestructure.Repositories
                 Expression<Func<Venta, bool>> expr = venta => venta.Id == filter.NumVenta.Value;
                 expression = expression.And(expr);
             }
-
-            return FindByCondition(expression);
+            var ventas = _context.Ventas.Include(x => x.Empleado).AsEnumerable();
+            return ventas;
         }
 
         public async Task<Venta> VerVenta(int id)

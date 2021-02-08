@@ -1,7 +1,13 @@
 ﻿var obj;
 var listaobj = new Array();
 var comprobar;
-var cantidadTotal = 0;
+var cantidadTotal;
+$(document).on("dblclick", "#tablacompra tbody tr", function () {
+    var codigoProducto = $(this).children().eq('0').text();
+    var precioCompra = $(this).children().eq('3').text();
+    CambiarCantidad(codigoProducto,precioCompra);
+});
+
 $(document).on("dblclick", "#tablaproductos tbody tr", function () {
     var codigoProducto = $(this).children().eq('0').text();
     buscarcodigoProducto(codigoProducto);
@@ -84,10 +90,12 @@ function buscarcodigoProducto(codigoProducto) {
         url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
         method: "GET"
     }).done(function (data) {
+        comprobar = false;
         obj = new Object();
         $.each(listaobj, function (index, val) {
             if (val.id == data.data.id) {
-                val.cantidad = parseInt(cantidad + 1);
+                val.cantidad = parseInt(val.cantidad + 1);
+                val.subTotal = val.subTotal + data.data.precioCompra;
                 comprobar = true;    
             }
         });
@@ -96,11 +104,11 @@ function buscarcodigoProducto(codigoProducto) {
         else if (data.data.status == false)
             Alerta("warning", "producto desactivado", "Este producto esta desactivado");
         else if (comprobar==true) {
-            
+            LlenarTabla();
         }
         else {
             obj.id = data.data.id;
-            obj.codigoProducto = data.data.codigo;
+            obj.codigoProducto = data.data.codigoProducto;
             obj.descripcion = data.data.descripcion;
             obj.cantidad = 1;
             obj.precioCompra = data.data.precioCompra;
@@ -118,13 +126,10 @@ function buscarcodigoProducto(codigoProducto) {
 
 function LlenarTabla() {
     $('#tablacompra tbody tr').remove();
-    var cantidad = 1
-    var descuento = parseFloat(1 - data.descuento)
-    SubTotal = parseInt(data.precioVenta) * cantidad * descuento;
     var cadena;
-    cadena = "<tr>"
-    
+    cantidadTotal = 0;  
     $.each(listaobj, function (index, val) {
+        cadena = cadena+ "<tr>" 
         cadena = cadena + "<td>" + val.codigoProducto + "</td>";
         cadena = cadena + "<td>" + val.descripcion + "</td>";
         cadena = cadena + "<td>" + val.cantidad + "</td>";
@@ -132,25 +137,15 @@ function LlenarTabla() {
         cadena = cadena + "<td>" + val.subTotal + "</td>";
         cadena = cadena + "<td style='width: 150px;'><a class ='elimina'><button class='btn btn-danger' type='button'><span class='fa fa-remove'></span></button></a></td>";
         cantidadTotal = cantidadTotal + val.subTotal;
+        cadena = cadena + "</tr>"
     });
-    cadena = cadena + "</tr>"
+    
     $("#CantidadTotal").val(cantidadTotal)
-    $("#tablaventa").append(cadena);
+    $("#tablacompra").append(cadena);
     fn_dar_eliminar();
 }
 
-function Alerta(icono, titulo, texto) {
-    Swal.fire({
-        position: 'Center',
-        icon: icono,
-        title: titulo,
-        text: texto,
-        //showConfirmButton: false,
-    })
-}
-
-
-function CambiarCantidad(id,precioCompra) {
+function CambiarCantidad(codigoProducto,precioCompra) {
     (async () => {
         const { value: result } = await Swal.fire({
             input: 'number',
@@ -158,11 +153,11 @@ function CambiarCantidad(id,precioCompra) {
             inputPlaceholder: 'Cantidad'
         })
         if (result) {
-            var cantidad = result
+            var cantidad = parseInt(result)
             $.each(listaobj, function (index, val) {
-                if (val.id == id) {
-                    val.id = cantidad;
-                    val.precioCompra = parseFloat(precioCompra * cantidad);
+                if (val.codigoProducto == codigoProducto) {
+                    val.cantidad = cantidad;
+                    val.subTotal = parseFloat(precioCompra * cantidad);
                     LlenarTabla();
                 }
             });               
@@ -178,4 +173,54 @@ function fn_dar_eliminar() {
             LlenarTabla();
         });
     });
+}
+
+function RealizarCompra() {
+    var EmpleadoId = $("#Empleado").val();
+    var ProveedorId = $("#IdProveedor").val();
+    var enviar = "{ProveedorId:" + ProveedorId + ",EmpleadoId:" + EmpleadoId + ",PrecioTotal:" + cantidadTotal;
+
+    $.each(listaobj, function (index, val) {
+        if (index == 0) {
+            enviar += ",CompraProducto:[{ProductoId:" + val.id +
+                ",CantidadProducto:" + val.cantidad +
+                ",TotalPorProducto:" + val.cantidadTotal + "}"
+        }
+        else {
+            enviar += ",{ProductoId:" + val.id +
+                ",CantidadProducto:" + val.cantidad +
+                ",TotalPorProducto:" + val.cantidadTotal + "}"
+        }
+    });
+    enviar += "]}";
+
+    var json = eval("(" + enviar + ')');
+    $.ajax({
+        url: "https://localhost:44315/api/Compra/",
+        data: JSON.stringify(json),
+        type: "POST",
+        //async: false,//this makes the ajax-call blocking
+        contentType: 'application/json;charset=UTF-8',
+        dataType: 'json'
+    }).done(function (data) {
+        Alerta("success", "La venta se ha realizado con exito","Felicidades");
+        Limpiar();
+    }).fail(function (jqXHR, textStatus, error) {
+        Alerta("error", "Error", "Ha ocurrido un error");
+    });;
+    /*if (parseFloat(efectivo) >= parseFloat(valorcompra)) {
+    }
+    else {
+        Alerta("warning", "Dinero infuficiente", "El dinero pagado es menor al valor de la compra");
+    }*/
+}
+
+function Alerta(icono, titulo, texto) {
+    Swal.fire({
+        position: 'Center',
+        icon: icono,
+        title: titulo,
+        text: texto,
+        //showConfirmButton: false,
+    })
 }
