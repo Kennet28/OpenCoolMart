@@ -16,6 +16,8 @@ namespace OpenCoolMart.Domain.Entities
         public DateTime FechaVenta { get; set; }
         [ForeignKey("Empleado")]
         public int EmpleadoId { get; set; }
+        [ForeignKey("Cliente")]
+        public int ClienteId { get; set; }
         public int CajaId { get; set; }
         public ICollection<DetallesVenta> DetallesVentas { get; set; }
         public Empleado Empleado { get; set; }

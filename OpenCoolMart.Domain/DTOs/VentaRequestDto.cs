@@ -15,6 +15,7 @@ namespace OpenCoolMart.Domain.DTOs
         public string FormaPago { get; set; }
         public int EmpleadoId { get; set; }
         public int CajaId { get; set; }
+        public int ClienteId { get; set; }
         public ICollection<DetallesVenta> DetallesVentas { get; set; }
     }
 }

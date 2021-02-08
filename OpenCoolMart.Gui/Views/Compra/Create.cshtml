@@ -1,5 +1,90 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
+@{ }
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="~/css/Producto/Producto.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div id="content">
+        <img src="~/Img/Imagen3.png" class="ribbon">
+    </div>
+    
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <button type="button" class="btn btn-success boton" data-toggle="modal" data-target="#Modal" onclick="ModalProductos()">
+                Buscar Producto
+            </button>
+            <button type="button" class="btn btn-success boton" data-toggle="modal" data-target="#Modal" onclick="ModalProveedores()">
+                Buscar Proveedor
+            </button>
+            <input id="IdProveedor" />
+            <input id="NombreProveedor" />
+            <div class="form-group row">
+                <div id="tabla">
+                    <table id="tablacompra" class="table table-striped table-hover table-bordered" style="min-width:725px; max-width: 825px;">
+                        <thead style="background-color:lightgray">
+                            <tr>
+                                <th>Codigo</th>
+                                <th>Descripción</th>
+                                <th>Cantidad</th>
+                                <th>Precio U.</th>
+                                <th>SubTotal</th>
+                                <th>Eliminar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <label>Cantidad Total</label><input id="CantidadTotal"/>
+
+        </div>
+    </div>
+
+    <div class="modal fade show" id="Modal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">Tabla</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table id="tablaproductos" class="table table-striped table-hover table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <table id="tablaproveedores" class="table table-striped table-hover table-bordered">
+                        <thead>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="~/js/Compra/Create.js"></script>
 }

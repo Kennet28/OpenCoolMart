@@ -18,6 +18,7 @@ namespace OpenCoolMart.Domain.DTOs
         public DateTime FechaVenta { get; set; }
         public int EmpleadoId { get; set; }
         public int CajaId { get; set; }
+        public int ClienteId { get; set; }
         public ICollection<DetallesVenta> DetallesVentas { get; set; }
     }
 }
