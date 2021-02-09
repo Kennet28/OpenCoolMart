@@ -6,17 +6,7 @@ namespace OpenCoolMart.Infraestructure.Migrations
     public partial class deleteTBCajas : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Ventas_Cajas_CajaId",
-                table: "Ventas");
-
-            migrationBuilder.DropTable(
-                name: "Cajas");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Ventas_CajaId",
-                table: "Ventas");
+        {            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

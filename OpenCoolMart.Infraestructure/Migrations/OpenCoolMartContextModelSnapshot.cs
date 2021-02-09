@@ -440,6 +440,8 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteId");
+
                     b.HasIndex("EmpleadoId");
 
                     b.ToTable("Ventas");
@@ -504,12 +506,21 @@ namespace OpenCoolMart.Infraestructure.Migrations
 
             modelBuilder.Entity("OpenCoolMart.Domain.Entities.Venta", b =>
                 {
+                    b.HasOne("OpenCoolMart.Domain.Entities.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .HasConstraintName("FK_Ventas_Clientes_ClienteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("OpenCoolMart.Domain.Entities.Empleado", "Empleado")
                         .WithMany()
                         .HasForeignKey("EmpleadoId")
                         .HasConstraintName("FK_Ventas_Empleados_EmpleadoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Cliente");
 
                     b.Navigation("Empleado");
                 });

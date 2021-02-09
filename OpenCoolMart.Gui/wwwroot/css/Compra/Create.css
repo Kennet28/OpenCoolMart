@@ -154,7 +154,13 @@ table.table td i {
     width: auto;
 }
 
-    #tabla table {
-        width: 1015px;
-        background-color: lightgray;
-    }
+#tabla table {
+    width: 1015px;
+    background-color: lightgray;
+}
+
+
+.proveedorclass{
+    margin-top:10px;
+    margin-bottom:20px;
+}

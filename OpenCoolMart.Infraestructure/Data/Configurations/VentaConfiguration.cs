@@ -78,6 +78,12 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Ventas_Empleados_EmpleadoId")
                 .IsRequired();
+            builder.HasOne("OpenCoolMart.Domain.Entities.Cliente", "Cliente")
+                .WithMany()
+                .HasForeignKey("ClienteId")
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("FK_Ventas_Clientes_ClienteId")
+                .IsRequired();
         }
     }
 }

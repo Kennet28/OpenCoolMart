@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link href="~/css/Compra/StyleSheet.css" rel="stylesheet" />
+    <link href="~/css/Compra/Create.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -23,7 +23,7 @@
     <div class="container-xl">
         <div class="table-responsive">
             <div class="table-wrapper">
-                <div class="table-title">
+                <div class="form-group">
                     <div class="row">
                         <div class="col-sm-8"><h2>Compras</h2></div>
                         <div class="col-sm-4">
@@ -33,38 +33,37 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="tabla">
-                    <table id="tablacompras" class="table table-striped table-hover table-bordered">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Fecha de Compra</th>
-                                <th>Precio total</th>
-                                <th>Proveedor</th>
-                                <th>Detalles</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if (Model.Any())
-                            {
-                                @foreach (var item in Model)
+                    <div id="tabla">
+                        <table id="tablacompras" class="table table-striped table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Fecha de Compra</th>
+                                    <th>Precio total</th>
+                                    <th>Proveedor</th>
+                                    <th>Detalles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Any())
                                 {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.CreateAt</td>
-                                        <td>@item.PrecioTotal</td>
-                                        <td>@item.Proveedor.Nombre</td>
-                                        <td>
-                                            <a asp-controller="Compra" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                        </td>
-                                    </tr>
-                                }
-                            }
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.CreateAt</td>
+                    <td>@item.PrecioTotal</td>
+                    <td>@item.Proveedor.Nombre</td>
+                    <td>
+                        <a asp-controller="Compra" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
+                    </td>
+                </tr>}}
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                
                 <div class="form-group">
                     <a asp-controller="Home" asp-action="Menu" class="btn btn-primary btn-lg  btn-block">Menú</a>
                 </div>

@@ -28,17 +28,17 @@ namespace OpenCoolMart.Api
         {
             services.AddCors();
 
-            // services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
 
-            // services.AddDbContext<OpenCoolMartContext>(options =>
-            //           options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                      options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
             //services.AddDbContext<OpenCoolMartContext>(options =>
               //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            services.AddDbContext<OpenCoolMartContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
+            //services.AddDbContext<OpenCoolMartContext>(options =>
+              //  options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
             // var config = new ConfigurationBuilder()
             // .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             // .AddJsonFile("appsettings.json",optional: true, reloadOnChange: true).Build();
@@ -48,8 +48,8 @@ namespace OpenCoolMart.Api
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
             });
-            // services.AddMvc().AddFluentValidation(options =>
-            // options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.AddMvc().AddFluentValidation(options =>
+            options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
