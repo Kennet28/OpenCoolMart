@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
@@ -13,6 +15,7 @@ namespace OpenCoolMart.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
     public class ProductoController : ControllerBase
     {
         private readonly IProductoService _productoService;

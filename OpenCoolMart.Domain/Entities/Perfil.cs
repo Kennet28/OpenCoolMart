@@ -10,7 +10,5 @@ namespace OpenCoolMart.Domain.Entities
     {
         public int PerfilId { get; set; }
         public string Cargo { get; set; }
-        [ForeignKey("PermisoId")]
-        public int PermisoId { get; set; }
     }
 }

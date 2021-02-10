@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
@@ -78,6 +79,14 @@ namespace OpenCoolMart.Api.Controllers
             await _usuarioService.UpdateUsuario(usuario);
             var result = new ApiResponse<bool>(true);
             return Ok(result);
+        }
+        [AllowAnonymous]
+        [HttpPost("Autenticar")]
+        public async Task<IActionResult> Autenticar([FromBody]UsuarioRequestDto usuarioRequestDto)
+        {
+            var usuario = _mapper.Map<UsuarioRequestDto, Usuario>(usuarioRequestDto);
+            var user = await _usuarioService.Autenticar(usuario);
+            return Ok(user);
         }
     }
 }

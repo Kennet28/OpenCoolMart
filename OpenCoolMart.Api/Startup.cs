@@ -1,6 +1,8 @@
 using System;
+using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -8,8 +10,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using OpenCoolMart.Application.Services;
 using OpenCoolMart.Domain.ConstrainsMap;
+using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
 using OpenCoolMart.Infraestructure.Data;
 using OpenCoolMart.Infraestructure.Repositories;
@@ -53,6 +57,25 @@ namespace OpenCoolMart.Api
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+            //var appSettingsSection = Configuration.GetSection("AppSettings")
+            // configure jwt authentication
+            var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
+            var key = Encoding.UTF8.GetBytes(appSettings.Secret);
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+            {
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            });
+            // x.RequireHttpsMetadata = false;
+            //x.SaveToken = true;
+        
 
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IEmpleadoService, EmpleadoService>();

@@ -11,5 +11,6 @@ namespace OpenCoolMart.Domain.Interfaces
         Task<IEnumerable<Usuario>> GetUsuarios();
         Task<Usuario> GetUsuario(int id);
         Task UpdateUsuario(Usuario producto);
+        Task<Usuario> Autenticar(Usuario usuario);
     }
 }
