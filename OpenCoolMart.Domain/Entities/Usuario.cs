@@ -12,7 +12,6 @@ namespace OpenCoolMart.Domain.Entities
         public string Correo { get; set; }
         [ForeignKey("Pefil")]
         public int PerfilId { get; set; }
-        public string Token { get; set; }
         public Perfil Perfil { get; set; }
     }
 }

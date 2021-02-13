@@ -82,11 +82,10 @@ namespace OpenCoolMart.Api.Controllers
         }
         [AllowAnonymous]
         [HttpPost("Autenticar")]
-        public async Task<IActionResult> Autenticar([FromBody]UsuarioRequestDto usuarioRequestDto)
+        public async Task<IActionResult> Autenticar([FromBody]InicioSesion usuarioRequestDto)
         {
-            var usuario = _mapper.Map<UsuarioRequestDto, Usuario>(usuarioRequestDto);
-            var user = await _usuarioService.Autenticar(usuario);
-            return Ok(user);
+            var sesion = await _usuarioService.Autenticar(usuarioRequestDto);
+            return Ok(sesion);
         }
     }
 }

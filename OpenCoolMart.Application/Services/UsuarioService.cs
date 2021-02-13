@@ -51,7 +51,7 @@ namespace OpenCoolMart.Application.Services
             await _unitOfWork.UsuarioRepository.Update(usuario);
         }
 
-        public async Task<Usuario> Autenticar(Usuario usuario)
+        public async Task<object> Autenticar(InicioSesion usuario)
         {
             var users = await _unitOfWork.UsuarioRepository.GetAll();
             var user = users.SingleOrDefault(x => x.Correo == usuario.Correo && x.Contrasenia == usuario.Contrasenia);
@@ -70,8 +70,8 @@ namespace OpenCoolMart.Application.Services
                 SigningCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
-            user.Token = tokenHandler.WriteToken(token);
-            return user;
+            var Token = tokenHandler.WriteToken(token);
+            return new { token=Token,Id=user.Id,Perfil=user.PerfilId};
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using OpenCoolMart.Domain.Entities;
+﻿using Microsoft.AspNetCore.Mvc;
+using OpenCoolMart.Domain.DTOs;
+using OpenCoolMart.Domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,6 +13,6 @@ namespace OpenCoolMart.Domain.Interfaces
         Task<IEnumerable<Usuario>> GetUsuarios();
         Task<Usuario> GetUsuario(int id);
         Task UpdateUsuario(Usuario producto);
-        Task<Usuario> Autenticar(Usuario usuario);
+        Task<object> Autenticar(InicioSesion usuario);
     }
 }

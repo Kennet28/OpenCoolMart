@@ -10,12 +10,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+//AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme,
 namespace OpenCoolMart.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme)]
+    [Authorize]
     public class ProductoController : ControllerBase
     {
         private readonly IProductoService _productoService;
@@ -35,7 +35,7 @@ namespace OpenCoolMart.Api.Controllers
                 return Ok(response);
             return Ok(response);
         }
-
+        [Authorize(Roles = "1")]
         [HttpGet("{id:int}")]
         public async Task<IActionResult> Get(int id)
         {
@@ -56,7 +56,7 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<ProductoResponseDto>(productoDto);
             return Ok(response);
         }
-
+        [Authorize(Roles = "1")]
         [HttpPost]
         public async Task<IActionResult> Post(ProductoRequestDto productolDto)
         {
@@ -70,7 +70,7 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<ProductoResponseDto>(productoresponseDto);
             return Ok(response);
         }
-
+        [Authorize(Roles = "1")]
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
@@ -78,7 +78,7 @@ namespace OpenCoolMart.Api.Controllers
             var result = new ApiResponse<bool>(true);            
             return Ok(result);
         }
-
+        [Authorize(Roles = "1")]
         [HttpPut]
         public async Task<IActionResult> Put(int id, ProductoRequestDto productoResponse)
         {

@@ -62,10 +62,15 @@ namespace OpenCoolMart.Api
             // configure jwt authentication
             var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             var key = Encoding.UTF8.GetBytes(appSettings.Secret);
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(x => x.TokenValidationParameters = new TokenValidationParameters
+            services.AddAuthentication(x =>
             {
-
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(
+            x => x.TokenValidationParameters = new TokenValidationParameters
+            {
+                
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
                 ValidateIssuer = false,
@@ -75,7 +80,7 @@ namespace OpenCoolMart.Api
             });
             // x.RequireHttpsMetadata = false;
             //x.SaveToken = true;
-        
+           
 
             services.AddTransient<IProductoService, ProductoService>();
             services.AddTransient<IEmpleadoService, EmpleadoService>();
@@ -109,6 +114,8 @@ namespace OpenCoolMart.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            // app.UseAuthentication(); es necesario
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

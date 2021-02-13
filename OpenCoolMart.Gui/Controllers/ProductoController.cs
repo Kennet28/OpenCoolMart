@@ -6,6 +6,7 @@ using OpenCoolMart.Gui.Responses;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -19,6 +20,7 @@ namespace OpenCoolMart.Gui.Controllers
             if (HttpContext.Session.GetString("Id") != null)
             {
                 var httpClient = new HttpClient();
+                //httpClient.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer", "Your Oauth token");
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto");
                 var ListProductos = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductoResponseDto>>>(Json);
                 return View(ListProductos.Data);
