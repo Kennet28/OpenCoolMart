@@ -82,6 +82,18 @@
 </script>
 @section Scripts{
     <script>
+        var Token;
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Home/AsyncToken",
+                method: "GET"
+            }).done(function (data) {
+                Token = data;
+            }).fail(function (jqXHR, textStatus, error) {
+                alert("lo sentimos ha habido un error");
+            });
+        })
         var tecla_enter;
         function press_Enter() {
             tecla_enter = event.keyCode;
@@ -91,6 +103,7 @@
                 if (clienteId != null && clienteId.length != 0) {
                     $.ajax({
                         url: "https://localhost:44315/api/Cliente/cli/" + clienteId,
+                        headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
@@ -105,6 +118,7 @@
                 else {
                     $.ajax({
                         url: "https://localhost:44315/api/Cliente",
+                        headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)

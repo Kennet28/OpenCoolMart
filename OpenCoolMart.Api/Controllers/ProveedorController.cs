@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
 {
+    [Authorize(Roles ="1")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProveedorController : ControllerBase

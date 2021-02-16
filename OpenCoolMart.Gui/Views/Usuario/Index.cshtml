@@ -64,7 +64,19 @@
 
 @section Scripts{
     <script>
-        let tecla_enter;
+        var tecla_enter;
+        var Token;
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Home/AsyncToken",
+                method: "GET"
+            }).done(function (data) {
+                Token = data;
+            }).fail(function (jqXHR, textStatus, error) {
+                alert("lo sentimos ha habido un error");
+            });
+        })
         function press_Enter() {
             tecla_enter = event.keyCode;
             if (tecla_enter === 13) {
@@ -73,6 +85,7 @@
                 if (CodeUsuario != null && CodeUsuario.length !== 0) {
                     $.ajax({
                         url: "https://localhost:44315/api/usuario/usr/" + CodeUsuario,
+                        headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
@@ -87,6 +100,7 @@
                 else {
                     $.ajax({
                         url: "https://localhost:44315/api/usuario",
+                        headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)

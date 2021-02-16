@@ -10,6 +10,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using OpenCoolMart.Gui.Models;
+using System.Net.Http.Headers;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -21,6 +22,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync(url);
                 var facturas = JsonConvert.DeserializeObject<ApiResponse<List<FacturaResponseDto>>>(json);
                 return View(facturas.Data);
@@ -51,6 +54,8 @@ namespace OpenCoolMart.Gui.Controllers
             ViewBag.Clientes = await GetClientesAsync(); ;
             ViewBag.UsosCFDI = GetUsosCfdi();
             Factura.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var json = await client.PostAsJsonAsync("https://localhost:44315/api/Facturas/", Factura);
             return json.IsSuccessStatusCode ? (IActionResult) RedirectToAction("Index") : View(Factura);
         }
@@ -59,6 +64,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync("https://localhost:44315/api/facturas/"+id);
                 var factura = JsonConvert.DeserializeObject<ApiResponse<FacturaResponseDto>>(json);
                 return View(factura.Data);
@@ -75,6 +82,8 @@ namespace OpenCoolMart.Gui.Controllers
                 // ViewBag.Ventas = await GetVentasAsync();
                 // ViewBag.Clientes = await GetClientesAsync(); ;
                 // ViewBag.UsosCFDI = GetUsosCfdi();
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync("https://localhost:44315/api/facturas/"+id);
                 var factura = JsonConvert.DeserializeObject<ApiResponse<FacturaRequestDto>>(json);
                 return View(factura.Data);
@@ -87,6 +96,8 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int id,FacturaRequestDto facturaDto)
         {
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             client.BaseAddress = new Uri("https://localhost:44315/api/facturas/");
             facturaDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
             var putTask = await client.PutAsJsonAsync("?id=" + id, facturaDto);
@@ -94,6 +105,8 @@ namespace OpenCoolMart.Gui.Controllers
         }
         public async Task<List<SelectListItem>> GetVentasAsync() 
         {
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             string json = await client.GetStringAsync("https://localhost:44315/api/venta/");
             var listventas = JsonConvert.DeserializeObject<ApiResponse<List<Models.VentaResponseDto>>>(json);
             var ventas = listventas.Data.ConvertAll(ven => new SelectListItem()
@@ -107,6 +120,8 @@ namespace OpenCoolMart.Gui.Controllers
         }
     public async Task<List<SelectListItem>> GetClientesAsync()
         {
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             string json2 = await client.GetStringAsync("https://localhost:44315/api/cliente/");
             var listclientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json2);
             var clientes = listclientes.Data.ConvertAll(cliente => new SelectListItem()

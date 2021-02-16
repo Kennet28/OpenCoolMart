@@ -121,6 +121,19 @@
         var SubTotal = 0;
         var Empleado = @ViewData["Usuario"];
         var Iva = 0;
+        var Token;
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Home/AsyncToken",
+                method: "GET"
+            }).done(function (data) {
+                Token = data;
+            }).fail(function (jqXHR, textStatus, error) {
+                alert("lo sentimos ha habido un error");
+            });
+        })
+
         function press_Enter() {
             tecla_enter = event.keyCode;
             if (tecla_enter == 13 && $("#codigoprod").val().length!=0) {
@@ -128,7 +141,8 @@
                 var codigo = $("#codigoprod").val();
                 var producto="Hola";
                 $.ajax({
-                    url: "https://localhost:44315/api/Producto/Prod/"+codigo,
+                    url: "https://localhost:44315/api/Producto/Prod/" + codigo,
+                    headers: { "Authorization": "Bearer " + Token },
                     method: "GET"
                 }).done(function (data) {
                     if (data.data == null)
@@ -296,6 +310,7 @@
 
                 $.ajax({
                     url: "https://localhost:44315/api/Venta/",
+                    headers: { "Authorization": "Bearer " + Token },
                     data: JSON.stringify(json),
                     type: "POST",
                     //async: false,//this makes the ajax-call blocking
@@ -317,6 +332,7 @@
         function ObtenerProductos() {
             $.ajax({
                 url: "https://localhost:44315/api/Producto",
+                headers: { "Authorization": "Bearer " + Token },
                 method: "GET"
             }).done(function (data) {
                 LLenarTablaProductos(data.data);
@@ -344,6 +360,7 @@
         function LLenarPorModal(codigoProducto) {
             $.ajax({
                 url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
+                headers: { "Authorization": "Bearer " + Token },
                 method: "GET"
             }).done(function (data) {
                 if (data.data == null)

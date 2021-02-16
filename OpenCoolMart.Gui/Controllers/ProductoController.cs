@@ -17,10 +17,11 @@ namespace OpenCoolMart.Gui.Controllers
         {
             //https://localhost:44315/api/Producto
 
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient();
-                //httpClient.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer", "Your Oauth token");
+                var Token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer",Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto");
                 var ListProductos = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductoResponseDto>>>(Json);
                 return View(ListProductos.Data);
@@ -33,9 +34,11 @@ namespace OpenCoolMart.Gui.Controllers
 
         public async Task<IActionResult> Details(int Id)
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient();
+                var Token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
                 var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
                 return View(producto.Data);
@@ -48,7 +51,7 @@ namespace OpenCoolMart.Gui.Controllers
 
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
 
                 return View();
@@ -64,8 +67,9 @@ namespace OpenCoolMart.Gui.Controllers
             requestDto.CreatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
 
             requestDto.PrecioCompra = 1;
-
             var httpClient = new HttpClient();
+            var Token = HttpContext.Session.GetString("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var Json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Producto/", requestDto);
             if (Json.IsSuccessStatusCode)
             {
@@ -78,9 +82,11 @@ namespace OpenCoolMart.Gui.Controllers
 
         public async Task<IActionResult> Update(int Id)
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient();
+                var Token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
                 var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoRequestDto>>(Json);
                 return View(producto.Data);
@@ -97,6 +103,8 @@ namespace OpenCoolMart.Gui.Controllers
             productoDto.PrecioCompra = 1;
 
             var httpClient = new HttpClient();
+            var Token = HttpContext.Session.GetString("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
             var putTask = httpClient.PutAsJsonAsync<ProductoRequestDto>("?id=" + Id, productoDto);
@@ -112,6 +120,6 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index");
             }
             return View(productoDto);
-        }
+        }        
     }
 }

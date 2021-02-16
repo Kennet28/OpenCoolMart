@@ -7,8 +7,8 @@ namespace OpenCoolMart.Gui.Models
 {
     public class LoginModel
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public bool status { get; set; } = true;
+        public string Correo { get; set; }
+        public string Contrasenia { get; set; }
+       // public bool status { get; set; } = true;
     }
 }

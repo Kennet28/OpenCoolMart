@@ -2,6 +2,19 @@
 var listaobj = new Array();
 var comprobar;
 var cantidadTotal;
+var Token;
+
+$(document).ready(function () {
+    $.ajax({
+        url: "/Home/AsyncToken",
+        method: "GET"
+    }).done(function (data) {
+        Token = data;
+    }).fail(function (jqXHR, textStatus, error) {
+        alert("lo sentimos ha habido un error");
+    });
+})
+
 $(document).on("dblclick", "#tablacompra tbody tr", function () {
     var codigoProducto = $(this).children().eq('0').text();
     var precioCompra = $(this).children().eq('3').text();
@@ -26,6 +39,7 @@ $(document).on("dblclick", "#tablaproveedores tbody tr", function () {
 function ModalProductos() {
     $.ajax({
         url: "https://localhost:44315/api/Producto",
+        headers: { "Authorization": "Bearer " + Token },
         method: "GET"
     }).done(function (data) {
         LLenarTablaProductos(data.data);
@@ -58,6 +72,7 @@ function LLenarTablaProductos(data) {
 function ModalProveedores() {
     $.ajax({
         url: "https://localhost:44315/api/Proveedor",
+        headers: { "Authorization": "Bearer " + Token },
         method: "GET"
     }).done(function (data) {
         LLenarTablaProveedor(data.data);
@@ -88,6 +103,7 @@ function LLenarTablaProveedor(data) {
 function buscarcodigoProducto(codigoProducto) {
     $.ajax({
         url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
+        headers: { "Authorization": "Bearer " + Token },
         method: "GET"
     }).done(function (data) {
         comprobar = false;
@@ -197,6 +213,7 @@ function RealizarCompra() {
     var json = eval("(" + enviar + ')');
     $.ajax({
         url: "https://localhost:44315/api/Compra/",
+        headers: { "Authorization": "Bearer " + Token },
         data: JSON.stringify(json),
         type: "POST",
         //async: false,//this makes the ajax-call blocking

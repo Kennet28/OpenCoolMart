@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
-using OpenCoolMart.Domain.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using ClienteRequestDto = OpenCoolMart.Gui.Models.ClienteRequestDto;
 using ClienteResponseDto = OpenCoolMart.Gui.Models.ClienteResponseDto;
 
@@ -20,10 +19,13 @@ namespace OpenCoolMart.Gui.Controllers
 
         HttpClient client = new HttpClient();
         string url = "https://localhost:44315/api/cliente/";
+
         public async Task<IActionResult> Index()
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync(url);
                 var Clientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json);
                 return View(Clientes.Data);
@@ -48,6 +50,8 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> Create(ClienteRequestDto Cliente)
         {
             Cliente.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var Json = await client.PostAsJsonAsync("https://localhost:44315/api/Cliente/", Cliente);
             if (Json.IsSuccessStatusCode)
             {
@@ -59,6 +63,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync("https://localhost:44315/api/cliente/" + id);
                 var _Cliente = JsonConvert.DeserializeObject<ApiResponse<ClienteResponseDto>>(json);
                 return View(_Cliente.Data);
@@ -72,6 +78,8 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync("https://localhost:44315/api/cliente/" + id);
                 var _Cliente = JsonConvert.DeserializeObject<ApiResponse<ClienteRequestDto>>(json);
                 return View(_Cliente.Data);
@@ -84,6 +92,8 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int id, ClienteRequestDto ClienteDto)
         {
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             client.BaseAddress = new Uri("https://localhost:44315/api/Cliente/");
             ClienteDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
             var putTask = await client.PutAsJsonAsync("?id=" + id, ClienteDto);

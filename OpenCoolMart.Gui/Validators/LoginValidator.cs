@@ -7,14 +7,14 @@ namespace OpenCoolMart.Gui.Validators
     {
         public LoginValidator()
         {
-            RuleFor(login => login.Email)
+            RuleFor(login => login.Correo)
                 .NotNull().WithMessage("Este campo no puede ser null")
                 .NotEmpty().WithMessage("Este campo no puede ser vacio");
-            RuleFor(login => login.Password)
+            RuleFor(login => login.Contrasenia)
                 .NotNull().WithMessage("Este campo no puede ser null")
                 .NotEmpty().WithMessage("Este campo no puede ser vacio")
                 .Length(8, 15);
-            RuleFor(login => login.status).NotEqual(true).WithMessage("Correo y contraseña no validos");
+            //RuleFor(login => login.status).NotEqual(true).WithMessage("Correo y contraseña no validos");
         }
     }
 }

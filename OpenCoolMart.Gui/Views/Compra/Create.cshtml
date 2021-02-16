@@ -63,7 +63,8 @@
                 <input id="Empleado" value="@ViewData["Usuario"]" hidden />
                 <label>Cantidad Total</label>
                 <input id="CantidadTotal" />
-                <button onclick="RealizarCompra()">Realizar Compra</button>
+                <button onclick="RealizarCompra()" class="btn-success">Realizar Compra</button>
+                <a asp-controller="Compra" asp-action="Index" class="float-right btn btn-primary">Volver</a>
             </div>
             
         </div>

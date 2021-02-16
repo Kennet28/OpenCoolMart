@@ -5,8 +5,8 @@ using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Responses;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace OpenCoolMart.Gui.Controllers
@@ -15,9 +15,11 @@ namespace OpenCoolMart.Gui.Controllers
     {
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient();
+                var Token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Proveedor");
                 var ListProveedors = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProveedorResponseDto>>>(Json);
                 return View(ListProveedors.Data);
@@ -30,9 +32,11 @@ namespace OpenCoolMart.Gui.Controllers
 
         public async Task<IActionResult> Details(int Id)
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient();
+                var Token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Proveedor/" + Id);
                 var proveedor = JsonConvert.DeserializeObject<ApiResponse<ProveedorResponseDto>>(Json);
                 return View(proveedor.Data);
@@ -45,7 +49,7 @@ namespace OpenCoolMart.Gui.Controllers
 
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
 
                 return View();
@@ -61,6 +65,8 @@ namespace OpenCoolMart.Gui.Controllers
             requestDto.CreatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
 
             var httpClient = new HttpClient();
+            var Token = HttpContext.Session.GetString("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var Json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Proveedor/", requestDto);
             if (Json.IsSuccessStatusCode)
             {
@@ -73,9 +79,11 @@ namespace OpenCoolMart.Gui.Controllers
 
         public async Task<IActionResult> Update(int Id)
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient();
+                var Token = HttpContext.Session.GetString("Token");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Proveedor/" + Id);
                 var proveedor = JsonConvert.DeserializeObject<ApiResponse<ProveedorRequestDto>>(Json);
                 return View(proveedor.Data);
@@ -90,6 +98,8 @@ namespace OpenCoolMart.Gui.Controllers
         public IActionResult Update(int Id, ProveedorRequestDto proveedorDto)
         {
             var httpClient = new HttpClient();
+            var Token = HttpContext.Session.GetString("Token");
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             proveedorDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Proveedor/");
             var putTask = httpClient.PutAsJsonAsync<ProveedorRequestDto>("?id=" + Id, proveedorDto);

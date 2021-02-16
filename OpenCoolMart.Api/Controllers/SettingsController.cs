@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
+using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class SettingsController : ControllerBase

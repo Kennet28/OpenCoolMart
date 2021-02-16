@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
-using OpenCoolMart.Domain.DTOs;
-using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Enumerations;
+using OpenCoolMart.Gui.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using EmpleadoRequestDto = OpenCoolMart.Gui.Models.EmpleadoRequestDto;
 using EmpleadoResponseDto = OpenCoolMart.Gui.Models.EmpleadoResponseDto;
@@ -26,8 +26,10 @@ namespace OpenCoolMart.Gui.Controllers
         {
 
 
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync(url);
                 var Empleados = JsonConvert.DeserializeObject<ApiResponse<List<EmpleadoResponseDto>>>(json);
                 return View(Empleados.Data);
@@ -40,7 +42,7 @@ namespace OpenCoolMart.Gui.Controllers
         }
         public IActionResult Create()
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 ViewBag.Perfiles = GetPerfiles();
                 return View();
@@ -53,6 +55,8 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(EmpleadoUsuarioModel empleadousr)
         {
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             empleadousr.Usuario.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
             UsuarioRequestDto usuarioRequestDto = empleadousr.Usuario;
             var Json2 = await client.PostAsJsonAsync("https://localhost:44315/api/usuario/", usuarioRequestDto);
@@ -89,8 +93,10 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> Details(int id)
         {
 
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync("https://localhost:44315/api/Empleado/" + id);
                 var _Empleado = JsonConvert.DeserializeObject<ApiResponse<EmpleadoResponseDto>>(json);
                 return View(_Empleado.Data);
@@ -103,8 +109,10 @@ namespace OpenCoolMart.Gui.Controllers
         }
         public async Task<IActionResult> Update(int id)
         {
-            if (HttpContext.Session.GetString("Id") != null)
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
+                var Token = HttpContext.Session.GetString("Token");
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var json = await client.GetStringAsync("https://localhost:44315/api/Empleado/"+id);
                 var _Empleado = JsonConvert.DeserializeObject<ApiResponse<EmpleadoRequestDto>>(json);
                 return View(_Empleado.Data);
@@ -118,6 +126,8 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<IActionResult> Update(int Id, EmpleadoRequestDto empleadoDto)
         {
             empleadoDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
+            var Token = HttpContext.Session.GetString("Token");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var putTask = await client.PutAsJsonAsync("https://localhost:44315/api/empleado/?id=" + Id, empleadoDto);
             if (putTask.IsSuccessStatusCode)
             {

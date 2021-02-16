@@ -89,6 +89,18 @@
 @section Scripts{
     <script>
         var tecla_enter;
+        var Token;
+
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Home/AsyncToken",
+                method: "GET"
+            }).done(function (data) {
+                Token = data;
+            }).fail(function (jqXHR, textStatus, error) {
+                alert("lo sentimos ha habido un error");
+            });
+        })
         function press_Enter() {
             tecla_enter = event.keyCode;
             if (tecla_enter == 13) {
@@ -97,6 +109,7 @@
                 if (codigo != null && codigo.length != 0) {
                     $.ajax({
                         url: "https://localhost:44315/api/Venta?Folio=" + codigo,
+                        headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
@@ -111,6 +124,7 @@
                 else {
                     $.ajax({
                         url: "https://localhost:44315/api/Venta",
+                        headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
