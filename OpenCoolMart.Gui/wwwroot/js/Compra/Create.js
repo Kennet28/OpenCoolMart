@@ -198,7 +198,7 @@ function RealizarCompra() {
 
     $.each(listaobj, function (index, val) {
         if (index == 0) {
-            enviar += ",CompraProducto:[{ProductoId:" + val.id +
+            enviar += ",CompraProductos:[{ProductoId:" + val.id +
                 ",CantidadProducto:" + val.cantidad +
                 ",TotalPorProducto:" + val.cantidadTotal + "}"
         }
