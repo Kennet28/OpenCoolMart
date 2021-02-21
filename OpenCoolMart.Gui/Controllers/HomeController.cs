@@ -37,9 +37,9 @@ namespace OpenCoolMart.Gui.Controllers
                 HttpContext.Session.SetString("Id", Id);
                 HttpContext.Session.SetString("Token", Token);
                 HttpContext.Session.SetString("Perfil", Perfil);
-                if (Id == "1")
+                if (Perfil == "1")
                     return RedirectToAction("Menu");
-                else if(Id=="2")
+                else if(Perfil=="2")
                     return RedirectToAction("MenuVendedor");
             }
             return View();

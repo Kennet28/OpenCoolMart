@@ -22,8 +22,5 @@ namespace OpenCoolMart.Domain.Entities
         public ICollection<DetallesVenta> DetallesVentas { get; set; }
         public Empleado Empleado { get; set; }
         public Cliente Cliente { get; set; }
-        //public Caja Caja { get; set; }
-        // public virtual ICollection<Facturas> Factura { get; set; }
-
     }
 }
