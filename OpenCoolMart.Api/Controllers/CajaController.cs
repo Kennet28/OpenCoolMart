@@ -1,14 +1,13 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace OpenCoolMart.Api.Controllers
 {
@@ -19,11 +18,13 @@ namespace OpenCoolMart.Api.Controllers
     {
         private readonly ICajaService _cajaService;
         private readonly IMapper _mapper;
+
         public CajaController(ICajaService cajaService, IMapper mapper)
         {
-            this._cajaService = cajaService;
-            this._mapper = mapper;
+            _cajaService = cajaService;
+            _mapper = mapper;
         }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -41,6 +42,7 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<CajaResponseDto>(cajaDto);
             return Ok(response);
         }
+
         [HttpPost]
         public async Task<IActionResult> Post(CajaRequestDto cajalDto)
         {

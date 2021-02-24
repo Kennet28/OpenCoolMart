@@ -21,13 +21,13 @@
                     <ul class="navbar-nav flex-grow-1 ">
                         <li class="nav-link">
                             <div class="dropdown">
-                              <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <a class="btn dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="material-icons">settings</span>
                               </a>
                               <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Perfil</a>
+                                @* <a class="dropdown-item" href="#">Perfil</a> *@
                                 <a class="dropdown-item" asp-action="Index" asp-controller="Settings">Configuración</a>
-                                <a class="dropdown-item" href="#">Cerrar Sesión</a>
+                                <a class="dropdown-item" asp-action="LogOut">Cerrar Sesión</a>
                               </div>
                             </div>
                         </li>
@@ -48,8 +48,7 @@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     @RenderSection("Scripts", required: false)
 </body>
 </html>

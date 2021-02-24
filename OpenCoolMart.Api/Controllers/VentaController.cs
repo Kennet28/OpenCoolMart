@@ -65,5 +65,6 @@ namespace OpenCoolMart.Api.Controllers
             var ventaResponseDto = _mapper.Map<Venta, VentaResponseDto>(venta);
             return Ok(ventaResponseDto);
         }
+       
     }
 }
