@@ -113,7 +113,7 @@
 @section Scripts{
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script>
-        var productos = new Array();
+        var productos = [];
         var tecla_enter;
         var TotalCompra;
         var SubTotalCompra = 0;
@@ -213,7 +213,7 @@
                     restar();
                 });
             });
-        };
+        }
 
         function aumentarCantidad() {
             
@@ -247,13 +247,13 @@
                                 restar();
                             }
 
-                        };
+                        }
                     }
                 })()
                 });
                     
             
-        };
+        }
 
         function Sumar_Productos(data) {
             var fila = productos.indexOf(data.id) + 1
@@ -278,6 +278,7 @@
                 RealizarVenta();
             }
         }
+        
         function RealizarVenta() {
             var efectivo =parseFloat($("#Efectivo").val());
             var valorcompra = $("#TotalCompra").val();
@@ -321,7 +322,7 @@
                     Limpiar();
                 }).fail(function (jqXHR, textStatus, error) {
                     Alerta("error","Error", "Ha ocurrido un error");
-                });;
+                });
 
             }
             else {
@@ -407,7 +408,7 @@
             $("#TotalCompra").val('');
             $("#Efectivo").val('');
             $("#Iva").val('');
-            productos = new Array();
+            productos = [];
             TotalCompra;
             SubTotalCompra = 0;
             valorresta = 0;

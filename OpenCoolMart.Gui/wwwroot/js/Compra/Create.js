@@ -1,5 +1,5 @@
 ﻿var obj;
-var listaobj = new Array();
+var listaobj = [];
 var comprobar;
 var cantidadTotal;
 var Token;
@@ -107,7 +107,7 @@ function buscarcodigoProducto(codigoProducto) {
         method: "GET"
     }).done(function (data) {
         comprobar = false;
-        obj = new Object();
+        obj = {};
         $.each(listaobj, function (index, val) {
             if (val.id == data.data.id) {
                 val.cantidad = parseInt(val.cantidad + 1);
@@ -224,7 +224,7 @@ function RealizarCompra() {
         Limpiar();
     }).fail(function (jqXHR, textStatus, error) {
         Alerta("error", "Error", "Ha ocurrido un error");
-    });;
+    });
     /*if (parseFloat(efectivo) >= parseFloat(valorcompra)) {
     }
     else {

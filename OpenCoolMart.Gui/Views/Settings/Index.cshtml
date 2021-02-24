@@ -51,6 +51,33 @@
 </div>
 @section Scripts
 {
-    <script src="js/Settings/settings.js">   
+    <script type="text/javascript">
+    var Token;
+    $(document).ready(function () {
+        $.ajax({
+            url: "/Home/AsyncToken",
+            method: "GET"
+        }).done(function (data) {
+            Token = data;
+        }).fail(function (jqXHR, textStatus, error) {
+            alert("lo sentimos ha habido un error");
+        });
+    })
+    let resultado = document.getElementById('result');
+    function Backup(){
+        fetch("https://localhost:44315/api/settings/backup/",{
+            headers: { "Authorization": "Bearer " + Token },
+            method: "GET"
+        }).then(function (result) {
+                if (result.ok) {
+                    var cadena = "Respaldo realizado con exito"
+                    resultado.append(cadena);
+                }
+                else{
+                    var cadena = `Ocurrio un error al intentar hacer el resapldo:${result.error}`
+                    resultado.append(cadena);
+                }
+            });
+    }
     </script>
 }

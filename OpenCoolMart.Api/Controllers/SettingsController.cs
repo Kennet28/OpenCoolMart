@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
 {
-    [AllowAnonymous]
+    [Authorize(Roles ="1")]
     [Route("api/[controller]")]
     [ApiController]
     public class SettingsController : ControllerBase

@@ -71,7 +71,9 @@ namespace OpenCoolMart.Application.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var Token = tokenHandler.WriteToken(token);
-            return new { token=Token,Id=user.Id,Perfil=user.PerfilId};
+            var empleados = await _unitOfWork.EmpleadoRepository.GetAll();
+            var empleado = empleados.SingleOrDefault(x => x.UsuarioId == user.Id);
+            return new { token=Token,Id=empleado.Id,Perfil=user.PerfilId};
         }
     }
 }

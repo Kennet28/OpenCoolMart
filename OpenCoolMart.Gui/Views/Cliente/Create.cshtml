@@ -20,12 +20,12 @@
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        <div class="container-xl table-wrapper">
+        <div class="container-xl table-wrapper card">
             <hr />
-            <h1 class="text-center">Detalles</h1>
+            <h1 class="text-center card-title">Crear cliente</h1>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Nombre, htmlAttributes: new { @class = "control-label " })
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
@@ -33,14 +33,14 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.Correo, htmlAttributes: new { @class = "control-label " })
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.Correo, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Correo, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.RFC, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.RFC, htmlAttributes: new { @class = "control-label " })
                 <div class="col-md-12">
                     @Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.RFC, "", new { @class = "text-danger" })
@@ -48,14 +48,14 @@
             </div>
             <div class="form-group form-row">
                 <div class="col-md-4">
-                    @Html.LabelFor(model => model.Domicilio, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Domicilio, htmlAttributes: new { @class = "control-label " })
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.Domicilio, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Domicilio, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="col-md-4">
-                    @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label " })
                     <div class="col-md-12">
                         @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
@@ -66,7 +66,7 @@
                 <div class="col-md-6">
                     <br />
                     <div class="col-md-12">
-                        <label class="control-label col-md-2">Activo</label><input type="radio" value="Activo" checked="" />
+                        <label class="control-label ">Activo</label><input type="radio" value="Activo" checked="" />
                     </div>
                 </div>
 
@@ -74,8 +74,8 @@
 
             <div class="form-group form-row">
                 <div class="col-md-4"></div>
-                <input type="submit" value="Crear Cliente" class="btn btn-primary col-md-2" style="margin:10px" />
-                <a asp-controller="Cliente" asp-action="Index" class="btn btn-danger col-md-2 text-white" style="margin:10px" onclick="validarcampos()">Cancelar</a>
+                <input type="submit" value="Crear Cliente" class="btn btn-primary " style="margin:10px" />
+                <a asp-controller="Cliente" asp-action="Index" class="btn btn-danger  text-white" style="margin:10px" onclick="validarcampos()">Cancelar</a>
             </div>
 
         </div>
