@@ -1,7 +1,4 @@
-﻿using OpenCoolMart.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 
 namespace OpenCoolMart.Domain.DTOs
 {
@@ -19,5 +16,6 @@ namespace OpenCoolMart.Domain.DTOs
         public int? CreatedBy { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int? UpdatedBy { get; set; }
+        public string Imagen { get; set; }
     }
 }

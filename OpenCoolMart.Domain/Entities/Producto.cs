@@ -13,6 +13,7 @@ namespace OpenCoolMart.Domain.Entities
         public int Stock { get; set; }
         public int CodigoProducto { get; set; }
         public double? Descuento { get; set; }
+        public string Imagen { get; set; }
 
         public IEnumerable<DetallesVenta> DetallesVentas { get; set; }
         public ICollection<CompraProducto> CompraProductos { get; set; }

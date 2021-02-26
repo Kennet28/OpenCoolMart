@@ -34,7 +34,7 @@ namespace OpenCoolMart.Api
         {
             services.AddCors();
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
 
@@ -54,8 +54,8 @@ namespace OpenCoolMart.Api
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
             });
-            services.AddMvc().AddFluentValidation(options =>
-            options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            //.AddMvc().AddFluentValidation(options =>
+            //options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             );

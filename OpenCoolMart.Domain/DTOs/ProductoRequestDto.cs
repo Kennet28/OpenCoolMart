@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace OpenCoolMart.Domain.DTOs
 {
@@ -17,5 +15,6 @@ namespace OpenCoolMart.Domain.DTOs
         public bool Status { get; set; }
         public int? CreatedBy { get; set; }
         public int? UpdatedBy { get; set; }
+        public IFormFile MyProperty { get; set; }
     }
 }
