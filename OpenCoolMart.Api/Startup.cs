@@ -34,7 +34,7 @@ namespace OpenCoolMart.Api
         {
             services.AddCors();
 
-            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddControllers();
 
@@ -54,8 +54,8 @@ namespace OpenCoolMart.Api
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
             });
-            //.AddMvc().AddFluentValidation(options =>
-            //options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.AddMvc().AddFluentValidation(options =>
+            options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             );
@@ -97,6 +97,7 @@ namespace OpenCoolMart.Api
             services.AddScoped<ISettingsRepository, SettingsRepository>();
             services.AddTransient<ICompraService, CompraService>();
             services.AddTransient<IProveedorService, ProveedorService>();
+            services.AddTransient<IAlmacenarImagen, AlmacenarImagen>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -111,7 +112,10 @@ namespace OpenCoolMart.Api
 
             app.UseHttpsRedirection();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
+
             // app.UseAuthentication(); es necesario
             app.UseAuthentication();
 

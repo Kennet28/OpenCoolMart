@@ -107,7 +107,8 @@ namespace OpenCoolMart.Gui.Controllers
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
-            var putTask = httpClient.PutAsJsonAsync<ProductoRequestDto>("?id=" + Id, productoDto);
+            var content = ConvertToFormData(productoDto);
+            var putTask = httpClient.PutAsync("?id=" + Id, content);
             putTask.Wait();
             
             var result = putTask.Result;
@@ -120,6 +121,43 @@ namespace OpenCoolMart.Gui.Controllers
                 return RedirectToAction("Index");
             }
             return View(productoDto);
-        }        
+        }  
+        
+        public MultipartFormDataContent ConvertToFormData(ProductoRequestDto producto)
+        {
+            var content = new MultipartFormDataContent();
+
+            /*
+             content.Add(new StringContent("Clasificacion"), producto.Clasificacion);
+             content.Add(new StringContent("CodigoProducto"), producto.CodigoProducto.ToString());
+             content.Add(new StringContent("CreatedBy"),producto.CreatedBy.ToString() );
+             content.Add(new StringContent("Descripcion"),producto.Descripcion );
+             content.Add(new StringContent("Descuento"),producto.Descuento.ToString() );
+             content.Add(new StringContent("Marca"),producto.Marca );
+             content.Add(new StringContent("PrecioCompra"),producto.PrecioCompra.ToString() );
+             content.Add(new StringContent("PrecioVenta"),producto.PrecioVenta.ToString());
+             content.Add(new StringContent("Status"),producto.Status.ToString() );
+             content.Add(new StringContent("Stock"),producto.Stock.ToString() );
+             content.Add(new StringContent("UpdatedBy"),producto.UpdatedBy.ToString() );
+             */
+
+            content.Add(new StringContent(producto.Clasificacion), "Clasificacion");
+            content.Add(new StringContent(producto.CodigoProducto.ToString()), "CodigoProducto");
+            content.Add(new StringContent(producto.CreatedBy.ToString()), "CreatedBy");
+            content.Add(new StringContent(producto.Descripcion), "Descripcion");
+            content.Add(new StringContent(producto.Descuento.ToString()), "Descuento");
+            content.Add(new StringContent(producto.Marca), "Marca");
+            content.Add(new StringContent(producto.PrecioCompra.ToString()), "PrecioCompra");
+            content.Add(new StringContent(producto.PrecioVenta.ToString()), "PrecioVenta");
+            content.Add(new StringContent(producto.Status.ToString()), "Status");
+            content.Add(new StringContent(producto.Stock.ToString()), "Stock");
+            content.Add(new StringContent(producto.UpdatedBy.ToString()), "UpdatedBy");
+            
+            /*if (producto.Imagen != null)
+                content.Add(new StringContent(producto.Imagen.ContentType), "Imagen");
+            else
+                content.Add(producto.Imagen, "file", producto.Imagen.FileName);*/
+            return content;
+        }
     }
 }

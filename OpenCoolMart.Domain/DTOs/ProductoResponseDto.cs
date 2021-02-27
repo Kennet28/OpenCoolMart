@@ -20,5 +20,6 @@ namespace OpenCoolMart.Domain.DTOs
         public int? CreatedBy { get; set; }
         public DateTime? UpdateAt { get; set; }
         public int? UpdatedBy { get; set; }
+        public string Imagen { get; set; }
     }
 }

@@ -15,6 +15,6 @@ namespace OpenCoolMart.Domain.DTOs
         public bool Status { get; set; }
         public int? CreatedBy { get; set; }
         public int? UpdatedBy { get; set; }
-        public IFormFile MyProperty { get; set; }
+        public IFormFile Imagen { get; set; }
     }
 }

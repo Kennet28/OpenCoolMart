@@ -6,6 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\productos\08e0f384-d834-4d27-911f-0a9fe6db66b6.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OpenCoolMart.Application\OpenCoolMart.Application.csproj" />
     <ProjectReference Include="..\OpenCoolMart.Domain\OpenCoolMart.Domain.csproj" />
     <ProjectReference Include="..\OpenCoolMart.Infraestructure\OpenCoolMart.Infraestructure.csproj" />
@@ -33,6 +37,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+    <Folder Include="wwwroot\productos\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

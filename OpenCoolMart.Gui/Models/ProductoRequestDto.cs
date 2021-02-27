@@ -1,4 +1,6 @@
-﻿namespace OpenCoolMart.Gui.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace OpenCoolMart.Gui.Models
 {
     public class ProductoRequestDto
     {
@@ -13,5 +15,6 @@
         public bool Status { get; set; }
         public int? CreatedBy { get; set; }
         public int? UpdatedBy { get; set; }
+        public IFormFile Imagen { get; set; }
     }
 }

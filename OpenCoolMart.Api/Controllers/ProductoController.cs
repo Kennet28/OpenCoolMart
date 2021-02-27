@@ -7,6 +7,7 @@ using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 //AuthenticationSchemes =JwtBearerDefaults.AuthenticationScheme,
@@ -18,11 +19,14 @@ namespace OpenCoolMart.Api.Controllers
     public class ProductoController : ControllerBase
     {
         private readonly IProductoService _productoService;
+        private readonly IAlmacenarImagen _almacenarImagen;
         private readonly IMapper _mapper;
-        public ProductoController(IProductoService productoService, IMapper mapper)
+        private readonly string contenedor = "productos";
+        public ProductoController(IProductoService productoService, IMapper mapper,IAlmacenarImagen almacenarImagen)
         {
             this._productoService = productoService;
             this._mapper = mapper;
+            this._almacenarImagen = almacenarImagen;
         }
         [HttpGet]
         public async Task<IActionResult> GetAll()
@@ -79,14 +83,26 @@ namespace OpenCoolMart.Api.Controllers
         }
         [Authorize(Roles = "1")]
         [HttpPut]
-        public async Task<IActionResult> Put(int id, ProductoRequestDto productoResponse)
+        public async Task<IActionResult> Put(int id,[FromForm]ProductoRequestDto productoResponse)
         {
-            var producto = _mapper.Map<Producto>(productoResponse);
+            var producto = await _productoService.GetProducto(id);
+            producto = _mapper.Map<Producto>(productoResponse);
             producto.Id = id;
-
             producto.PrecioCompra = 1;
 
             producto.UpdateAt = DateTime.Now;
+
+            if (productoResponse.Imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await productoResponse.Imagen.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    var extension = Path.GetExtension(productoResponse.Imagen.FileName);
+                    producto.Imagen = await _almacenarImagen.EditarArchivo(contenido, extension, contenedor,producto.Imagen,productoResponse.Imagen.ContentType);
+                }
+            }
+
             await _productoService.UpdateProducto(producto);
             var result = new ApiResponse<bool>(true);
             return Ok(result);

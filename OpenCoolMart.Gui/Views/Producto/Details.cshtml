@@ -20,6 +20,9 @@
         <hr />
         <h1 class="text-center">Detalles</h1>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div>
+            <img src="@Model.Imagen"/>
+        </div>
         <div class="form-group">
             <label class="col-md-12">Código del Producto</label>
             <div class="col-md-12">

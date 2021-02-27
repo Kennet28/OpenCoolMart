@@ -10,9 +10,7 @@ namespace OpenCoolMart.Application.Mappings
         {
             CreateMap<Producto, ProductoRequestDto>();
             CreateMap<Producto, ProductoResponseDto>();
-            CreateMap<ProductoRequestDto, Producto>().AfterMap(
-            ((source, destination) =>{
-            }));
+            CreateMap<ProductoRequestDto, Producto>().ForMember(x => x.Imagen, options => options.Ignore());
             CreateMap<ProductoResponseDto, Producto>();
         }
     }
