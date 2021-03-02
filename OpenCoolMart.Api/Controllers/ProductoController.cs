@@ -61,12 +61,21 @@ namespace OpenCoolMart.Api.Controllers
         }
         [Authorize(Roles = "1")]
         [HttpPost]
-        public async Task<IActionResult> Post(ProductoRequestDto productolDto)
+        public async Task<IActionResult> Post([FromForm]ProductoRequestDto productolDto)
         {
             var producto = _mapper.Map<ProductoRequestDto, Producto>(productolDto);
             producto.CreateAt = DateTime.Now;
 
-            producto.PrecioCompra = 1;
+            if (productolDto.Imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await productolDto.Imagen.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    var extension = Path.GetExtension(productolDto.Imagen.FileName);
+                    producto.Imagen = await _almacenarImagen.GuardarArchivo(contenido, extension, contenedor,productolDto.Imagen.ContentType);
+                }
+            }
 
             await _productoService.AddProducto(producto);
             var productoresponseDto = _mapper.Map<Producto, ProductoResponseDto>(producto);
@@ -86,10 +95,7 @@ namespace OpenCoolMart.Api.Controllers
         public async Task<IActionResult> Put(int id,[FromForm]ProductoRequestDto productoResponse)
         {
             var producto = await _productoService.GetProducto(id);
-            producto = _mapper.Map<Producto>(productoResponse);
-            producto.Id = id;
-            producto.PrecioCompra = 1;
-
+            producto = _mapper.Map(productoResponse,producto);
             producto.UpdateAt = DateTime.Now;
 
             if (productoResponse.Imagen != null)

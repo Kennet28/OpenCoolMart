@@ -42,7 +42,7 @@ namespace OpenCoolMart.MSTest
             var controller = new ProductoController();
             var producto = new ProductoRequestDto();
             producto.Status = false;
-            ViewResult result = controller.Update(1, producto) as ViewResult;
+            ViewResult result = controller.UpdateAsync(1, producto) as ViewResult;
             await Task.Delay(10);
             Assert.IsNotNull(result.ViewData["Message"]);
         }
@@ -60,7 +60,7 @@ namespace OpenCoolMart.MSTest
             producto.Status = false;
             producto.Stock = 10;
             producto.CreatedBy = 1;
-            var result =(RedirectToActionResult)controller.Update(1, producto) ;
+            var result =(RedirectToActionResult)controller.UpdateAsync(1, producto) ;
             await Task.Delay(10);
             Assert.AreEqual("Index", result.ActionName);
         }
@@ -70,7 +70,7 @@ namespace OpenCoolMart.MSTest
             var controller = new ProductoController();
             var producto = new ProductoRequestDto();
             producto.Status = true;
-            ViewResult result = controller.Update(1, producto) as ViewResult;
+            ViewResult result = controller.UpdateAsync(1, producto) as ViewResult;
             await Task.Delay(10);
             Assert.IsNotNull(result.ViewData["Message"]);
         }
@@ -88,7 +88,7 @@ namespace OpenCoolMart.MSTest
             producto.Status = true;
             producto.Stock = 10;
             producto.CreatedBy = 1;
-            var result = (RedirectToActionResult)controller.Update(2, producto);
+            var result = (RedirectToActionResult)controller.UpdateAsync(2, producto);
             await Task.Delay(10);
             Assert.AreEqual("Index", result.ActionName);
         }

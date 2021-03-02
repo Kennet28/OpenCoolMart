@@ -5,6 +5,7 @@ using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Responses;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -70,7 +71,8 @@ namespace OpenCoolMart.Gui.Controllers
             var httpClient = new HttpClient();
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-            var Json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Producto/", requestDto);
+            var content = await ConvertToFormDataAsync(requestDto);
+            var Json = await httpClient.PostAsync("https://localhost:44315/api/Producto/", content);
             if (Json.IsSuccessStatusCode)
             {
 
@@ -88,17 +90,16 @@ namespace OpenCoolMart.Gui.Controllers
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
-                var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoRequestDto>>(Json);
+                var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
                 return View(producto.Data);
             }
             else
             {
                 return RedirectToAction("Index", "Home");
-            }
-            
+            }            
         }
         [HttpPost]
-        public IActionResult Update(int Id, ProductoRequestDto productoDto)
+        public async Task<IActionResult> UpdateAsync(int Id, ProductoRequestDto productoDto)
         {
             productoDto.PrecioCompra = 1;
 
@@ -107,40 +108,23 @@ namespace OpenCoolMart.Gui.Controllers
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
             httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
-            var content = ConvertToFormData(productoDto);
-            var putTask = httpClient.PutAsync("?id=" + Id, content);
-            putTask.Wait();
+            var content = await ConvertToFormDataAsync(productoDto);
+            var putTask = await httpClient.PutAsync("?id=" + Id, content);
             
-            var result = putTask.Result;
-            if (!result.IsSuccessStatusCode)
+            if (!putTask.IsSuccessStatusCode)
             {
                 ViewData["Message"] = "Error";                
             }
-            else if (result.IsSuccessStatusCode)
+            else if (putTask.IsSuccessStatusCode)
             {                
                 return RedirectToAction("Index");
             }
             return View(productoDto);
         }  
         
-        public MultipartFormDataContent ConvertToFormData(ProductoRequestDto producto)
+        public async Task<MultipartFormDataContent> ConvertToFormDataAsync(ProductoRequestDto producto)
         {
             var content = new MultipartFormDataContent();
-
-            /*
-             content.Add(new StringContent("Clasificacion"), producto.Clasificacion);
-             content.Add(new StringContent("CodigoProducto"), producto.CodigoProducto.ToString());
-             content.Add(new StringContent("CreatedBy"),producto.CreatedBy.ToString() );
-             content.Add(new StringContent("Descripcion"),producto.Descripcion );
-             content.Add(new StringContent("Descuento"),producto.Descuento.ToString() );
-             content.Add(new StringContent("Marca"),producto.Marca );
-             content.Add(new StringContent("PrecioCompra"),producto.PrecioCompra.ToString() );
-             content.Add(new StringContent("PrecioVenta"),producto.PrecioVenta.ToString());
-             content.Add(new StringContent("Status"),producto.Status.ToString() );
-             content.Add(new StringContent("Stock"),producto.Stock.ToString() );
-             content.Add(new StringContent("UpdatedBy"),producto.UpdatedBy.ToString() );
-             */
-
             content.Add(new StringContent(producto.Clasificacion), "Clasificacion");
             content.Add(new StringContent(producto.CodigoProducto.ToString()), "CodigoProducto");
             content.Add(new StringContent(producto.CreatedBy.ToString()), "CreatedBy");
@@ -151,12 +135,16 @@ namespace OpenCoolMart.Gui.Controllers
             content.Add(new StringContent(producto.PrecioVenta.ToString()), "PrecioVenta");
             content.Add(new StringContent(producto.Status.ToString()), "Status");
             content.Add(new StringContent(producto.Stock.ToString()), "Stock");
-            content.Add(new StringContent(producto.UpdatedBy.ToString()), "UpdatedBy");
-            
-            /*if (producto.Imagen != null)
-                content.Add(new StringContent(producto.Imagen.ContentType), "Imagen");
-            else
-                content.Add(producto.Imagen, "file", producto.Imagen.FileName);*/
+            content.Add(new StringContent(producto.UpdatedBy.ToString()), "UpdatedBy");            
+            if (producto.Imagen != null)
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    await producto.Imagen.CopyToAsync(memoryStream);
+                    var contenido = memoryStream.ToArray();
+                    content.Add(new ByteArrayContent(contenido), "Imagen",producto.Imagen.FileName);
+                }
+            }                
             return content;
         }
     }

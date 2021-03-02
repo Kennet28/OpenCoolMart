@@ -78,7 +78,7 @@ namespace OpenCoolMart.NUnitTest
                 Stock = 4500,
                 CreatedBy = 1
             };
-            var respuesta = (RedirectToActionResult)controller.Update(2,producto);
+            var respuesta = (RedirectToActionResult)controller.UpdateAsync(2,producto);
             await Task.Delay(10);
             Assert.AreEqual("Index", respuesta.ActionName);
         }
@@ -88,7 +88,7 @@ namespace OpenCoolMart.NUnitTest
         {
             var controller = new ProductoController();
             var producto = new ProductoRequestDto();
-            ViewResult result = controller.Update(2, producto) as ViewResult;
+            ViewResult result = controller.UpdateAsync(2, producto) as ViewResult;
             await Task.Delay(10);
             Assert.IsNotNull(result.ViewData["Message"]);
         }

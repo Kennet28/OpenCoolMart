@@ -154,7 +154,30 @@ table.table td i {
     width: auto;
 }
 
-    #tabla table {
-        width: 1015px;
-        background-color: lightgray;
-    }
+#tabla table {
+    width: 1015px;
+    background-color: lightgray;
+}
+
+
+.imagencontenido{
+    width:350px;
+    height:350px;
+}
+
+
+
+input[type="file"]{
+    width:0.1px;
+    height:0.1px;
+    opacity:0;
+    overflow:hidden;
+    position:absolute;
+    z-index:-1;
+}
+
+.contenidoimagen {
+    margin-bottom: 1px;
+    text-align: center;
+    line-height: 50px;
+}
