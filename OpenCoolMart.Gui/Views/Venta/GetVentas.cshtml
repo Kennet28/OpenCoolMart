@@ -68,7 +68,6 @@
                                         <td>@item.CajaId</td>
                                         <td>
                                             <a asp-controller="Venta" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                            <a asp-controller="Ticket" asp-action="Index" asp-route-Id="@item.Id" ><span class="material-icons btn-dark">print</span></a>
                                         </td>
                                     </tr>
                                 }
@@ -177,10 +176,6 @@
 
                 $("#tablaventas").append(cadena);
             });
-        }
-        function genPDF()
-        {
-                  
         }
     </script>
 }

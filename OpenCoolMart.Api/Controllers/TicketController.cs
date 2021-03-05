@@ -16,20 +16,25 @@ namespace OpenCoolMart.Api.Controllers
     public class TicketController : Controller
     {
         private readonly IGeneratePdf _generatePdf;
-        private readonly IVentaService _service;
+        private readonly IEmpleadoService _empleadoService;
+        private readonly IVentaService _ventaService;
         private readonly IMapper _mapper;
-        public TicketController(IGeneratePdf generatePdf,IVentaService service,IMapper mapper)
+        public TicketController(IGeneratePdf generatePdf,IVentaService ventaService,IMapper mapper,IEmpleadoService empleadoService)
         {
             _generatePdf = generatePdf;
-            _service = service;
+            _ventaService = ventaService;
             _mapper = mapper;
+            _empleadoService = empleadoService;
         }
         [HttpGet("{id:int}")]
         
         public async Task<IActionResult> Get(int id)
         {
-                var venta =await _service.VerVenta(id);
+                var venta =await _ventaService.VerVenta(id);
                 var ventaDto = _mapper.Map<Venta, VentaResponseDto>(venta);
+                var empleado = await _empleadoService.GetEmpleado(ventaDto.EmpleadoId);
+                var empleadoDto = _mapper.Map<Empleado, EmpleadoResponseDto>(empleado);
+                ventaDto.Empleado = empleadoDto;
                 return await _generatePdf.GetPdf("Reportes/Details.cshtml",ventaDto);
         }
     }

@@ -1,5 +1,7 @@
 ﻿@model OpenCoolMart.Domain.DTOs.VentaResponseDto
 @{
+    string empleado = Model.Empleado.Nombre;
+    double subtotal = 0;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -10,24 +12,44 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-<div id="content">
-    <img src="~/Img/Imagen3.png" class="ribbon">
+<div class="row">
+    <div style="margin-left: 150px;font-size: 24px;font-weight: bold" >
+        <label >@empleado</label>
+    </div>
+</div>
+<div class="row">
+    <div style="margin-left: 150px;font-size: 20px;font-weight: bold">
+        <label >OpenCoolMart</label>
+    </div>
+    <div class="text-right mr-5">
+        <label >Lugar de expedicion: Merida, Yucatan</label>
+    </div>
 </div>
 <div class="container-xl">
-    <div class="text-center table-title">
-        <div class="form-row">
-            <h2>Nota de Venta</h2>
+    <div class="row">
+        <div class="text-right text-black-35">
+            <h2 style="font-size: 30px;font-weight: bold">NOTA DE VENTA</h2>
         </div>
     </div>
-    <div class=" form-group form-row">
-        <label class="col-md-4">Folio de venta: @Model.Folio</label>
-        <label class="col-md-5">Fecha de la venta: @Model.FechaVenta</label>
-        <label class="col-md-6">Empleado: @Model.EmpleadoId</label>
+    <div class="row">
+        <div class="float-right">
+            <table class="table table-bordered border-dark" style="width: auto!important; margin-right: 50px;" border="2px">
+                <thead class="bg-dark text-white ">
+                <th>Fecha</th>
+                <th>Folio</th>
+                </thead>
+                <tbody>
+                <tr>
+                    <td >@Model.FechaVenta.Date.ToShortDateString()</td>
+                    <td >@Model.Folio</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-    
-    <br />
-    <div class="text-center"> Descripcion de venta</div>
-    <div id="tabla">
+    <br/>
+    <br/>
+    <div>
         <table class="table table-bordered border-dark">
             <thead class="bg-dark text-white">
             <tr>
@@ -50,12 +72,13 @@
                     <td>@item.CantiProd</td>
                     <td>@item.VentaProductos</td>
                 </tr>
+                subtotal = subtotal + item.VentaProductos;
             }
             </tbody>
         </table>
     </div>
     <div class=" form-group form-row">
-        <label class="col-md-6">: @Model.Iva</label>
+        <label class="col-md-6">Subtotal: @subtotal </label>
         <label class="col-md-6">IVA: @Model.Iva</label>
         <label class="col-md-6">Venta Total: @Model.VentaTotal</label>
     </div>
@@ -65,3 +88,4 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+
