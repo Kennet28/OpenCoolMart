@@ -170,18 +170,19 @@
             })
         }
 
-        function prevImagen() {
-            var archivo = document.getElementById("Imagen").value;
-            console.log(archivo);
-            var comprobarImagen = ["image/jpg", "image/png"];
-            if (comprobarImagen.indexOf(archivo.type) != -1) {
-                crearPreview(archivo);
+        function readImage(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#imagenproducto').attr('src', e.target.result); // Renderizamos la imagen
+                }
+                reader.readAsDataURL(input.files[0]);
             }
         }
 
-        function crearPreview(archivo) {
-            var imagen = URL.createObjectURL(archivo);
-            $("#imagenproducto").src(imagen);
-        }
+        $("#Imagen").change(function () {
+            // Código a ejecutar cuando se detecta un cambio de archivO
+            readImage(this);
+        });
     </script>
 }

@@ -141,8 +141,12 @@ namespace OpenCoolMart.Gui.Controllers
                 using (var memoryStream = new MemoryStream())
                 {
                     await producto.Imagen.CopyToAsync(memoryStream);
+
                     var contenido = memoryStream.ToArray();
-                    content.Add(new ByteArrayContent(contenido), "Imagen",producto.Imagen.FileName);
+                    var bytes = new ByteArrayContent(contenido);
+                    bytes.Headers.ContentType = MediaTypeHeaderValue.Parse(producto.Imagen.ContentType);
+                    //contenido. = producto.Imagen.ContentType;
+                    content.Add(bytes, "Imagen",producto.Imagen.FileName);
                 }
             }                
             return content;
