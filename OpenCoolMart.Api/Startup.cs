@@ -18,6 +18,7 @@ using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
 using OpenCoolMart.Infraestructure.Data;
 using OpenCoolMart.Infraestructure.Repositories;
+using Wkhtmltopdf.NetCore;
 
 namespace OpenCoolMart.Api
 {
@@ -38,13 +39,13 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-             services.AddDbContext<OpenCoolMartContext>(options =>
-                       options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
+             // services.AddDbContext<OpenCoolMartContext>(options =>
+             //           options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-              //  options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
             // var config = new ConfigurationBuilder()
             // .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             // .AddJsonFile("appsettings.json",optional: true, reloadOnChange: true).Build();
@@ -54,6 +55,7 @@ namespace OpenCoolMart.Api
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
             });
+            services.AddWkhtmltopdf("wkhtmltopdf");
             services.AddMvc().AddFluentValidation(options =>
             options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>

@@ -19,7 +19,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link href="~/css/Producto/Producto.css" rel="stylesheet" />
 </head>
-<body>
+<body id="body">
     <div id="content">
         <img src="~/Img/Imagen3.png" class="ribbon">
     </div>
@@ -68,7 +68,6 @@
                                         <td>@item.CajaId</td>
                                         <td>
                                             <a asp-controller="Venta" asp-route-Id="@item.Id" asp-action="Details" class="view" title="Ver" data-toggle="tooltip"><i class="material-icons">&#xE417;</i></a>
-                                            <a  asp-action="Index" asp-controller="Ticket" asp-route-Id="@item.Id" ><span class="material-icons btn-dark">print</span></a>
                                         </td>
                                     </tr>
                                 }

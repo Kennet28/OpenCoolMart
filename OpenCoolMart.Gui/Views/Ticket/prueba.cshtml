@@ -1,0 +1,45 @@
+﻿@model OpenCoolMart.Gui.Models.VentaResponseDto
+
+@{
+    ViewBag.Title = "Ticket";
+}
+<div id="ticket">
+    <Center>
+    <h5>Nota de venta</h5>
+</Center>
+<ul class="collapse">
+<li>
+<div class="collapsible-header">
+<img class="responsive" src="~/Img/Logotipo.png" alt="Logotipo">
+</div>
+<div class="collapsible-bod">
+<table class="table">
+<thead>
+<tr>
+<th>Codigo del producto</th>
+<th>Descripcion</th>
+<th>Precio Unitario</th>
+<th>Descuento</th>
+<th>Cantidad Comprada</th>
+<th>Subtotal</th>
+</tr>
+</thead>
+<tbody>
+ @foreach (var item in Model.DetallesVentas)
+                            {
+                                <tr>
+                                    <td>@item.Producto.CodigoProducto</td>
+                                    <td>@item.Producto.Descripcion</td>
+                                    <td>@item.Producto.PrecioVenta</td>
+                                    <td>@item.Producto.Descuento</td>
+                                    <td>@item.CantiProd</td>
+                                    <td>@item.VentaProductos</td>
+                                </tr>
+                            }
+</tbody>
+</table>
+</div>
+</li>
+</ul>
+</div>
+
