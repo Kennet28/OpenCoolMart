@@ -16,7 +16,7 @@ namespace OpenCoolMart.Gui.Validators
             RuleFor(producto => producto.PrecioCompra)
                 .GreaterThan(0);
             RuleFor(producto => producto.PrecioVenta)
-                .GreaterThan(producto=>producto.PrecioCompra);
+                .GreaterThan(producto => producto.PrecioCompra);
             RuleFor(producto => producto.Stock)
                 .GreaterThan(0);
             RuleFor(producto => producto.Marca)

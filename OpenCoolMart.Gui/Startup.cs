@@ -29,6 +29,9 @@ namespace OpenCoolMart.Gui
 
             services.AddMvc().AddFluentValidation(options =>
                     options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             services.Configure<RouteOptions>(route =>
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));

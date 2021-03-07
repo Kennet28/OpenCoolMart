@@ -1,0 +1,17 @@
+previsualizar imagen
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#   (use "git push" to publish your local commits)
+#
+# Changes to be committed:
+#	modified:   OpenCoolMart.Api/Startup.cs
+#	new file:   OpenCoolMart.Api/wwwroot/productos/0b3eafeb-bee5-4af0-9f85-fc84388883c8.jpg
+#	deleted:    OpenCoolMart.Api/wwwroot/productos/0cd8e50b-3461-4342-b352-8b51e40bc7d0.jpg
+#	new file:   OpenCoolMart.Api/wwwroot/productos/9cc2a6de-3b8d-4d79-8788-7675ef6ca71b.jpg
+#	modified:   OpenCoolMart.Gui/Controllers/ProductoController.cs
+#	modified:   OpenCoolMart.Gui/Views/Producto/Create.cshtml
+#	modified:   OpenCoolMart.Gui/Views/Producto/Update.cshtml
+#

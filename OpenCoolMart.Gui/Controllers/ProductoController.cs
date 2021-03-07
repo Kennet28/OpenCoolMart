@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Responses;
 using System;
@@ -14,6 +16,11 @@ namespace OpenCoolMart.Gui.Controllers
     public class ProductoController : Controller
     {
         public bool status = true;
+        private readonly IMapper _mapper;
+        public ProductoController(IMapper mapper)
+        {
+            this._mapper = mapper;
+        }
         public async Task<IActionResult> Index()
         {
             //https://localhost:44315/api/Producto
@@ -42,6 +49,7 @@ namespace OpenCoolMart.Gui.Controllers
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
                 var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
+
                 return View(producto.Data);
             }
             else
@@ -67,7 +75,6 @@ namespace OpenCoolMart.Gui.Controllers
         {
             requestDto.CreatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
 
-            requestDto.PrecioCompra = 1;
             var httpClient = new HttpClient();
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
@@ -90,8 +97,13 @@ namespace OpenCoolMart.Gui.Controllers
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
-                var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
-                return View(producto.Data);
+                
+                var product = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
+                ViewData["Imagen"] = product.Data.Imagen;
+                var nuevo = ViewData["Imagen"];
+                var producto = _mapper.Map<ProductoResponseDto, ProductoRequestDto>(product.Data);
+
+                return View(producto);
             }
             else
             {
@@ -101,8 +113,6 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAsync(int Id, ProductoRequestDto productoDto)
         {
-            productoDto.PrecioCompra = 1;
-
             var httpClient = new HttpClient();
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
@@ -125,30 +135,38 @@ namespace OpenCoolMart.Gui.Controllers
         public async Task<MultipartFormDataContent> ConvertToFormDataAsync(ProductoRequestDto producto)
         {
             var content = new MultipartFormDataContent();
-            content.Add(new StringContent(producto.Clasificacion), "Clasificacion");
-            content.Add(new StringContent(producto.CodigoProducto.ToString()), "CodigoProducto");
-            content.Add(new StringContent(producto.CreatedBy.ToString()), "CreatedBy");
-            content.Add(new StringContent(producto.Descripcion), "Descripcion");
-            content.Add(new StringContent(producto.Descuento.ToString()), "Descuento");
-            content.Add(new StringContent(producto.Marca), "Marca");
-            content.Add(new StringContent(producto.PrecioCompra.ToString()), "PrecioCompra");
-            content.Add(new StringContent(producto.PrecioVenta.ToString()), "PrecioVenta");
-            content.Add(new StringContent(producto.Status.ToString()), "Status");
-            content.Add(new StringContent(producto.Stock.ToString()), "Stock");
-            content.Add(new StringContent(producto.UpdatedBy.ToString()), "UpdatedBy");            
-            if (producto.Imagen != null)
+            try
             {
-                using (var memoryStream = new MemoryStream())
+                content.Add(new StringContent(producto.Clasificacion), "Clasificacion");
+                content.Add(new StringContent(producto.CodigoProducto.ToString()), "CodigoProducto");
+                content.Add(new StringContent(producto.CreatedBy.ToString()), "CreatedBy");
+                content.Add(new StringContent(producto.Descripcion), "Descripcion");
+                content.Add(new StringContent(producto.Descuento.ToString()), "Descuento");
+                content.Add(new StringContent(producto.Marca), "Marca");
+                content.Add(new StringContent(producto.PrecioCompra.ToString()), "PrecioCompra");
+                content.Add(new StringContent(producto.PrecioVenta.ToString()), "PrecioVenta");
+                content.Add(new StringContent(producto.Status.ToString()), "Status");
+                content.Add(new StringContent(producto.Stock.ToString()), "Stock");
+                content.Add(new StringContent(producto.UpdatedBy.ToString()), "UpdatedBy");
+                if (producto.Imagen != null)
                 {
-                    await producto.Imagen.CopyToAsync(memoryStream);
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await producto.Imagen.CopyToAsync(memoryStream);
 
-                    var contenido = memoryStream.ToArray();
-                    var bytes = new ByteArrayContent(contenido);
-                    bytes.Headers.ContentType = MediaTypeHeaderValue.Parse(producto.Imagen.ContentType);
-                    //contenido. = producto.Imagen.ContentType;
-                    content.Add(bytes, "Imagen",producto.Imagen.FileName);
+                        var contenido = memoryStream.ToArray();
+                        var bytes = new ByteArrayContent(contenido);
+                        bytes.Headers.ContentType = MediaTypeHeaderValue.Parse(producto.Imagen.ContentType);
+                        //contenido. = producto.Imagen.ContentType;
+                        content.Add(bytes, "Imagen", producto.Imagen.FileName);
+                    }
                 }
-            }                
+            }
+            catch
+            {
+
+            }
+                            
             return content;
         }
     }
