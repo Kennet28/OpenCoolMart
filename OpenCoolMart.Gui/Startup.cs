@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OpenCoolMart.Gui.ConstrainsMap;
+using Wkhtmltopdf.NetCore;
 
 namespace OpenCoolMart.Gui
 {
@@ -44,6 +45,7 @@ namespace OpenCoolMart.Gui
                 option.LowercaseQueryStrings = true;
                 option.AppendTrailingSlash = true;
             });
+               services.AddWkhtmltopdf("wkhtmltopdf");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

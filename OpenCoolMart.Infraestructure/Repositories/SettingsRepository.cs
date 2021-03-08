@@ -28,7 +28,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
             //     .AddJsonFile("appsettings.json").Build();
             // var section = config.GetSection(nameof(Configuraciones));
             // var clientConfig = section.Get<Configuraciones>();
-            var jsonStream = File.OpenText(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+            var jsonStream = File.OpenText(Path.Combine(AppContext.BaseDirectory, "settings.json"));
             var json = jsonStream.ReadToEnd();
             var configuracion = JsonConvert.DeserializeObject<Configuraciones>(json);
             jsonStream.Close();
@@ -44,7 +44,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
                 RutaRespaldo = config.RutaRespaldo
             };
             var result = JsonConvert.SerializeObject(updateConfig);
-            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "appsettings.json"),result);
+            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "settings.json"),result);
         }
 
         public async Task BackUp()

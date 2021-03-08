@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OpenCoolMart.Api.Controllers
 {
-    [Authorize(Roles ="1")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SettingsController : ControllerBase
@@ -26,7 +26,7 @@ namespace OpenCoolMart.Api.Controllers
             var response = new ApiResponse<Configuraciones>(settings);
             return Ok(response);
         }
-        [HttpPut]
+        [HttpPut("update")]
         public IActionResult Put(Configuraciones config)
         {
             _settingsService.UpdateSettings(config);
