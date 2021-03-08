@@ -98,12 +98,9 @@ namespace OpenCoolMart.Gui.Controllers
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
                 
-                var product = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
-                ViewData["Imagen"] = product.Data.Imagen;
-                var nuevo = ViewData["Imagen"];
-                var producto = _mapper.Map<ProductoResponseDto, ProductoRequestDto>(product.Data);
+                var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
 
-                return View(producto);
+                return View(producto.Data);
             }
             else
             {
@@ -113,6 +110,16 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAsync(int Id, ProductoRequestDto productoDto)
         {
+            if (!ModelState.IsValid)
+            {
+                var HttpClient = new HttpClient();
+                var token = HttpContext.Session.GetString("Token");
+                HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                var Json = await HttpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
+                var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
+                return View(producto.Data);
+            }
+                
             var httpClient = new HttpClient();
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
