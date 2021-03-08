@@ -42,10 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot" />
-  </ItemGroup>
-
-  <ItemGroup>
     <_ContentIncludedByDefault Remove="wwwroot\productos\0b3eafeb-bee5-4af0-9f85-fc84388883c8.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\productos\b9bc96bd-a70b-4fef-b4f0-ef34b83ec103.jpg" />
     <_ContentIncludedByDefault Remove="wwwroot\productos\cd3b89ec-ee74-4b12-a19c-f645d2b9d406.jpg" />
