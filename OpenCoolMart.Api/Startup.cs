@@ -39,25 +39,25 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-             services.AddDbContext<OpenCoolMartContext>(options =>
-                       options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
+             // services.AddDbContext<OpenCoolMartContext>(options =>
+             //           options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-              //  options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
-            // var config = new ConfigurationBuilder()
-            // .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-            // .AddJsonFile("appsettings.json",optional: true, reloadOnChange: true).Build();
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
             // services.AddDbContext<OpenCoolMartContext>(options =>
-            //     options.UseSqlServer(config["BDConexion"]));
+            //                     options.UseSqlServer(Configuration.GetConnectionString("Hosting")));
+            var config = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("settings.json",optional: true, reloadOnChange: true).Build();
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                options.UseSqlServer(config["BDConexion"]));
             services.Configure<RouteOptions>(route =>
             {
                 route.ConstraintMap.Add("alphanumeric", typeof(AlphaNumericConstraint));
             });
-            services.AddWkhtmltopdf("wkhtmltopdf");
-            services.AddMvc().AddFluentValidation(options =>
-            options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+            services.AddMvc().AddFluentValidation(options =>options.RegisterValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             );
@@ -106,7 +106,7 @@ namespace OpenCoolMart.Api
         {
             app.UseCors(options =>
             {
-                options.WithOrigins("https://localhost:44368");
+                options.WithOrigins("*");
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
             });

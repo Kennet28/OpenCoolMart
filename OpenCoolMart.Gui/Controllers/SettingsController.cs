@@ -28,12 +28,24 @@ namespace OpenCoolMart.Gui.Controllers
             }
             
         }
+
         [HttpPost]
         public async Task<IActionResult> IndexAsync(SettingsResponseDto setting)
         {
-            var json = await _client.PutAsJsonAsync("https://localhost:44315/api/settings",setting);
-            return RedirectToAction("Index");;
+            if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) &&
+                HttpContext.Session.GetString("Perfil") == "1")
+            {
+                var Token = HttpContext.Session.GetString("Token");
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
+                var json = await _client.PutAsJsonAsync("https://localhost:44315/api/settings/update/", setting);
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Menu","Home");
+            }
         }
-       
+
     }
 }

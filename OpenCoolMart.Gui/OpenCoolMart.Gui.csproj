@@ -14,6 +14,9 @@
     <EmbeddedResource Remove="pruebas\**" />
     <None Remove="Interfaces\**" />
     <None Remove="pruebas\**" />
+    <None Update="wkhtmltopdf\Windows\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +35,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="5.0.2-preview" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
