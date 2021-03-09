@@ -6,6 +6,7 @@ using OpenCoolMart.Domain.DTOs;
 using OpenCoolMart.Domain.Entities;
 using OpenCoolMart.Domain.Interfaces;
 using OpenCoolMart.Domain.QueryFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace OpenCoolMart.Api.Controllers
         public async Task<IActionResult> Get(int Id)
         {
             var venta =await _service.VerVenta(Id);
+           // var fecha = (DateTime.Now - venta.FechaVenta).TotalDays;
             var ventaDto = _mapper.Map<Venta, VentaResponseDto>(venta);
             var response = new ApiResponse<VentaResponseDto>(ventaDto);
             return Ok(response);

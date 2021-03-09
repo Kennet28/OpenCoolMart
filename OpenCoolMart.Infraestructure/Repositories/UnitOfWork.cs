@@ -22,6 +22,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
         private readonly IRepository<Usuario> _usuarioRepository;
         private readonly ICompraRepository _compraRepository;
         private readonly IRepository<Proveedor> _proveedorRepository;
+        private readonly IGraficaRepository _graficaRepository;
         public UnitOfWork(OpenCoolMartContext context)
         {
             this._context = context;
@@ -40,7 +41,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
 
         public ICompraRepository CompraRepository => _compraRepository ?? new CompraRepository(_context);
         public IRepository<Proveedor> ProveedorRepository => _proveedorRepository ?? new SQLRepository<Proveedor>(_context);
-
+        public IGraficaRepository GraficaRepository => _graficaRepository ?? new GraficaRespository(_context);
         public void Dispose()
         {
             if (_context == null)

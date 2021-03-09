@@ -22,7 +22,7 @@ namespace OpenCoolMart.Infraestructure.Data
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empleado> Empleados { get; set; }
         public virtual DbSet<Venta> Ventas { get; set; }
-        DbSet<DetallesVenta> DetallesVentas { get; set; }
+        public DbSet<DetallesVenta> DetallesVentas { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
         //DbSet<Caja> Cajas { get; set; }     
         // DbSet<Facturas> Facturas { get; set; }

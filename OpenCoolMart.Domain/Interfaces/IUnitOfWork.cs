@@ -18,6 +18,7 @@ namespace OpenCoolMart.Domain.Interfaces
         public IRepository<Usuario> UsuarioRepository { get; }
         public ICompraRepository CompraRepository { get; }
         public IRepository<Proveedor> ProveedorRepository { get; }
+        public IGraficaRepository GraficaRepository { get; }
 
         void SaveChanges();
         Task SaveChangesAsync();

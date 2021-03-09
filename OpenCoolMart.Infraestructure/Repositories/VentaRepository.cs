@@ -52,7 +52,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
                 Expression<Func<Venta, bool>> expr = venta => venta.Id == filter.NumVenta.Value;
                 expression = expression.And(expr);
             }
-            var ventas = _context.Ventas.Include(x => x.Empleado).AsEnumerable();
+            var ventas = _context.Ventas.Include(x => x.Empleado).Where(expression).AsEnumerable();
             return ventas;
         }
 

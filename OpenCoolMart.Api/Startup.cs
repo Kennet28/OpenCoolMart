@@ -100,6 +100,7 @@ namespace OpenCoolMart.Api
             services.AddTransient<ICompraService, CompraService>();
             services.AddTransient<IProveedorService, ProveedorService>();
             services.AddTransient<IAlmacenarImagen, AlmacenarImagen>();
+            services.AddTransient<IGraficaRepository,GraficaRespository> ();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
