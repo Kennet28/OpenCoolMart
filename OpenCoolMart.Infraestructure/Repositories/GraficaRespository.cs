@@ -58,7 +58,7 @@ namespace OpenCoolMart.Infraestructure.Repositories
                 }
                 contador++;
             }
-            return graficas.OrderBy(x=>x.CantidadProducto);
+            return graficas.OrderByDescending(x=>x.CantidadProducto).Take(10);
         }
     }
 }
