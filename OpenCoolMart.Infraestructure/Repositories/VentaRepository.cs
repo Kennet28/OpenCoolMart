@@ -57,8 +57,8 @@ namespace OpenCoolMart.Infraestructure.Repositories
         }
 
         public async Task<Venta> VerVenta(int id)
-        {            
-            return await _context.Set<Venta>().Include(x=>x.DetallesVentas).ThenInclude(y=>y.Producto).SingleOrDefaultAsync(x => x.Id == id);
+        {
+            return await _context.Set<Venta>().Include(x => x.DetallesVentas).ThenInclude(y => y.Producto).SingleOrDefaultAsync(x => x.Id == id);
         }
     }
 }

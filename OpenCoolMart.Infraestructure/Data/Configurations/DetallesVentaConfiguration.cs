@@ -40,7 +40,7 @@ namespace OpenCoolMart.Infraestructure.Data.Configurations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-            builder.HasOne("OpenCoolMart.Domain.Entities.Venta", null)
+            builder.HasOne("OpenCoolMart.Domain.Entities.Venta", "Venta")
                 .WithMany("DetallesVentas")
                 .HasForeignKey("VentaId")
                 .OnDelete(DeleteBehavior.Cascade)

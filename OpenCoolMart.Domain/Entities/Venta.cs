@@ -19,7 +19,7 @@ namespace OpenCoolMart.Domain.Entities
         [ForeignKey("Cliente")]
         public int ClienteId { get; set; }
         public int CajaId { get; set; }
-        public ICollection<DetallesVenta> DetallesVentas { get; set; }
+        public IEnumerable<DetallesVenta> DetallesVentas { get; set; }
         public Empleado Empleado { get; set; }
         public Cliente Cliente { get; set; }
     }

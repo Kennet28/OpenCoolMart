@@ -21,9 +21,9 @@ namespace OpenCoolMart.Infraestructure.Data
         DbSet<Perfil> Perfils { get; set; }
         DbSet<Usuario> Usuarios { get; set; }
         DbSet<Empleado> Empleados { get; set; }
-        public virtual DbSet<Venta> Ventas { get; set; }
+        public DbSet<Venta> Ventas { get; set; }
         public DbSet<DetallesVenta> DetallesVentas { get; set; }
-        public virtual DbSet<Producto> Productos { get; set; }
+        public DbSet<Producto> Productos { get; set; }
         //DbSet<Caja> Cajas { get; set; }     
         // DbSet<Facturas> Facturas { get; set; }
         DbSet<Respaldos> Respaldo { get; set; }

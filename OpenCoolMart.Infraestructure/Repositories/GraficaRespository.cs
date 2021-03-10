@@ -28,35 +28,37 @@ namespace OpenCoolMart.Infraestructure.Repositories
 
         public IEnumerable<Grafica> GetAll(GraficaQueryFilter filter)
         {
-            Expression<Func<Venta, bool>> expression = venta => venta.Id > 0;
+            Expression<Func<DetallesVenta, bool>> expression = venta => venta.Venta.Id > 0;
             if(!string.IsNullOrEmpty(filter.Mes) && !string.IsNullOrWhiteSpace(filter.Mes)) {
-                Expression<Func<Venta, bool>> expr = grafica => grafica.FechaVenta.Month.ToString() == filter.Mes;
+                Expression<Func<DetallesVenta, bool>> expr = grafica => grafica.Venta.FechaVenta.Month.ToString() == filter.Mes;
                 expression = expression.And(expr);
             }
             if (!string.IsNullOrEmpty(filter.Anio) && !string.IsNullOrWhiteSpace(filter.Anio))
             {
-                Expression<Func<Venta, bool>> expr = grafica => grafica.FechaVenta.Year.ToString() == filter.Anio;
+                Expression<Func<DetallesVenta, bool>> expr = grafica => grafica.Venta.FechaVenta.Year.ToString() == filter.Anio;
                 expression = expression.And(expr);
             }
-            var ventas = _context.Ventas.Include(x => x.DetallesVentas).ThenInclude(y => y.Producto).Where(expression)
-                .AsEnumerable().Select(x => x.DetallesVentas);
-            var detallesVentas = new List<DetallesVenta>();
+            var productos = _context.DetallesVentas.Include(x=>x.Producto).Where(expression).ToList();
+            var contador = 0;
             var graficas = new List<Grafica>();
-            
-            foreach (var venta in ventas)
-                foreach (var detalle in venta)
-                    detallesVentas.Add(detalle);
-            
-            foreach(var detallesventa in detallesVentas.GroupBy(x=>x.Producto.Descripcion))
-            {
+            foreach(var prodto in productos)
+            {                
                 var grafica = new Grafica();
-                grafica.Producto = detallesventa.Key;
-                grafica.CantidadProducto = detallesventa.Count();
-                graficas.Add(grafica);
-                if (graficas.Count >= 10)
-                    break;
+                grafica.Producto = prodto.Producto.Descripcion;
+                grafica.CantidadProducto = prodto.CantiProd;
+                if (graficas.Any(x=>x.Producto==grafica.Producto))
+                {
+                    contador--;
+                    graficas[contador].CantidadProducto = graficas[contador].CantidadProducto + grafica.CantidadProducto;
+                    
+                }
+                else
+                {
+                    graficas.Add(grafica);
+                }
+                contador++;
             }
-            return graficas;
+            return graficas.OrderBy(x=>x.CantidadProducto);
         }
     }
 }

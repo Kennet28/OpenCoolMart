@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using OpenCoolMart.Domain.DTOs;
 using System.ComponentModel.DataAnnotations.Schema;
 
 
@@ -17,5 +15,7 @@ namespace OpenCoolMart.Domain.Entities
         public double VentaProductos { get; set; }
 
         public Producto Producto { get; set; }
+
+        public Venta Venta { get; set; }
     }
 }
