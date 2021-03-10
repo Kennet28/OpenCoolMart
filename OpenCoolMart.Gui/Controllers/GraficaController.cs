@@ -8,9 +8,13 @@ using OpenCoolMart.Gui.Responses;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using OpenCoolMart.Gui.Enumerations;
+
 namespace OpenCoolMart.Gui.Controllers
 {
     public class GraficaController : Controller
@@ -26,6 +30,7 @@ namespace OpenCoolMart.Gui.Controllers
 
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
+                ViewBag.Meses = GetMeses();
                 return View();
             }
             
@@ -33,6 +38,21 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        public List<SelectListItem> GetMeses()
+        {
+            List<SelectListItem> Meses = Enum.GetValues(typeof(meses)).Cast<meses>().ToList().ConvertAll(P =>
+            {
+                
+                return new SelectListItem()
+                {
+                    
+                    Text = P.ToString(),
+                    Value = ((int)P).ToString(),
+                    Selected = false
+                };
+            });
+            return Meses;
         }
     }
 }
