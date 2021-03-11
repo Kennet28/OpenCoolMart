@@ -39,24 +39,22 @@ namespace OpenCoolMart.Infraestructure.Repositories
                 expression = expression.And(expr);
             }
             var productos = _context.DetallesVentas.Include(x=>x.Producto).Where(expression).ToList();
-            var contador = 0;
+
             var graficas = new List<Grafica>();
             foreach(var prodto in productos)
             {                
                 var grafica = new Grafica();
                 grafica.Producto = prodto.Producto.Descripcion;
                 grafica.CantidadProducto = prodto.CantiProd;
-                if (graficas.Any(x=>x.Producto==grafica.Producto))
+                var repetido = graficas.FirstOrDefault(x => x.Producto == grafica.Producto);
+                if (repetido!=null)
                 {
-                    contador--;
-                    graficas[contador].CantidadProducto = graficas[contador].CantidadProducto + grafica.CantidadProducto;
-                    
+                    graficas.FirstOrDefault(x => x.Producto == grafica.Producto).CantidadProducto= repetido.CantidadProducto + grafica.CantidadProducto;
                 }
                 else
                 {
                     graficas.Add(grafica);
                 }
-                contador++;
             }
             return graficas.OrderByDescending(x=>x.CantidadProducto).Take(10);
         }
