@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
 using OpenCoolMart.Domain.DTOs;
+using OpenCoolMart.Gui.Handler;
 using OpenCoolMart.Gui.Models;
 using UsuarioResponseDto = OpenCoolMart.Gui.Models.UsuarioResponseDto;
 
@@ -15,7 +16,6 @@ namespace OpenCoolMart.Gui.Controllers
 
     public class HomeController : Controller
     {
-       private readonly HttpClient _client = new HttpClient();
         // "https://localhost:44315/api/Usuario";
         public IActionResult Index()
         {
@@ -24,9 +24,10 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginModel login)
         {
-            var httpClient = new HttpClient();
+                
+
+            var httpClient = new HttpClient(ByPassSsl.GetHandler());
             var json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Usuario/Autenticar", login);
-            
             if (json.IsSuccessStatusCode)
             {
                 var response = json.Content.ReadAsStringAsync();

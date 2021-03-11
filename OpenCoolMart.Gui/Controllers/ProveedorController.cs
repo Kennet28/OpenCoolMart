@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Handler;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -17,7 +18,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Proveedor");
@@ -34,7 +35,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Proveedor/" + Id);
@@ -64,7 +65,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             requestDto.CreatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
 
-            var httpClient = new HttpClient();
+            var httpClient = new HttpClient(ByPassSsl.GetHandler());
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var Json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Proveedor/", requestDto);
@@ -81,7 +82,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Proveedor/" + Id);
@@ -97,7 +98,7 @@ namespace OpenCoolMart.Gui.Controllers
         [HttpPost]
         public IActionResult Update(int Id, ProveedorRequestDto proveedorDto)
         {
-            var httpClient = new HttpClient();
+            var httpClient = new HttpClient(ByPassSsl.GetHandler());
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             proveedorDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));

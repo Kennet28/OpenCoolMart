@@ -11,6 +11,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Handler;
 using EmpleadoRequestDto = OpenCoolMart.Gui.Models.EmpleadoRequestDto;
 using EmpleadoResponseDto = OpenCoolMart.Gui.Models.EmpleadoResponseDto;
 using UsuarioRequestDto = OpenCoolMart.Gui.Models.UsuarioRequestDto;
@@ -20,7 +21,7 @@ namespace OpenCoolMart.Gui.Controllers
 {
     public class EmpleadoController : Controller
     {
-        private readonly HttpClient  client = new HttpClient();
+        private readonly HttpClient  client = new HttpClient(ByPassSsl.GetHandler());
         readonly string url = "https://localhost:44315/api/Empleado/";
         public async Task<IActionResult> Index()
         {

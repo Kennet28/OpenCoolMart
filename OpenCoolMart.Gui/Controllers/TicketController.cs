@@ -8,6 +8,7 @@ using OpenCoolMart.Gui.Models;
 using OpenCoolMart.Gui.Responses;
 using System.Threading.Tasks;
 using OpenCoolMart.Domain.Entities;
+using OpenCoolMart.Gui.Handler;
 using Wkhtmltopdf.NetCore;
 
 namespace OpenCoolMart.Gui.Controllers
@@ -23,7 +24,7 @@ namespace OpenCoolMart.Gui.Controllers
                 {
                    if (HttpContext.Session.GetString("Id") != null)
                    {
-                        var httpClient = new HttpClient();
+                       var httpClient = new HttpClient(ByPassSsl.GetHandler());
                         var Token = HttpContext.Session.GetString("Token");
                         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                         var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta/" + Id);

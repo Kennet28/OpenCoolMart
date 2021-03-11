@@ -23,6 +23,7 @@
     <Folder Include="Views\Caja\" />
     <Folder Include="Views\Factura\" />
     <Folder Include="Views\Usuario\" />
+    <Folder Include="wkhtmltopdf\Linux" />
     <Folder Include="wwwroot\css\Factura\" />
     <Folder Include="wwwroot\css\Usuario\" />
     <Folder Include="wwwroot\Img\" />

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Handler;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -29,7 +30,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta");
@@ -46,7 +47,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (HttpContext.Session.GetString("Id") != null)
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Venta/" + Id);

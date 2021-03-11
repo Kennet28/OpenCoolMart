@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OpenCoolMart.Api.Responses;
+using OpenCoolMart.Gui.Handler;
 using OpenCoolMart.Gui.Models;
 namespace OpenCoolMart.Gui.Controllers
 {
     public class SettingsController : Controller
     {
-        private readonly HttpClient _client = new HttpClient();
+        private readonly HttpClient _client = new HttpClient(ByPassSsl.GetHandler());
         public async Task<IActionResult> Index()
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")

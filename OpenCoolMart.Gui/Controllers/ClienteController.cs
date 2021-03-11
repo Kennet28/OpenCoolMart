@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Handler;
 using ClienteRequestDto = OpenCoolMart.Gui.Models.ClienteRequestDto;
 using ClienteResponseDto = OpenCoolMart.Gui.Models.ClienteResponseDto;
 
@@ -15,9 +16,7 @@ namespace OpenCoolMart.Gui.Controllers
 {
     public class ClienteController : Controller
     {
-        protected IJSRuntime Js { get; set; }
-
-        HttpClient client = new HttpClient();
+        HttpClient client = new HttpClient(ByPassSsl.GetHandler());
         string url = "https://localhost:44315/api/cliente/";
 
         public async Task<IActionResult> Index()
@@ -103,18 +102,5 @@ namespace OpenCoolMart.Gui.Controllers
             }
             return View(ClienteDto);
         }
-        //[JSInvokable]
-        //public async Task<IActionResult> Buscar(string nombre)
-        //{
-
-        //    var json = await client.GetStringAsync("https://localhost:44315/api/Cliente/");
-        //    var Clientes = JsonConvert.DeserializeObject<ApiResponse<List<ClienteResponseDto>>>(json);
-        //    var cliente = Clientes.Data.FirstOrDefault(clt => clt.Nombre.Contains(nombre));
-        //    return View(cliente);
-        //}
-        //protected async Task BuscarJavaScript()
-        //{
-        //    await Js.InvokeVoidAsync("");
-        //}
     }
 }

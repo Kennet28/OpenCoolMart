@@ -11,6 +11,8 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Handler;
+
 namespace OpenCoolMart.Gui.Controllers
 {
     public class ProductoController : Controller
@@ -27,7 +29,7 @@ namespace OpenCoolMart.Gui.Controllers
 
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer",Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto");
@@ -44,7 +46,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
@@ -75,7 +77,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             requestDto.CreatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
 
-            var httpClient = new HttpClient();
+            var httpClient = new HttpClient(ByPassSsl.GetHandler());
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var content = await ConvertToFormDataAsync(requestDto);
@@ -93,7 +95,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                var httpClient = new HttpClient();
+                var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
                 var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
@@ -112,7 +114,7 @@ namespace OpenCoolMart.Gui.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var HttpClient = new HttpClient();
+                var HttpClient = new HttpClient(ByPassSsl.GetHandler());
                 var token = HttpContext.Session.GetString("Token");
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
                 var Json = await HttpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
@@ -120,7 +122,7 @@ namespace OpenCoolMart.Gui.Controllers
                 return View(producto.Data);
             }
                 
-            var httpClient = new HttpClient();
+            var httpClient = new HttpClient(ByPassSsl.GetHandler());
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));

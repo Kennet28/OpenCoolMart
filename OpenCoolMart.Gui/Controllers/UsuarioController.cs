@@ -9,13 +9,14 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using OpenCoolMart.Gui.Handler;
 using UsuarioResponseDto = OpenCoolMart.Gui.Models.UsuarioResponseDto;
 
 namespace OpenCoolMart.Gui.Controllers
 {
     public class UsuarioController : Controller
     {
-        HttpClient client = new HttpClient();
+        HttpClient client = new HttpClient(ByPassSsl.GetHandler());
         //string url = "https://localhost:44315/api/Usuario";
         public async Task<IActionResult> Index()
         {

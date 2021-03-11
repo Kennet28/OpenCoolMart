@@ -1,4 +1,6 @@
 using System;
+using System.Net;
+using System.Net.Security;
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -39,13 +41,13 @@ namespace OpenCoolMart.Api
 
             services.AddControllers();
 
-            services.AddDbContext<OpenCoolMartContext>(options =>
-                      options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
+            // services.AddDbContext<OpenCoolMartContext>(options =>
+            //           options.UseSqlServer(Configuration.GetConnectionString("Alejandro")));
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
-            //services.AddDbContext<OpenCoolMartContext>(options =>
-             //   options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("KennetArch")));
             // services.AddDbContext<OpenCoolMartContext>(options =>
             //                     options.UseSqlServer(Configuration.GetConnectionString("Hosting")));
             var config = new ConfigurationBuilder()
@@ -101,6 +103,12 @@ namespace OpenCoolMart.Api
             services.AddTransient<IProveedorService, ProveedorService>();
             services.AddTransient<IAlmacenarImagen, AlmacenarImagen>();
             services.AddTransient<IGraficaRepository,GraficaRespository> ();
+            //ssl linux xD
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, errors) =>
+            {
+                // local dev, just approve all certs
+                return true;
+            };
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

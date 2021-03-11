@@ -25,12 +25,11 @@ namespace OpenCoolMart.Gui.Controllers
         {
             this._mapper = mapper;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
-                ViewBag.Meses = GetMeses();
                 return View();
             }
             
@@ -38,21 +37,6 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-        }
-        public List<SelectListItem> GetMeses()
-        {
-            List<SelectListItem> Meses = Enum.GetValues(typeof(meses)).Cast<meses>().ToList().ConvertAll(P =>
-            {
-                
-                return new SelectListItem()
-                {
-                    
-                    Text = P.ToString(),
-                    Value = ((int)P).ToString(),
-                    Selected = false
-                };
-            });
-            return Meses;
         }
     }
 }
