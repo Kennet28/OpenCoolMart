@@ -101,7 +101,7 @@
                 var CodeEmpleado = $("#empleado").val();
                 if (CodeEmpleado != null && CodeEmpleado.length != 0) {
                     $.ajax({
-                        url: "https://localhost:44315/api/empleado/emp/" + CodeEmpleado,
+                        url: "https://opencoolmart.somee.com/api/empleado/emp/" + CodeEmpleado,
                         headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
@@ -116,7 +116,7 @@
                 }
                 else {
                     $.ajax({
-                        url: "https://localhost:44315/api/empleado",
+                        url: "https://opencoolmart.somee.com/api/empleado",
                         headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {

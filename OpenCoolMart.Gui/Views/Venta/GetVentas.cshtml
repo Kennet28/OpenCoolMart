@@ -106,7 +106,7 @@
                 var codigo = $("#buscarventas").val();
                 if (codigo != null && codigo.length != 0) {
                     $.ajax({
-                        url: "https://localhost:44315/api/Venta?Folio=" + codigo,
+                        url: "https://opencoolmart.somee.com/api/Venta?Folio=" + codigo,
                         headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
@@ -121,7 +121,7 @@
                 }
                 else {
                     $.ajax({
-                        url: "https://localhost:44315/api/Venta",
+                        url: "https://opencoolmart.somee.com/api/Venta",
                         headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {

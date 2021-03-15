@@ -18,7 +18,7 @@ function press_Enter() {
         var codigo = $("#codigoprod").val();
         if (codigo != null && codigo.length != 0) {
             $.ajax({
-                url: "https://localhost:44315/api/Producto/Prod/" + codigo,
+                url: "https://opencoolmart.somee.com/api/Producto/Prod/" + codigo,
                 headers: {"Authorization":"Bearer "+Token},
                 method: "GET"
             }).done(function (data) {
@@ -33,7 +33,7 @@ function press_Enter() {
         }
         else {
             $.ajax({
-                url: "https://localhost:44315/api/Producto",
+                url: "https://opencoolmart.somee.com/api/Producto",
                 headers: { "Authorization": "Bearer " + Token },
                 method: "GET"
             }).done(function (data) {

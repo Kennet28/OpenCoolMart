@@ -16,7 +16,7 @@ namespace OpenCoolMart.Gui.Controllers
 
     public class HomeController : Controller
     {
-        // "https://localhost:44315/api/Usuario";
+        // "https://opencoolmart.somee.com/api/Usuario";
         public IActionResult Index()
         {
             return View();
@@ -27,7 +27,7 @@ namespace OpenCoolMart.Gui.Controllers
                 
 
             var httpClient = new HttpClient(ByPassSsl.GetHandler());
-            var json = await httpClient.PostAsJsonAsync("https://localhost:44315/api/Usuario/Autenticar", login);
+            var json = await httpClient.PostAsJsonAsync("https://opencoolmart.somee.com/api/Usuario/Autenticar", login);
             if (json.IsSuccessStatusCode)
             {
                 var response = json.Content.ReadAsStringAsync();

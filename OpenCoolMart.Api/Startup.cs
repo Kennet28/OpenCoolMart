@@ -48,10 +48,10 @@ namespace OpenCoolMart.Api
             //);
             // services.AddDbContext<OpenCoolMartContext>(options =>
             //     options.UseSqlServer(Configuration.GetConnectionString("KennetArch")));
-            services.AddDbContext<OpenCoolMartContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
             // services.AddDbContext<OpenCoolMartContext>(options =>
-            //                     options.UseSqlServer(Configuration.GetConnectionString("Hosting")));
+            // options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
+            services.AddDbContext<OpenCoolMartContext>(options =>
+                                options.UseSqlServer(Configuration.GetConnectionString("Hosting")));
             var config = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
             .AddJsonFile("settings.json",optional: true, reloadOnChange: true).Build();
@@ -117,9 +117,9 @@ namespace OpenCoolMart.Api
         {
             app.UseCors(options =>
             {
-                options.WithOrigins("*");
-                options.AllowAnyMethod();
+                options.AllowAnyOrigin();
                 options.AllowAnyHeader();
+                options.AllowAnyMethod();
             });
             if (env.IsDevelopment()) app.UseDeveloperExceptionPage();
 

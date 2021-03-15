@@ -102,8 +102,9 @@
                 var clienteId = $("#cliente").val();
                 if (clienteId != null && clienteId.length != 0) {
                     $.ajax({
-                        url: "https://localhost:44315/api/Cliente/cli/" + clienteId,
+                        url: "https://opencoolmart.somee.com/api/Cliente/cli/" + clienteId,
                         headers: { "Authorization": "Bearer " + Token },
+                        crossDomain: true,
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)
@@ -117,8 +118,9 @@
                 }
                 else {
                     $.ajax({
-                        url: "https://localhost:44315/api/Cliente",
+                        url: "https://opencoolmart.somee.com/api/Cliente",
                         headers: { "Authorization": "Bearer " + Token },
+                        crossDomain: true,
                         method: "GET"
                     }).done(function (data) {
                         if (data.data == null)

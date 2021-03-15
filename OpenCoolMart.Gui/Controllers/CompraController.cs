@@ -20,7 +20,7 @@ namespace OpenCoolMart.Gui.Controllers
                 var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Compra");
+                var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/Compra");
                 var Listcompras = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<CompraResponseDto>>>(Json);
                 return View(Listcompras.Data);
             }
@@ -36,7 +36,7 @@ namespace OpenCoolMart.Gui.Controllers
                 var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Compra/" + Id);
+                var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/Compra/" + Id);
                 var compra = JsonConvert.DeserializeObject<ApiResponse<CompraResponseDto>>(Json);
                 return View(compra.Data);
             }

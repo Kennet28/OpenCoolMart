@@ -20,8 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Caja\" />
-    <Folder Include="Views\Factura\" />
     <Folder Include="Views\Usuario\" />
     <Folder Include="wkhtmltopdf\Linux" />
     <Folder Include="wwwroot\css\Factura\" />
@@ -50,6 +48,17 @@
     <ProjectReference Include="..\OpenCoolMart.Application\OpenCoolMart.Application.csproj" />
     <ProjectReference Include="..\OpenCoolMart.Domain\OpenCoolMart.Domain.csproj" />
     <ProjectReference Include="..\OpenCoolMart.Infraestructure\OpenCoolMart.Infraestructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Factura\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Factura\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Factura\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Factura\Update.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Caja\Create.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Caja\Details.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Caja\Index.cshtml" />
+    <_ContentIncludedByDefault Remove="Views\Caja\Update.cshtml" />
   </ItemGroup>
 
 </Project>

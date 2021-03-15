@@ -38,7 +38,7 @@ $(document).on("dblclick", "#tablaproveedores tbody tr", function () {
 
 function ModalProductos() {
     $.ajax({
-        url: "https://localhost:44315/api/Producto",
+        url: "https://opencoolmart.somee.com/api/Producto",
         headers: { "Authorization": "Bearer " + Token },
         method: "GET"
     }).done(function (data) {
@@ -71,7 +71,7 @@ function LLenarTablaProductos(data) {
 
 function ModalProveedores() {
     $.ajax({
-        url: "https://localhost:44315/api/Proveedor",
+        url: "https://opencoolmart.somee.com/api/Proveedor",
         headers: { "Authorization": "Bearer " + Token },
         method: "GET"
     }).done(function (data) {
@@ -102,7 +102,7 @@ function LLenarTablaProveedor(data) {
 
 function buscarcodigoProducto(codigoProducto) {
     $.ajax({
-        url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
+        url: "https://opencoolmart.somee.com/api/Producto/Prod/" + codigoProducto,
         headers: { "Authorization": "Bearer " + Token },
         method: "GET"
     }).done(function (data) {
@@ -212,7 +212,7 @@ function RealizarCompra() {
 
     var json = eval("(" + enviar + ')');
     $.ajax({
-        url: "https://localhost:44315/api/Compra/",
+        url: "https://opencoolmart.somee.com/api/Compra/",
         headers: { "Authorization": "Bearer " + Token },
         data: JSON.stringify(json),
         type: "POST",

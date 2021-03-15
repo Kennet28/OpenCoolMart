@@ -65,7 +65,7 @@
     })
     let resultado = document.getElementById('result');
     function Backup(){
-        fetch("https://localhost:44315/api/settings/backup/",{
+        fetch("https://opencoolmart.somee.com/api/settings/backup/",{
             headers: { "Authorization": "Bearer " + Token },
             method: "GET"
         }).then(function (result) {

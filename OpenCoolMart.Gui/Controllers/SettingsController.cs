@@ -19,7 +19,7 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var Token = HttpContext.Session.GetString("Token");
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await _client.GetStringAsync("https://localhost:44315/api/settings");
+                var json = await _client.GetStringAsync("https://opencoolmart.somee.com/api/settings");
                 var settings = JsonConvert.DeserializeObject<ApiResponse<SettingsResponseDto>>(json);
                 return View(settings.Data);
             }
@@ -38,7 +38,7 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var Token = HttpContext.Session.GetString("Token");
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await _client.PutAsJsonAsync("https://localhost:44315/api/settings/update/", setting);
+                var json = await _client.PutAsJsonAsync("https://opencoolmart.somee.com/api/settings/update/", setting);
                 return RedirectToAction("Index");
 
             }

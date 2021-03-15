@@ -84,7 +84,7 @@
                 const CodeUsuario = $("#usuario").val();
                 if (CodeUsuario != null && CodeUsuario.length !== 0) {
                     $.ajax({
-                        url: "https://localhost:44315/api/usuario/usr/" + CodeUsuario,
+                        url: "https://opencoolmart.somee.com/api/usuario/usr/" + CodeUsuario,
                         headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {
@@ -99,7 +99,7 @@
                 }
                 else {
                     $.ajax({
-                        url: "https://localhost:44315/api/usuario",
+                        url: "https://opencoolmart.somee.com/api/usuario",
                         headers: { "Authorization": "Bearer " + Token },
                         method: "GET"
                     }).done(function (data) {

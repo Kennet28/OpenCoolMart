@@ -17,14 +17,14 @@ namespace OpenCoolMart.Gui.Controllers
     public class UsuarioController : Controller
     {
         HttpClient client = new HttpClient(ByPassSsl.GetHandler());
-        //string url = "https://localhost:44315/api/Usuario";
+        //string url = "https://opencoolmart.somee.com/api/Usuario";
         public async Task<IActionResult> Index()
         {
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var Token = HttpContext.Session.GetString("Token");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await client.GetStringAsync("https://localhost:44315/api/Usuario/");
+                var json = await client.GetStringAsync("https://opencoolmart.somee.com/api/Usuario/");
                 var usuarios = JsonConvert.DeserializeObject<ApiResponse<List<UsuarioResponseDto>>>(json);
                 return View(usuarios.Data);
             }
@@ -41,7 +41,7 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var Token = HttpContext.Session.GetString("Token");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await client.GetStringAsync("https://localhost:44315/api/Usuario/"+id);
+                var json = await client.GetStringAsync("https://opencoolmart.somee.com/api/Usuario/"+id);
                 var usuario = JsonConvert.DeserializeObject<ApiResponse<UsuarioResponseDto>>(json);
                 return View(usuario.Data);
             }
@@ -56,7 +56,7 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var Token = HttpContext.Session.GetString("Token");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await client.GetStringAsync("https://localhost:44315/api/Usuario/"+id);
+                var json = await client.GetStringAsync("https://opencoolmart.somee.com/api/Usuario/"+id);
                 var usuario = JsonConvert.DeserializeObject<ApiResponse<UsuarioResponseDto>>(json);
                 return View(usuario.Data);
             }
@@ -71,7 +71,7 @@ namespace OpenCoolMart.Gui.Controllers
             var Token = HttpContext.Session.GetString("Token");
             
             var httpClient = new HttpClient {
-                BaseAddress = new Uri("https://localhost:44315/api/Usuario/")
+                BaseAddress = new Uri("https://opencoolmart.somee.com/api/Usuario/")
             };
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var putTask = httpClient.PutAsJsonAsync("?id=" + id, usuarioDto);

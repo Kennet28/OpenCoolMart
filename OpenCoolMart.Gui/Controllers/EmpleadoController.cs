@@ -22,7 +22,7 @@ namespace OpenCoolMart.Gui.Controllers
     public class EmpleadoController : Controller
     {
         private readonly HttpClient  client = new HttpClient(ByPassSsl.GetHandler());
-        readonly string url = "https://localhost:44315/api/Empleado/";
+        readonly string url = "https://opencoolmart.somee.com/api/Empleado/";
         public async Task<IActionResult> Index()
         {
 
@@ -60,8 +60,8 @@ namespace OpenCoolMart.Gui.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             empleadousr.Usuario.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
             UsuarioRequestDto usuarioRequestDto = empleadousr.Usuario;
-            var Json2 = await client.PostAsJsonAsync("https://localhost:44315/api/usuario/", usuarioRequestDto);
-            var user = await client.GetStringAsync("https://localhost:44315/api/usuario/");
+            var Json2 = await client.PostAsJsonAsync("https://opencoolmart.somee.com/api/usuario/", usuarioRequestDto);
+            var user = await client.GetStringAsync("https://opencoolmart.somee.com/api/usuario/");
             var users = JsonConvert.DeserializeObject<ApiResponse<List<UsuarioResponseDto>>>(user);
             if (Json2.IsSuccessStatusCode)
             {
@@ -69,7 +69,7 @@ namespace OpenCoolMart.Gui.Controllers
                 empleadousr.Empleado.FechaContratacion = DateTime.Now;
                 empleadousr.Empleado.CreatedBy = int.Parse(HttpContext.Session.GetString("Id"));
                 EmpleadoRequestDto empleadoRequestDto = empleadousr.Empleado;
-                var Json = await client.PostAsJsonAsync("https://localhost:44315/api/empleado/", empleadoRequestDto);
+                var Json = await client.PostAsJsonAsync("https://opencoolmart.somee.com/api/empleado/", empleadoRequestDto);
                 if (Json.IsSuccessStatusCode)
                 {
                     return RedirectToAction("Index");
@@ -98,7 +98,7 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var Token = HttpContext.Session.GetString("Token");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await client.GetStringAsync("https://localhost:44315/api/Empleado/" + id);
+                var json = await client.GetStringAsync("https://opencoolmart.somee.com/api/Empleado/" + id);
                 var _Empleado = JsonConvert.DeserializeObject<ApiResponse<EmpleadoResponseDto>>(json);
                 return View(_Empleado.Data);
             }
@@ -114,7 +114,7 @@ namespace OpenCoolMart.Gui.Controllers
             {
                 var Token = HttpContext.Session.GetString("Token");
                 client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var json = await client.GetStringAsync("https://localhost:44315/api/Empleado/"+id);
+                var json = await client.GetStringAsync("https://opencoolmart.somee.com/api/Empleado/"+id);
                 var _Empleado = JsonConvert.DeserializeObject<ApiResponse<EmpleadoRequestDto>>(json);
                 return View(_Empleado.Data);
             }
@@ -129,7 +129,7 @@ namespace OpenCoolMart.Gui.Controllers
             empleadoDto.UpdatedBy = int.Parse(HttpContext.Session.GetString("Id"));
             var Token = HttpContext.Session.GetString("Token");
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-            var putTask = await client.PutAsJsonAsync("https://localhost:44315/api/empleado/?id=" + Id, empleadoDto);
+            var putTask = await client.PutAsJsonAsync("https://opencoolmart.somee.com/api/empleado/?id=" + Id, empleadoDto);
             if (putTask.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

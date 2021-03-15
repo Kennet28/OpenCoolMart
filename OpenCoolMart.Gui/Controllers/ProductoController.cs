@@ -25,14 +25,14 @@ namespace OpenCoolMart.Gui.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            //https://localhost:44315/api/Producto
+            //https://opencoolmart.somee.com/api/Producto
 
             if (!string.IsNullOrEmpty(HttpContext.Session.GetString("Token")) && HttpContext.Session.GetString("Perfil") == "1")
             {
                 var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization= new AuthenticationHeaderValue("Bearer",Token);
-                var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto");
+                var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/Producto");
                 var ListProductos = JsonConvert.DeserializeObject<ApiResponse<IEnumerable<ProductoResponseDto>>>(Json);
                 return View(ListProductos.Data);
             }
@@ -49,7 +49,7 @@ namespace OpenCoolMart.Gui.Controllers
                 var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
+                var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/Producto/" + Id);
                 var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
 
                 return View(producto.Data);
@@ -81,7 +81,7 @@ namespace OpenCoolMart.Gui.Controllers
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             var content = await ConvertToFormDataAsync(requestDto);
-            var Json = await httpClient.PostAsync("https://localhost:44315/api/Producto/", content);
+            var Json = await httpClient.PostAsync("https://opencoolmart.somee.com/api/Producto/", content);
             if (Json.IsSuccessStatusCode)
             {
 
@@ -98,7 +98,7 @@ namespace OpenCoolMart.Gui.Controllers
                 var httpClient = new HttpClient(ByPassSsl.GetHandler());
                 var Token = HttpContext.Session.GetString("Token");
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                var Json = await httpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
+                var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/Producto/" + Id);
                 
                 var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
 
@@ -117,7 +117,7 @@ namespace OpenCoolMart.Gui.Controllers
                 var HttpClient = new HttpClient(ByPassSsl.GetHandler());
                 var token = HttpContext.Session.GetString("Token");
                 HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                var Json = await HttpClient.GetStringAsync("https://localhost:44315/api/Producto/" + Id);
+                var Json = await HttpClient.GetStringAsync("https://opencoolmart.somee.com/api/Producto/" + Id);
                 var producto = JsonConvert.DeserializeObject<ApiResponse<ProductoResponseDto>>(Json);
                 return View(producto.Data);
             }
@@ -126,7 +126,7 @@ namespace OpenCoolMart.Gui.Controllers
             var Token = HttpContext.Session.GetString("Token");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
             productoDto.UpdatedBy = Int32.Parse(HttpContext.Session.GetString("Id"));
-            httpClient.BaseAddress = new Uri("https://localhost:44315/api/Producto/");
+            httpClient.BaseAddress = new Uri("https://opencoolmart.somee.com/api/Producto/");
             var content = await ConvertToFormDataAsync(productoDto);
             var putTask = await httpClient.PutAsync("?id=" + Id, content);
             

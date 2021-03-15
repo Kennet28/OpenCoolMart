@@ -138,7 +138,7 @@
                 var codigo = $("#codigoprod").val();
                 var producto="Hola";
                 $.ajax({
-                    url: "https://localhost:44315/api/Producto/Prod/" + codigo,
+                    url: "https://opencoolmart.somee.com/api/Producto/Prod/" + codigo,
                     headers: { "Authorization": "Bearer " + Token },
                     method: "GET"
                 }).done(function (data) {
@@ -307,14 +307,15 @@
                 alert(json3);*/
 
                 $.ajax({
-                    url: "https://localhost:44315/api/Venta/",
+                    url: "https://opencoolmart.somee.com/api/Venta/",
                     headers: { "Authorization": "Bearer " + Token },
                     data: JSON.stringify(json),
+                    crossDomain: true,
                     type: "POST",
                     //async: false,//this makes the ajax-call blocking
                     contentType: 'application/json;charset=UTF-8',
                     dataType: 'json'
-                }).done(function (data) {
+                    }).done(function (data) {
                     Alerta("success" ,"La venta se ha realizado con exito","El cambio es " + cambio.toFixed(2));
                     Limpiar();
                 }).fail(function (jqXHR, textStatus, error) {
@@ -329,7 +330,7 @@
 
         function ObtenerProductos() {
             $.ajax({
-                url: "https://localhost:44315/api/Producto",
+                url: "https://opencoolmart.somee.com/api/Producto",
                 headers: { "Authorization": "Bearer " + Token },
                 method: "GET"
             }).done(function (data) {
@@ -357,7 +358,7 @@
 
         function LLenarPorModal(codigoProducto) {
             $.ajax({
-                url: "https://localhost:44315/api/Producto/Prod/" + codigoProducto,
+                url: "https://opencoolmart.somee.com/api/Producto/Prod/" + codigoProducto,
                 headers: { "Authorization": "Bearer " + Token },
                 method: "GET"
             }).done(function (data) {
