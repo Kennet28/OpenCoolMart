@@ -37,3 +37,7 @@ Ventajas
 - Area: Desarrollo de software multiplataforma
 - Tecnologias: ASP.Net core 5.0, Razor Pages, ASP.Net Core Web Api
 - Editor: Visual Studio 2019
+ 
+## Pagina
+
+http://opencoolmartweb.somee.com/
