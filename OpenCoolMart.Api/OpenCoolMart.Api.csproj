@@ -3,9 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>certificate.snk</AssemblyOriginatorKeyFile>
     <PublicSign>true</PublicSign>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>signOpenCoolMart.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

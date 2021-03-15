@@ -46,8 +46,10 @@ namespace OpenCoolMart.Api
             //services.AddDbContext<OpenCoolMartContext>(options =>
             //      options.UseSqlServer(Configuration.GetConnectionString("Roger"))
             //);
+            // services.AddDbContext<OpenCoolMartContext>(options =>
+            //     options.UseSqlServer(Configuration.GetConnectionString("KennetArch")));
             services.AddDbContext<OpenCoolMartContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("KennetArch")));
+            options.UseSqlServer(Configuration.GetConnectionString("Kennet")));
             // services.AddDbContext<OpenCoolMartContext>(options =>
             //                     options.UseSqlServer(Configuration.GetConnectionString("Hosting")));
             var config = new ConfigurationBuilder()

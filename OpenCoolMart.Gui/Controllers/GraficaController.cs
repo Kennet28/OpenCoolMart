@@ -14,6 +14,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using OpenCoolMart.Gui.Enumerations;
+using Wkhtmltopdf.NetCore;
 
 namespace OpenCoolMart.Gui.Controllers
 {
@@ -21,9 +22,12 @@ namespace OpenCoolMart.Gui.Controllers
     {
         public bool status = true;
         private readonly IMapper _mapper;
-        public GraficaController(IMapper mapper)
+        private readonly IGeneratePdf _generatePdf;
+
+        public GraficaController(IMapper mapper,IGeneratePdf generatePdf)
         {
             this._mapper = mapper;
+            _generatePdf = generatePdf;
         }
         public IActionResult Index()
         {

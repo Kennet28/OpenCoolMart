@@ -31,33 +31,26 @@
 </div>
 </body>
 </html>
-@section Scripts
-{
     <script>
-            var Token;
+            var token;
             var cbxmesanio = document.getElementById('mesanio') 
             cbxmesanio.addEventListener('change',productoMes)
-            var anio = cbxmesanio.value.slice(0,4)
-            var mes = cbxmesanio.value.slice(5,7)
             $(document).ready(function () {
-              $.ajax({
-                url: "/Home/AsyncToken",
-                method: "GET"
+                $.ajax({
+                    url: "/Home/AsyncToken",
+                    method: "GET"
                 }).done(function (data) {
-                Token = data;
-                productoMes()
+                    Token = data;
+                    productoMes()
                 }).fail(function (jqXHR, textStatus, error) {
-                    Token = null;
-                alert("lo sentimos ha habido un error");
+                    alert("lo sentimos ha habido un error");
                 });
+               
             });
             function productoMes(){
                 var anio = cbxmesanio.value.slice(0,4)
                 var mes = cbxmesanio.value.slice(5,7)
-                if (mes.startsWith('0'))
-                {
-                    mes = mes.slice(1,2)
-                }
+                if (mes.startsWith('0')){mes = mes.slice(1,2)}
                 let date = new Date(cbxmesanio.value.replace(/-+/g, '/'))
                 let options = {
                 year: 'numeric',
@@ -67,7 +60,7 @@
                                           type: 'GET',
                                           dataType: "json",
                                           contentType: "application/json",
-                                          headers: { "Authorization": "Bearer " + Token},
+                                          headers: { "Authorization": "Bearer " + Token },
                                           url: 'https://localhost:44315/api/grafica?mes='+mes+'&anio='+anio,
                                           success: function (result) {
                                               google.charts.load('current', {
@@ -92,7 +85,6 @@
                                               titulo = `Los 10 productos mas vendidos`
                                           }
                                           else {
-                                              
                                               titulo = `Los 10 productos mas vendidos en ${date.toLocaleDateString('es-MX', options)}`
                                           }
                                           var piechart_options = {
@@ -105,4 +97,3 @@
                                       }
             }
         </script>
-}
