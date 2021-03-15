@@ -27,9 +27,9 @@ namespace OpenCoolMart.Gui.Controllers
                        var httpClient = new HttpClient(ByPassSsl.GetHandler());
                         var Token = HttpContext.Session.GetString("Token");
                         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Token);
-                        var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/Venta/" + Id);
+                        var Json = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/Venta/" + Id);
                         var venta = JsonConvert.DeserializeObject<ApiResponse<VentaResponseDto>>(Json);
-                        var Json2 = await httpClient.GetStringAsync("https://opencoolmart.somee.com/empleado/" + venta.Data.EmpleadoId);
+                        var Json2 = await httpClient.GetStringAsync("https://opencoolmart.somee.com/api/empleado/" + venta.Data.EmpleadoId);
                         var empleado = JsonConvert.DeserializeObject<ApiResponse<EmpleadoResponseDto>>(Json2);
                         venta.Data.Empleado = empleado.Data;
                         return await _generatePdf.GetPdf("Reportes/Details.cshtml",venta.Data);
