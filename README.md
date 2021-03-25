@@ -23,7 +23,7 @@ Ventajas
 
 - Información respaldada  
 
-- Fácil de usar para los empleados y los administrativos pro 
+- Fácil de usar para los empleados y los administrativos 
 
 ## Datos del autor
 
